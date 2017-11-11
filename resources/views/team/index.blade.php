@@ -5,7 +5,10 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Teams</div>
+                    <div class="panel-heading">
+                        Teams
+                        <a href="{{ url('/teams/create') }}" class="btn btn-primary btn-xs pull-right">New Team</a>
+                    </div>
 
                     <table class="table table-bordered">
                         <thead>
