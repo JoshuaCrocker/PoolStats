@@ -8,7 +8,7 @@ use Tests\TestCase;
 class TeamTest extends TestCase
 {
     use DatabaseMigrations;
-    
+
     /** @test */
     public function it_displays_a_list_of_teams()
     {
@@ -21,4 +21,17 @@ class TeamTest extends TestCase
         // ... we see the team in the list
         $response->assertSee($team->name);
     }
+
+    /** @test */
+    public function a_new_team_can_be_created()
+    {
+        // When we post a new team
+        $team = make(\App\Team::class)->toArray();
+        $this->post('/teams', $team);
+
+        // It appears in the database
+        $this->assertDatabaseHas('teams', $team);
+    }
+
+
 }

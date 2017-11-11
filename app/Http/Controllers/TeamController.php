@@ -28,7 +28,7 @@ class TeamController extends Controller
      */
     public function create()
     {
-        //
+        return view('team.create');
     }
 
     /**
@@ -39,7 +39,11 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $team = new Team();
+        $team->name = $request->name;
+        $team->save();
+
+        return redirect('/teams');
     }
 
     /**
