@@ -26,7 +26,7 @@ class AddPlayerIdForeignKeyToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->deleteForeign('users_player_id_foreign');
+            $table->dropForeign('users_player_id_foreign');
         });
     }
 }

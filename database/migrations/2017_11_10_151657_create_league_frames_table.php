@@ -33,7 +33,7 @@ class CreateLeagueFramesTable extends Migration
     public function down()
     {
         Schema::table('league_frames', function (Blueprint $table) {
-            $table->dropForeign('league_frames_league_matches_foreign');
+            $table->dropForeign('league_frames_league_match_id_foreign');
         });
 
         Schema::dropIfExists('league_frames');

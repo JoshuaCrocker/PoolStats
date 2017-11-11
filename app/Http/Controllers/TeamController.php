@@ -14,7 +14,11 @@ class TeamController extends Controller
      */
     public function index()
     {
-        //
+        $data = [
+            'teams' => \App\Team::all()
+        ];
+
+        return view('team.index', $data);
     }
 
     /**

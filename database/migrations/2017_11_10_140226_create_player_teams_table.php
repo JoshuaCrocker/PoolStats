@@ -35,8 +35,8 @@ class CreatePlayerTeamsTable extends Migration
     public function down()
     {
         Schema::table('player_teams', function (Blueprint $table) {
-            $table->deleteForeign('player_teams_team_id_foreign');
-            $table->deleteForeign('player_teams_player_id_foreign');
+            $table->dropForeign('player_teams_team_id_foreign');
+            $table->dropForeign('player_teams_player_id_foreign');
         });
 
         Schema::dropIfExists('player_teams');
