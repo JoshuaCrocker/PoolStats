@@ -22,7 +22,9 @@
                             @foreach ($teams as $team)
                                 <tr>
                                     <td>{{ $team->name }}</td>
-                                    <td>// NYI</td>
+                                    <td>
+                                        <a href="{{ $team->endpoint() }}/edit" class="btn btn-default btn-xs">Edit</a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
