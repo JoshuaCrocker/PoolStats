@@ -39,6 +39,10 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required'
+        ]);
+
         $team = new Team();
         $team->name = $request->name;
         $team->save();
