@@ -11,6 +11,13 @@ use Illuminate\Database\Eloquent\Model;
 class Team extends Model
 {
     /**
+     * Don't auto-apply mass assignment protection.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
      * Get the URL endpoint for the Team Model
      *
      * @return string

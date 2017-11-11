@@ -34,7 +34,7 @@ class TeamController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -53,7 +53,7 @@ class TeamController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Team  $team
+     * @param  \App\Team $team
      * @return \Illuminate\Http\Response
      */
     public function show(Team $team)
@@ -64,7 +64,7 @@ class TeamController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Team  $team
+     * @param  \App\Team $team
      * @return \Illuminate\Http\Response
      */
     public function edit(Team $team)
@@ -75,19 +75,23 @@ class TeamController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Team  $team
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Team $team
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Team $team)
     {
-        //
+        $team->update(request()->validate([
+            'name' => 'required'
+        ]));
+
+        return redirect('/teams');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Team  $team
+     * @param  \App\Team $team
      * @return \Illuminate\Http\Response
      */
     public function destroy(Team $team)
