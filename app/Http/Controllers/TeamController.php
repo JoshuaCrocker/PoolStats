@@ -69,7 +69,11 @@ class TeamController extends Controller
      */
     public function edit(Team $team)
     {
-        //
+        $data = [
+            'team' => $team
+        ];
+
+        return view('team.edit', $data);
     }
 
     /**
