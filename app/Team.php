@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 
 /**
  * Class Team
@@ -28,5 +29,22 @@ class Team extends Model
     public function endpoint()
     {
         return '/teams/' . $this->id;
+    }
+
+    /**
+     * Get the current team members
+     *
+     * @return Collection
+     */
+    public function getCurrentRoster()
+    {
+        return PlayerTeam::where('team_id', $this->id)
+            ->where('member_from', '<=', date('Y-m-d'), 'AND')
+            ->where('member_to', NULL, 'AND')
+            ->where('member_to', '>=', date('Y-m-d'), 'OR')
+            ->get()
+            ->map(function ($pt) {
+                return $pt->player;
+            });
     }
 }

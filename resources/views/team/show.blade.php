@@ -9,7 +9,23 @@
                         {{ $team->name }}
                     </div>
 
-                    
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Member Name</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach ($members as $member)
+                                <tr>
+                                    <td>{{ $member->name }}</td>
+                                    <td></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
