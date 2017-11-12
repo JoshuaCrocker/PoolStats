@@ -69,5 +69,20 @@ class TeamTest extends TestCase
         // the name changes in the database
         $this->assertDatabaseHas('teams', $update_data);
     }
+    
+    /**
+     * @test
+     */
+    public function a_team_can_be_deleted()
+    {
+        // When we have a team ...
+        $team = create(Team::class);
+
+        // ... and we hit the delete endpoint ...
+        $this->delete($team->endpoint());
+
+        // ... the team is (soft) deleted
+        $this->assertSoftDeleted('teams', $team->toArray());
+    }
 
 }

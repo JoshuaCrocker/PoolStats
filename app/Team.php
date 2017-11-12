@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Team
@@ -10,6 +11,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Team extends Model
 {
+    use SoftDeletes;
+
     /**
      * Don't auto-apply mass assignment protection.
      *

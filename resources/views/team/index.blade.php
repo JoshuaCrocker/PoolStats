@@ -24,6 +24,13 @@
                                     <td>{{ $team->name }}</td>
                                     <td>
                                         <a href="{{ $team->endpoint() }}/edit" class="btn btn-default btn-xs">Edit</a>
+
+                                        <form action="{{ $team->endpoint() }}" method="POST">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
+
+                                            <input type="submit" value="Delete" class="btn btn-danger btn-xs"/>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
