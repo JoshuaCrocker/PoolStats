@@ -2,9 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\PlayerTeam;
+use App\Team;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
-use App\Team;
 
 class TeamTest extends TestCase
 {
@@ -69,7 +70,7 @@ class TeamTest extends TestCase
         // the name changes in the database
         $this->assertDatabaseHas('teams', $update_data);
     }
-    
+
     /**
      * @test
      */
@@ -83,6 +84,36 @@ class TeamTest extends TestCase
 
         // ... the team is (soft) deleted
         $this->assertSoftDeleted('teams', $team->toArray());
+    }
+
+    /**
+     * @test
+     */
+    public function a_team_displays_its_details_at_its_endpoint()
+    {
+        // Given we have a team ...
+        $team = create(Team::class);
+
+        // ... and we GET its endpoint ...
+        $response = $this->get($team->endpoint());
+
+        // .. the team should be displayed
+        $response->assertSee($team->name);
+    }
+
+    /**
+     * @test
+     */
+    public function a_team_displays_its_members_on_its_page()
+    {
+        // Given we have a team ...
+        // ... and that team has a member ...
+        $player_team = create(PlayerTeam::class);
+
+        // ... the member is displayed on the team page ...
+        $response = $this->get($player_team->team->endpoint());
+
+        $response->assertSee($player_team->player->name);
     }
 
 }

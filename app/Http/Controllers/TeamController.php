@@ -58,7 +58,12 @@ class TeamController extends Controller
      */
     public function show(Team $team)
     {
-        //
+        $data = [
+            'team' => $team,
+            'members' => $team->getCurrentRoster()
+        ];
+
+        return view('team.show', $data);
     }
 
     /**
