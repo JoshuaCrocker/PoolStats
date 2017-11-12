@@ -29,6 +29,8 @@ class TeamTest extends TestCase
      */
     public function a_new_team_can_be_created()
     {
+        $this->signIn();
+
         $team = make(Team::class)->toArray();
         $this->post('/teams', $team);
 
@@ -40,6 +42,7 @@ class TeamTest extends TestCase
      */
     public function a_new_team_must_have_a_name()
     {
+        $this->signIn();
         $this->withExceptionHandling();
 
         $team = make(
@@ -57,6 +60,8 @@ class TeamTest extends TestCase
      */
     public function a_team_can_be_updated()
     {
+        $this->signIn();
+
         // Given we have a team
         $team = create(Team::class);
 
@@ -76,6 +81,8 @@ class TeamTest extends TestCase
      */
     public function a_team_can_be_deleted()
     {
+        $this->signIn();
+
         // When we have a team ...
         $team = create(Team::class);
 
