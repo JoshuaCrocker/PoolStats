@@ -108,6 +108,8 @@ class LeagueController extends Controller
      */
     public function destroy(League $league)
     {
-        //
+        $league->delete();
+
+        return redirect('/league');
     }
 }
