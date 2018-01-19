@@ -80,4 +80,80 @@ class LeagueTest extends TestCase
         // ... there should be an error in the session
         $response->assertSessionHasErrors('name');
     }
+    
+    /**
+     * @test
+     */
+    public function a_league_can_be_updated()
+    {
+        // Given we're signed in ...
+        $this->signIn();
+
+        // ... and we have a league ...
+        $league = create(League::class);
+
+        // ... and we update the name
+        $updateData = [
+            'name' => 'Updated Name'
+        ];
+
+        $this->patch($league->endpoint(), $updateData);
+
+        // ... the name changes in the database
+        $this->assertDatabaseHas('leagues', $updateData);
+    }
+
+    /**
+     * @test
+     */
+    public function the_user_muser_be_logged_in_to_update_a_league()
+    {
+        $this->withExceptionHandling();
+
+        // Given we're not signed in ...
+        // $this->signIn();
+
+        // ... and we have a league ...
+        $league = create(League::class);
+
+        // ... and we update the name
+        $updateData = [
+            'name' => 'Updated Name'
+        ];
+
+        $response = $this->patch($league->endpoint(), $updateData);
+
+        // ... the user is redirected to the login page ...
+        $response->assertRedirect('/login');
+
+        // ... and the record isn't updated
+        $this->assertDatabaseMissing('leagues', $updateData);
+    }
+
+    /**
+     * @test
+     */
+    public function when_updating_a_league_requires_a_name()
+    {
+        $this->withExceptionHandling();
+
+        // Given we're signed in ...
+        $this->signIn();
+
+        // ... and we have a league ...
+        $league = create(League::class);
+
+        // ... and we update the name to be blank
+        $updateData = [
+            'name' => ''
+        ];
+
+        $request = $this->patch($league->endpoint(), $updateData);
+
+        // ... we should get an error ...
+        $request->assertSessionHasErrors('name');
+
+        // ... and the database shouldn't be updated
+        $this->assertDatabaseMissing('leagues', $updateData);
+    }
 }

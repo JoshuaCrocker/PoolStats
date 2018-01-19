@@ -77,7 +77,11 @@ class LeagueController extends Controller
      */
     public function edit(League $league)
     {
-        //
+        $data = [
+            'league' => $league
+        ];
+
+        return view('league.edit', $data);
     }
 
     /**
@@ -89,7 +93,11 @@ class LeagueController extends Controller
      */
     public function update(Request $request, League $league)
     {
-        //
+        $league->update(request()->validate([
+            'name' => 'required'
+        ]));
+
+        return redirect('/leagues');
     }
 
     /**
