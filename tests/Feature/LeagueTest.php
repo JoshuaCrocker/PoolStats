@@ -58,4 +58,26 @@ class LeagueTest extends TestCase
         // ... we should be redirected to the login page
         $request->assertRedirect('/login');
     }
+
+    /**
+     * @test
+     */
+    public function a_new_league_must_have_a_name()
+    {
+        // Given we're signed in ...
+        $this->signIn();
+        $this->withExceptionHandling();
+
+        // ... and we have a league with an empty name ...
+        $league = make(
+            League::class,
+            ['name' => '']
+        )->toArray();
+
+        // ... which is posted to the create endpoint ...
+        $response = $this->post('/leagues', $league);
+
+        // ... there should be an error in the session
+        $response->assertSessionHasErrors('name');
+    }
 }
