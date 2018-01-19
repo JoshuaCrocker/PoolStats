@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class LeagueController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,24 +33,33 @@ class LeagueController extends Controller
      */
     public function create()
     {
-        //
+        return view('league.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        $league = new League();
+        $league->name = $request->name;
+        $league->save();
+
+        return redirect('/leagues');
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\League  $league
+     * @param  \App\League $league
      * @return \Illuminate\Http\Response
      */
     public function show(League $league)
@@ -56,7 +70,7 @@ class LeagueController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\League  $league
+     * @param  \App\League $league
      * @return \Illuminate\Http\Response
      */
     public function edit(League $league)
@@ -67,8 +81,8 @@ class LeagueController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\League  $league
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\League $league
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, League $league)
@@ -79,7 +93,7 @@ class LeagueController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\League  $league
+     * @param  \App\League $league
      * @return \Illuminate\Http\Response
      */
     public function destroy(League $league)
