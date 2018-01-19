@@ -197,4 +197,21 @@ class LeagueTest extends TestCase
         // ... and the league is not deleted
         $this->assertDatabaseHas('leagues', $league->toArray());
     }
+
+    /**
+     * @test
+     */
+    public function a_league_displays_its_details_at_its_endpoint()
+    {
+        // Given we have a league ...
+        $league = create(League::class);
+
+        // ... and we GET its endpoint ...
+        $response = $this->get($league->endpoint());
+
+        // ... the league should be displayed
+        $response->assertSee($league->name);
+    }
+
+    // @todo a_league_displays_its_matches_on_its_page
 }

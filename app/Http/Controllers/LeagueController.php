@@ -11,7 +11,7 @@ class LeagueController extends Controller
     {
         $this
             ->middleware('auth')
-            ->except('index');
+            ->except('index', 'show');
     }
 
     /**
@@ -66,7 +66,11 @@ class LeagueController extends Controller
      */
     public function show(League $league)
     {
-        //
+        $data = [
+            'league' => $league
+        ];
+
+        return view('league.show', $data);
     }
 
     /**
