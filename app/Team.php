@@ -47,4 +47,9 @@ class Team extends Model
                 return $pt->player;
             });
     }
+
+    public function getVenueAttribute() {
+        // NYI - this needs to be changed to a `venue` method
+        return Venue::all()->first();
+    }
 }

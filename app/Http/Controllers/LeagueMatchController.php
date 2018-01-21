@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use App\League;
 use App\LeagueMatch;
+use App\Team;
 use Illuminate\Http\Request;
 
 class LeagueMatchController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +33,12 @@ class LeagueMatchController extends Controller
      */
     public function create()
     {
-        //
+        $data = [
+            'leagues' => League::all(),
+            'teams' => Team::all()
+        ];
+
+        return view('match.create', $data);
     }
 
     /**
@@ -38,7 +49,26 @@ class LeagueMatchController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'league_id' => 'required|exists:leagues,id',
+            'match_date' => 'required|date',
+            'home_team_id' => 'required|exists:teams,id',
+            'away_team_id' => 'required|exists:teams,id'
+        ]);
+
+        if (! $request->exists('venue_id')) {
+            $request->venue_id = Team::find($request->home_team_id)->venue->id;
+        }
+
+        $match = new LeagueMatch();
+        $match->league_id = $request->league_id;
+        $match->venue_id = $request->venue_id;
+        $match->match_date = $request->match_date;
+        $match->home_team_id = $request->home_team_id;
+        $match->away_team_id = $request->away_team_id;
+        $match->save();
+
+        return redirect('/matches');
     }
 
     /**

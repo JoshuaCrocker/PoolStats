@@ -7,7 +7,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         Matches
-                        <a href="{{ url('/leagues/create') }}" class="btn btn-primary btn-xs pull-right">New Match</a>
+                        <a href="{{ route('matches.create') }}" class="btn btn-primary btn-xs pull-right">New Match</a>
                     </div>
 
                     <table class="table table-bordered">
