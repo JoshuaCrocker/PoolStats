@@ -12,6 +12,20 @@ class MatchUnitTest extends TestCase
 {
     use DatabaseMigrations;
 
+    /**
+     * @test
+     */
+    public function it_can_generate_its_endpoint() {
+        // Given we have a Match
+        $match = create(LeagueMatch::class);
+        
+        // it can generate its endpoint
+        $this->assertEquals(
+            $match->endpoint(),
+            '/matches/1'
+        );
+    }
+
     /** @test */
     public function it_can_generate_the_match_name()
     {

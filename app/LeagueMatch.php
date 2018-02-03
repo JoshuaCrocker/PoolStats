@@ -35,7 +35,7 @@ class LeagueMatch extends Model
      */
     public function endpoint()
     {
-        // NYI
+        return '/matches/' . $this->id;
     }
 
     public function venue()
