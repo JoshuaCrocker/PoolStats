@@ -133,4 +133,17 @@ class MatchTest extends TestCase
         // ... we should be redirected to the login page
         $request->assertRedirect('/login');
     }
+
+    /** @test */
+    public function the_user_can_view_the_match_details()
+    {
+        // Given we have a match
+        $match = create(LeagueMatch::class);
+
+        // and we GET its endpoint
+        $response = $this->get($match->endpoint());
+        
+        // the match details should be displayed
+        $response->assertSee($match->name);
+    }
 }

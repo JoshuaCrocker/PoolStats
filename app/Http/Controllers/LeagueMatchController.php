@@ -77,9 +77,13 @@ class LeagueMatchController extends Controller
      * @param  \App\LeagueMatch $leagueMatch
      * @return \Illuminate\Http\Response
      */
-    public function show(LeagueMatch $leagueMatch)
+    public function show(Request $request)
     {
-        //
+        $leagueMatch = LeagueMatch::find((int) $request->match);
+
+        return view('match.show', [
+            'match' => $leagueMatch
+        ]);
     }
 
     /**

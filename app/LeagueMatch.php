@@ -20,6 +20,8 @@ class LeagueMatch extends Model
 
     public function getNameAttribute()
     {
+        // dd($this->venue);
+
         return $this->venue->name .
             ' (' .
             $this->homeTeam->name .
