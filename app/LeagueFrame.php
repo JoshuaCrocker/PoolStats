@@ -2,10 +2,13 @@
 
 namespace App;
 
+use App\Support\Database\CacheQueryBuilder;
 use Illuminate\Database\Eloquent\Model;
 
 class LeagueFrame extends Model
 {
+    use CacheQueryBuilder;
+
     public function players()
     {
         return $this->hasMany(LeagueFramePlayer::class, 'league_frame_id', 'id');

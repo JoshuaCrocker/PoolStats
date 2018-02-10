@@ -2,10 +2,13 @@
 
 namespace App;
 
+use App\Support\Database\CacheQueryBuilder;
 use Illuminate\Database\Eloquent\Model;
 
 class LeagueMatch extends Model
 {
+    use CacheQueryBuilder;
+
     /**
      * The attributes that should be mutated to dates.
      *
