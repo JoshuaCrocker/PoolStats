@@ -32,20 +32,35 @@ class LeagueFrame extends Model
 
     public function getHomePlayerAttribute()
     {
+        return $this->homePlayers->first();
+    }
+
+    public function getHomePlayersAttribute()
+    {
         $homeTeamID = $this->match->homeTeam->id;
 
         $homePlayers = $this->getPlayersOnTeam($homeTeamID);
 
-        return $homePlayers->first();
+        return $homePlayers;
     }
 
     public function getAwayPlayerAttribute()
+    {
+        return $this->awayPlayers->first();
+    }
+
+    public function getAwayPlayersAttribute()
     {
         $awayTeamID = $this->match->awayTeam->id;
 
         $awayPlayers = $this->getPlayersOnTeam($awayTeamID);
 
-        return $awayPlayers->first();
+        return $awayPlayers;
+    }
+
+    public function getTypeAttribute()
+    {
+        return $this->doubles ? 'double' : 'single';
     }
 
     public function isWinner($player)

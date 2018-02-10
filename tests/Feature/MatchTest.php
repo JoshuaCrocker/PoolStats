@@ -190,7 +190,7 @@ class MatchTest extends TestCase
         $frame = create(LeagueFrame::class, [
             'league_match_id' => $match->id,
             'frame_number' => 1,
-            'doubles' => TRUE
+            'doubles' => FALSE
         ]);
 
         // And we add the players to the frame
@@ -212,5 +212,100 @@ class MatchTest extends TestCase
         // We see details about the frame
         $request->assertSee($playerHome->name);
         $request->assertSee($playerAway->name);
+    }
+
+
+    /**
+     * @test
+     */
+    public function it_shows_details_about_doubles_frames()
+    {
+        // Given we have:
+        // - Four players
+        $playerHome1 = create(Player::class);
+        $playerHome2 = create(Player::class);
+
+        $playerAway1 = create(Player::class);
+        $playerAway2 = create(Player::class);
+
+        // -- who are members of separate teams
+        $teamHome = create(Team::class);
+        $teamAway = create(Team::class);
+
+        create(PlayerTeam::class, [
+            'team_id' => $teamHome->id,
+            'player_id' => $playerHome1->id,
+            'member_from' => Carbon::parse('-1 day'),
+            'member_to' => Carbon::parse('+1 day')
+        ]);
+
+        create(PlayerTeam::class, [
+            'team_id' => $teamHome->id,
+            'player_id' => $playerHome2->id,
+            'member_from' => Carbon::parse('-1 day'),
+            'member_to' => Carbon::parse('+1 day')
+        ]);
+
+        create(PlayerTeam::class, [
+            'team_id' => $teamAway->id,
+            'player_id' => $playerAway1->id,
+            'member_from' => Carbon::parse('-1 day'),
+            'member_to' => Carbon::parse('+1 day')
+        ]);
+
+        create(PlayerTeam::class, [
+            'team_id' => $teamAway->id,
+            'player_id' => $playerAway2->id,
+            'member_from' => Carbon::parse('-1 day'),
+            'member_to' => Carbon::parse('+1 day')
+        ]);
+
+        // - One Match
+        $match = create(LeagueMatch::class, [
+            'home_team_id' => $teamHome->id,
+            'away_team_id' => $teamAway->id
+        ]);
+
+        // - One Frame (doubles)
+        $frame = create(LeagueFrame::class, [
+            'league_match_id' => $match->id,
+            'frame_number' => 1,
+            'doubles' => TRUE
+        ]);
+
+        // And we add the players to the frame
+        create(LeagueFramePlayer::class, [
+            'league_frame_id' => $frame->id,
+            'player_id' => $playerHome1->id,
+            'winner' => TRUE
+        ]);
+
+        create(LeagueFramePlayer::class, [
+            'league_frame_id' => $frame->id,
+            'player_id' => $playerHome2->id,
+            'winner' => TRUE
+        ]);
+
+        create(LeagueFramePlayer::class, [
+            'league_frame_id' => $frame->id,
+            'player_id' => $playerAway1->id,
+            'winner' => FALSE
+        ]);
+
+        create(LeagueFramePlayer::class, [
+            'league_frame_id' => $frame->id,
+            'player_id' => $playerAway2->id,
+            'winner' => FALSE
+        ]);
+
+        // And we view the match endpoint
+        $request = $this->get($match->endpoint());
+
+        // We see details about the frame
+        $homePlayers = e($playerHome1->name . ' & ' . $playerHome2->name);
+        $awayPlayers = e($playerAway1->name . ' & ' . $playerAway2->name);
+
+        $request->assertSee($homePlayers);
+        $request->assertSee($awayPlayers);
     }
 }

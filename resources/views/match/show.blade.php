@@ -24,23 +24,9 @@
 
                         <tbody>
                             @foreach ($match->frames as $frame)
-                                <tr>
-                                    <td class="text-center">{{ $frame->frame_number }}</td>
-                                    <td>
-                                        {{ $frame->homePlayer->name }}
-
-                                        @if ($frame->isWinner($frame->homePlayer))
-                                            [W]
-                                        @endif
-                                    </td>
-                                    <td>
-                                        {{ $frame->awayPlayer->name }}
-
-                                        @if ($frame->isWinner($frame->awayPlayer))
-                                            [W]
-                                        @endif
-                                    </td>
-                                </tr>
+                                @if (view()->exists("match.frame.{$frame->type}"))
+                                    @include ("match.frame.{$frame->type}", ['frame' => $frame])
+                                @endif
                             @endforeach
                         </tbody>
                     </table>
