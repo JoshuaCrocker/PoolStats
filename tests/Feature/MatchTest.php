@@ -2,10 +2,15 @@
 
 namespace Tests\Feature;
 
+use App\LeagueFrame;
+use App\LeagueFramePlayer;
 use App\LeagueMatch;
+use App\Player;
+use App\PlayerTeam;
+use App\Team;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class MatchTest extends TestCase
 {
@@ -142,8 +147,70 @@ class MatchTest extends TestCase
 
         // and we GET its endpoint
         $response = $this->get($match->endpoint());
-        
+
         // the match details should be displayed
         $response->assertSee($match->name);
+    }
+
+    /**
+     * @test
+     */
+    public function it_shows_details_about_single_frames()
+    {
+        // Given we have:
+        // - Two players
+        $playerHome = create(Player::class);
+        $playerAway = create(Player::class);
+
+        // -- who are members of separate teams
+        $teamHome = create(Team::class);
+        $teamAway = create(Team::class);
+
+        create(PlayerTeam::class, [
+            'team_id' => $teamHome->id,
+            'player_id' => $playerHome->id,
+            'member_from' => Carbon::parse('-1 day'),
+            'member_to' => Carbon::parse('+1 day')
+        ]);
+
+        create(PlayerTeam::class, [
+            'team_id' => $teamAway->id,
+            'player_id' => $playerAway->id,
+            'member_from' => Carbon::parse('-1 day'),
+            'member_to' => Carbon::parse('+1 day')
+        ]);
+
+        // - One Match
+        $match = create(LeagueMatch::class, [
+            'home_team_id' => $playerHome->team->id,
+            'away_team_id' => $playerAway->team->id
+        ]);
+
+        // - One Frame (single)
+        $frame = create(LeagueFrame::class, [
+            'league_match_id' => $match->id,
+            'frame_number' => 1,
+            'doubles' => TRUE
+        ]);
+
+        // And we add the players to the frame
+        $framePlayerHome = create(LeagueFramePlayer::class, [
+            'league_frame_id' => $frame->id,
+            'player_id' => $playerHome->id,
+            'winner' => TRUE
+        ]);
+
+        $framePlayerAway = create(LeagueFramePlayer::class, [
+            'league_frame_id' => $frame->id,
+            'player_id' => $playerAway->id,
+            'winner' => FALSE
+        ]);
+
+        // And we view the match endpoint
+        $request = $this->get($match->endpoint());
+
+        // We see details about the frame
+        $request->assertSee($playerHome->name);
+        $request->assertSee($playerAway->name);
     }
 }

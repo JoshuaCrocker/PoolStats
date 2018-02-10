@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\LeagueFrame;
 use App\LeagueMatch;
 use App\Team;
 use App\Venue;
@@ -18,7 +19,7 @@ class MatchUnitTest extends TestCase
     public function it_can_generate_its_endpoint() {
         // Given we have a Match
         $match = create(LeagueMatch::class);
-        
+
         // it can generate its endpoint
         $this->assertEquals(
             $match->endpoint(),
@@ -45,6 +46,32 @@ class MatchUnitTest extends TestCase
             $venue->name . ' (' . $home->name . ' vs. ' . $away->name . ')',
             $match->name
         );
+    }
 
+    /**
+     * @test
+     */
+    public function it_can_retrieve_its_frames()
+    {
+        // Given we have a match
+        $match = create(LeagueMatch::class);
+
+        // with some frames
+        $frame1 = create(LeagueFrame::class, [
+            'league_match_id' => $match->id
+        ]);
+
+        $frame2 = create(LeagueFrame::class, [
+            'league_match_id' => $match->id
+        ]);
+
+        // it can retrieve a collection of its frames
+        $this->assertEquals(2, $match->frames->count());
+
+        $this->assertEquals($frame1->frame_number, $match->frames[0]->frame_number);
+        $this->assertEquals($frame1->doubles, $match->frames[0]->doubles);
+
+        $this->assertEquals($frame2->frame_number, $match->frames[1]->frame_number);
+        $this->assertEquals($frame2->doubles, $match->frames[1]->doubles);
     }
 }

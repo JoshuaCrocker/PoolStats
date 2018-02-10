@@ -59,4 +59,9 @@ class LeagueMatch extends Model
     {
         return $this->belongsTo(Team::class);
     }
+
+    public function frames()
+    {
+        return $this->hasMany(LeagueFrame::class);
+    }
 }

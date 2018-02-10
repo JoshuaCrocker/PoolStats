@@ -12,22 +12,36 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th colspan="2" class="text-center">Match Frames</th>
+                                <th colspan="3" class="text-center">Match Frames</th>
                             </tr>
 
                             <tr>
+                                <th class="text-center" style="width: 20px">#</th>
                                 <th>Home Team</th>
                                 <th>Away Team</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            {{-- @foreach ($members as $member) --}}
+                            @foreach ($match->frames as $frame)
                                 <tr>
-                                    {{--  <td>{{ $member->name }}</td>  --}}
-                                    <td></td>
+                                    <td class="text-center">{{ $frame->frame_number }}</td>
+                                    <td>
+                                        {{ $frame->homePlayer->name }}
+
+                                        @if ($frame->isWinner($frame->homePlayer))
+                                            [W]
+                                        @endif
+                                    </td>
+                                    <td>
+                                        {{ $frame->awayPlayer->name }}
+
+                                        @if ($frame->isWinner($frame->awayPlayer))
+                                            [W]
+                                        @endif
+                                    </td>
                                 </tr>
-                            {{-- @endforeach --}}
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
