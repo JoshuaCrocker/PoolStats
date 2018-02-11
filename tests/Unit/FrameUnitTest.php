@@ -19,6 +19,24 @@ class FrameUnitTest extends TestCase
     /**
      * @test
      */
+    public function it_can_generate_its_endpoint()
+    {
+        // Given we have a test
+        $match = create(LeagueMatch::class);
+        $frame = create(LeagueFrame::class, [
+            'league_match_id' => $match->id
+        ]);
+
+        // it can generate its endpoint
+        $this->assertEquals(
+            $frame->endpoint(),
+            '/matches/' . $match->id . '/frames/' . $frame->id
+        );
+    }
+
+    /**
+     * @test
+     */
     public function it_can_retrieve_its_players()
     {
         // Given we have a frame

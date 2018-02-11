@@ -23,14 +23,21 @@ class LeagueMatch extends Model
 
     public function getNameAttribute()
     {
-        // dd($this->venue);
-
         return $this->venue->name .
             ' (' .
             $this->homeTeam->name .
             ' vs. ' .
             $this->awayTeam->name .
             ')';
+    }
+
+    public function getNextFrameNumber()
+    {
+        $highestFrameNumber = $this->fresh()->frames->map(function ($frame) {
+            return $frame->frame_number;
+        })->max();
+
+        return ((int)$highestFrameNumber) + 1;
     }
 
     /**

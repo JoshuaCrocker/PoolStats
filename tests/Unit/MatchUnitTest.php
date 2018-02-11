@@ -74,4 +74,44 @@ class MatchUnitTest extends TestCase
         $this->assertEquals($frame2->frame_number, $match->frames[1]->frame_number);
         $this->assertEquals($frame2->doubles, $match->frames[1]->doubles);
     }
+
+    /**
+     * @test
+     */
+    public function it_can_determine_the_next_frame_number_initial()
+    {
+        // Given we have a match, with no frames
+        $match = create(LeagueMatch::class);
+
+        // The next frame number is 1
+        $this->assertEquals(1, $match->getNextFrameNumber());
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_determine_the_next_frame_number_when_frames_exist()
+    {
+        // Given we have a match, with no frames
+        $match = create(LeagueMatch::class);
+
+        // Then, if we add three frames
+        create(LeagueFrame::class, [
+            'league_match_id' => $match->id,
+            'frame_number' => 1
+        ]);
+
+        create(LeagueFrame::class, [
+            'league_match_id' => $match->id,
+            'frame_number' => 2
+        ]);
+
+        create(LeagueFrame::class, [
+            'league_match_id' => $match->id,
+            'frame_number' => 3
+        ]);
+
+        // The next frame number is 4
+        $this->assertEquals(4, $match->getNextFrameNumber());
+    }
 }

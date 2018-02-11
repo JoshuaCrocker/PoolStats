@@ -9,6 +9,11 @@ class LeagueFrame extends Model
 {
     use CacheQueryBuilder;
 
+    public function endpoint()
+    {
+        return '/matches/' . $this->match->id . '/frames/' . $this->id;
+    }
+
     public function players()
     {
         return $this->hasMany(LeagueFramePlayer::class, 'league_frame_id', 'id');

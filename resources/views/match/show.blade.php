@@ -7,6 +7,9 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         {{ $match->name }}
+
+                        <a href="{{ route('frames.create', ['match' => $match->id]) }}"
+                           class="pull-right btn btn-primary btn-xs">New Frame</a>
                     </div>
 
                     <table class="table table-bordered">
