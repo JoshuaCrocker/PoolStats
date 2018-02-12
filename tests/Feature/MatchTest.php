@@ -327,8 +327,6 @@ class MatchTest extends TestCase
         $payload = [
             'match_date' => Carbon::parse("+2 days")->setTime(0, 0, 0)->toDateTimeString(),
             'venue_id' => create(Venue::class)->id,
-            'home_team_id' => create(Team::class)->id,
-            'away_team_id' => create(Team::class)->id,
             'league_id' => create(League::class)->id
         ];
 
@@ -353,8 +351,6 @@ class MatchTest extends TestCase
         $payload = [
             'match_date' => Carbon::parse("+2 days")->setTime(0, 0, 0)->toDateTimeString(),
             'venue_id' => create(Venue::class)->id,
-            'home_team_id' => create(Team::class)->id,
-            'away_team_id' => create(Team::class)->id,
             'league_id' => create(League::class)->id
         ];
 
@@ -379,8 +375,6 @@ class MatchTest extends TestCase
         $payload = [
             'match_date' => $match->match_date,
             'venue_id' => $match->venue_id,
-            'home_team_id' => $match->home_team_id,
-            'away_team_id' => $match->away_team_id,
             'league_id' => 999
         ];
 
@@ -388,58 +382,6 @@ class MatchTest extends TestCase
 
         // ... the update fails
         $request->assertSessionHasErrors('league_id');
-    }
-
-    /** @test */
-    public function an_updated_match_requires_a_valid_home_team_id()
-    {
-        $this->withExceptionHandling();
-
-        // Given we're signed in ...
-        $this->signIn();
-
-        // and we have a match
-        $match = create(LeagueMatch::class);
-
-        // and we update it at its endpoint
-        $payload = [
-            'match_date' => $match->match_date,
-            'venue_id' => $match->venue_id,
-            'home_team_id' => 999,
-            'away_team_id' => $match->away_team_id,
-            'league_id' => $match->league_id
-        ];
-
-        $request = $this->patch($match->endpoint(), $payload);
-
-        // The update fails
-        $request->assertSessionHasErrors('home_team_id');
-    }
-
-    /** @test */
-    public function an_updated_match_requires_a_valid_away_team_id()
-    {
-        $this->withExceptionHandling();
-
-        // Given we're signed in ...
-        $this->signIn();
-
-        // and we have a match
-        $match = create(LeagueMatch::class);
-
-        // and we update it at its endpoint
-        $payload = [
-            'match_date' => $match->match_date,
-            'venue_id' => $match->venue_id,
-            'home_team_id' => $match->home_team_id,
-            'away_team_id' => 999,
-            'league_id' => $match->league_id
-        ];
-
-        $request = $this->patch($match->endpoint(), $payload);
-
-        // The update fails
-        $request->assertSessionHasErrors('away_team_id');
     }
 
     /** @test */
@@ -457,8 +399,6 @@ class MatchTest extends TestCase
         $payload = [
             'match_date' => '21/21/21',
             'venue_id' => $match->venue_id,
-            'home_team_id' => $match->home_team_id,
-            'away_team_id' => $match->away_team_id,
             'league_id' => $match->league_id
         ];
 
@@ -513,5 +453,40 @@ class MatchTest extends TestCase
         $match['venue_id'] = $venueHome->id;
 
         $this->assertDatabaseHas('league_matches', $match);
+    }
+
+    /**
+     * @test
+     */
+    public function an_existing_match_cannot_have_the_teams_changed()
+    {
+        // Given we are logged in
+        $this->signIn();
+
+        // and we have a match
+        $match = create(LeagueMatch::class);
+
+        // and we update it at its endpoint
+        $payload = [
+            'match_date' => Carbon::parse("+2 days")->setTime(0, 0, 0)->toDateTimeString(),
+            'venue_id' => create(Venue::class)->id,
+            'home_team_id' => create(Team::class)->id,
+            'away_team_id' => create(Team::class)->id,
+            'league_id' => create(League::class)->id
+        ];
+
+        $this->patch($match->endpoint(), $payload);
+
+        // the changes should be apparent in the database
+        $merged = [
+            'match_date' => Carbon::parse("+2 days")->setTime(0, 0, 0)->toDateTimeString(),
+            'venue_id' => $payload['venue_id'],
+            'home_team_id' => $match->home_team_id,
+            'away_team_id' => $match->away_team_id,
+            'league_id' => $payload['league_id']
+        ];
+
+        $this->assertDatabaseHas('league_matches', $merged);
+        $this->assertDatabaseMissing('league_matches', $payload);
     }
 }

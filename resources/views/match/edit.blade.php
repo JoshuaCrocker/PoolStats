@@ -40,24 +40,6 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="home_team_id">Home Team</label>
-                                <select name="home_team_id" id="home_team_id" class="form-control">
-                                    @foreach ($teams as $team)
-                                        <option value="{{ $team->id }}" {{ $match->home_team_id == $team->id ? 'selected' : '' }}>{{ $team->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="away_team_id">Away Team</label>
-                                <select name="away_team_id" id="away_team_id" class="form-control">
-                                    @foreach ($teams as $team)
-                                        <option value="{{ $team->id }}" {{ $match->away_team_id == $team->id ? 'selected' : '' }}>{{ $team->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="form-group">
                                 <input type="submit" class="btn btn-primary"/>
                             </div>
                         </form>

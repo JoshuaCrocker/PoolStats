@@ -117,20 +117,11 @@ class LeagueMatchController extends Controller
     {
         $request->validate([
             'league_id' => 'required|exists:leagues,id',
-            'match_date' => 'required|date',
-            'home_team_id' => 'required|exists:teams,id',
-            'away_team_id' => 'required|exists:teams,id'
+            'match_date' => 'required|date'
         ]);
 
-        if (!$request->exists('venue_id')) {
-            $request->venue_id = Team::find($request->home_team_id)->venue->id;
-        }
-
         $match->league_id = $request->league_id;
-        $match->venue_id = $request->venue_id;
         $match->match_date = $request->match_date;
-        $match->home_team_id = $request->home_team_id;
-        $match->away_team_id = $request->away_team_id;
         $match->save();
 
         return redirect($match->endpoint());
