@@ -490,10 +490,29 @@ class MatchTest extends TestCase
         $this->assertDatabaseMissing('league_matches', $payload);
     }
 
+    /**
+     * @test
+     */
+    public function the_user_can_delete_a_match()
+    {
+        // Given we are logged in
+        $this->signIn();
+
+        // and we have a match
+        $match = create(LeagueMatch::class);
+
+        // and the delete endpoint is hit
+        $this->delete($match->endpoint());
+
+        // the match is deleted
+        $this->assertDatabaseMissing('league_matches', $match->toArray());
+    }
+
     // TODO delete match - clear all data
     // TODO generate match score (home)
     // TODO generate match score (away)
 
     // Historic Data
     // TODO working with historic data
+    // All data needs to be current at the time of the match
 }

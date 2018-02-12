@@ -134,11 +134,15 @@ class LeagueMatchController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\LeagueMatch $leagueMatch
+     * @param Request $request
+     * @param $match
      * @return \Illuminate\Http\Response
      */
-    public function destroy(LeagueMatch $leagueMatch)
+    public function destroy(Request $request, $match)
     {
-        //
+        // Todo make safer?
+        LeagueMatch::destroy($match);
+
+        return redirect('/matches');
     }
 }

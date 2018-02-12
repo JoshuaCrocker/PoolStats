@@ -21,6 +21,18 @@ class LeagueMatch extends Model
         'match_date'
     ];
 
+    /**
+     * Boot the model.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($match) {
+            $match->frames->each->delete();
+        });
+    }
+
     public function getNameAttribute()
     {
         return $this->venue->name .

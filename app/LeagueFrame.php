@@ -9,6 +9,18 @@ class LeagueFrame extends Model
 {
     use CacheQueryBuilder;
 
+    /**
+     * Boot the model.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($match) {
+            $match->players->each->delete();
+        });
+    }
+
     public function endpoint()
     {
         return '/matches/' . $this->match->id . '/frames/' . $this->id;
