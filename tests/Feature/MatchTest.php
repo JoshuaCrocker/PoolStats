@@ -2,12 +2,15 @@
 
 namespace Tests\Feature;
 
+use App\League;
 use App\LeagueFrame;
 use App\LeagueFramePlayer;
 use App\LeagueMatch;
 use App\Player;
 use App\PlayerTeam;
 use App\Team;
+use App\TeamVenue;
+use App\Venue;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
@@ -307,5 +310,208 @@ class MatchTest extends TestCase
 
         $request->assertSee($homePlayers);
         $request->assertSee($awayPlayers);
+    }
+
+    /**
+     * @test
+     */
+    public function the_user_can_edit_a_match()
+    {
+        // Given we are logged in
+        $this->signIn();
+
+        // and we have a match
+        $match = create(LeagueMatch::class);
+
+        // and we update it at its endpoint
+        $payload = [
+            'match_date' => Carbon::parse("+2 days")->setTime(0, 0, 0)->toDateTimeString(),
+            'venue_id' => create(Venue::class)->id,
+            'home_team_id' => create(Team::class)->id,
+            'away_team_id' => create(Team::class)->id,
+            'league_id' => create(League::class)->id
+        ];
+
+        $this->patch($match->endpoint(), $payload);
+
+        // the changes should be apparent in the database
+        $this->assertDatabaseHas('league_matches', $payload);
+    }
+
+    /** @test */
+    public function the_user_must_be_logged_in_to_edit_a_match()
+    {
+        // Given we're not signed in ...
+        // $this->signIn();
+
+        $this->withExceptionHandling();
+
+        // and we have a match
+        $match = create(LeagueMatch::class);
+
+        // and we update it at its endpoint
+        $payload = [
+            'match_date' => Carbon::parse("+2 days")->setTime(0, 0, 0)->toDateTimeString(),
+            'venue_id' => create(Venue::class)->id,
+            'home_team_id' => create(Team::class)->id,
+            'away_team_id' => create(Team::class)->id,
+            'league_id' => create(League::class)->id
+        ];
+
+        $request = $this->patch($match->endpoint(), $payload);
+
+        // ... we should be redirected to the login page
+        $request->assertRedirect('/login');
+    }
+
+    /** @test */
+    public function an_updated_match_requires_a_valid_league_id()
+    {
+        $this->withExceptionHandling();
+
+        // Given we're signed in ...
+        $this->signIn();
+
+        // and we have a match
+        $match = create(LeagueMatch::class);
+
+        // and we update it at its endpoint
+        $payload = [
+            'match_date' => $match->match_date,
+            'venue_id' => $match->venue_id,
+            'home_team_id' => $match->home_team_id,
+            'away_team_id' => $match->away_team_id,
+            'league_id' => 999
+        ];
+
+        $request = $this->patch($match->endpoint(), $payload);
+
+        // ... the update fails
+        $request->assertSessionHasErrors('league_id');
+    }
+
+    /** @test */
+    public function an_updated_match_requires_a_valid_home_team_id()
+    {
+        $this->withExceptionHandling();
+
+        // Given we're signed in ...
+        $this->signIn();
+
+        // and we have a match
+        $match = create(LeagueMatch::class);
+
+        // and we update it at its endpoint
+        $payload = [
+            'match_date' => $match->match_date,
+            'venue_id' => $match->venue_id,
+            'home_team_id' => 999,
+            'away_team_id' => $match->away_team_id,
+            'league_id' => $match->league_id
+        ];
+
+        $request = $this->patch($match->endpoint(), $payload);
+
+        // The update fails
+        $request->assertSessionHasErrors('home_team_id');
+    }
+
+    /** @test */
+    public function an_updated_match_requires_a_valid_away_team_id()
+    {
+        $this->withExceptionHandling();
+
+        // Given we're signed in ...
+        $this->signIn();
+
+        // and we have a match
+        $match = create(LeagueMatch::class);
+
+        // and we update it at its endpoint
+        $payload = [
+            'match_date' => $match->match_date,
+            'venue_id' => $match->venue_id,
+            'home_team_id' => $match->home_team_id,
+            'away_team_id' => 999,
+            'league_id' => $match->league_id
+        ];
+
+        $request = $this->patch($match->endpoint(), $payload);
+
+        // The update fails
+        $request->assertSessionHasErrors('away_team_id');
+    }
+
+    /** @test */
+    public function an_updated_match_requires_a_valid_match_date()
+    {
+        $this->withExceptionHandling();
+
+        // Given we're signed in ...
+        $this->signIn();
+
+        // and we have a match
+        $match = create(LeagueMatch::class);
+
+        // and we update it at its endpoint
+        $payload = [
+            'match_date' => '21/21/21',
+            'venue_id' => $match->venue_id,
+            'home_team_id' => $match->home_team_id,
+            'away_team_id' => $match->away_team_id,
+            'league_id' => $match->league_id
+        ];
+
+        $request = $this->patch($match->endpoint(), $payload);
+
+        // ... the new match is not created
+        $request->assertSessionHasErrors('match_date');
+    }
+
+    /**
+     * @test
+     */
+    public function the_default_venue_can_be_determined()
+    {
+        // Given we're signed in ...
+        $this->signIn();
+
+        // ... and we try to create a new match (with no venue_id) ...
+        $league = create(League::class);
+
+        $venueHome = create(Venue::class);
+        $venueAway = create(Venue::class);
+
+        $teamHome = create(Team::class);
+        $teamAway = create(Team::class);
+
+        create(TeamVenue::class, [
+            'team_id' => $teamHome->id,
+            'venue_id' => $venueHome->id,
+            'venue_from' => Carbon::parse('-1 day'),
+            'venue_to' => null
+        ]);
+
+        create(TeamVenue::class, [
+            'team_id' => $teamAway->id,
+            'venue_id' => $venueAway->id,
+            'venue_from' => Carbon::parse('-1 day'),
+            'venue_to' => null
+        ]);
+
+        $payload = [
+            'match_date' => Carbon::now(),
+            'home_team_id' => $teamHome->id,
+            'away_team_id' => $teamAway->id,
+            'league_id' => $league->id
+        ];
+
+        $this->post('/matches', $payload);
+
+        // The home team's venue is chosen
+        $match = $payload;
+        $match['venue_id'] = $venueHome->id;
+
+        $this->assertDatabaseHas('league_matches', $match);
     }
 }
