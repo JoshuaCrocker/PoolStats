@@ -120,6 +120,10 @@ class LeagueMatchController extends Controller
             'match_date' => 'required|date'
         ]);
 
+        if ($request->exists('venue_id')) {
+            $match->venue_id = $request->venue_id;
+        }
+
         $match->league_id = $request->league_id;
         $match->match_date = $request->match_date;
         $match->save();
