@@ -210,8 +210,8 @@ class MatchTest extends TestCase
         $request = $this->get($match->endpoint());
 
         // We see details about the frame
-        $request->assertSee($playerHome->name);
-        $request->assertSee($playerAway->name);
+        $request->assertSee(e($playerHome->name));
+        $request->assertSee(e($playerAway->name));
     }
 
 
