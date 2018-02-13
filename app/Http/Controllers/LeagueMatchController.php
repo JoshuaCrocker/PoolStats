@@ -52,8 +52,8 @@ class LeagueMatchController extends Controller
         $request->validate([
             'league_id' => 'required|exists:leagues,id',
             'match_date' => 'required|date',
-            'home_team_id' => 'required|exists:teams,id',
-            'away_team_id' => 'required|exists:teams,id'
+            'home_team_id' => 'required|exists:teams,id|different:away_team_id',
+            'away_team_id' => 'required|exists:teams,id|different:home_team_id'
         ]);
 
         if (! $request->exists('venue_id')) {

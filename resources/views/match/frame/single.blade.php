@@ -14,4 +14,7 @@
             [W]
         @endif
     </td>
+    <td>
+        <a href="{{ $frame->endpoint() }}/edit" class="btn btn-primary btn-xs">Edit</a>
+    </td>
 </tr>

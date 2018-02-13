@@ -43,11 +43,16 @@ class LeagueFrame extends Model
 
     private function getPlayersOnTeam($teamID)
     {
-        return $this->players->map(function ($player) {
+        $players = $this->players->map(function ($player) {
             return $player->player;
         })->filter(function ($player) use ($teamID) {
             return $player->team->id == $teamID;
-        });
+        })->values();
+
+        return collect([
+            isset($players[0]) ? $players[0] : null,
+            isset($players[1]) ? $players[1] : null
+        ]);
     }
 
     public function getHomePlayerAttribute()

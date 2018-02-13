@@ -22,6 +22,7 @@
                                 <th class="text-center" style="width: 20px">#</th>
                                 <th>Home Team</th>
                                 <th>Away Team</th>
+                                <th></th>
                             </tr>
                         </thead>
 

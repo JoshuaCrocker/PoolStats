@@ -114,4 +114,49 @@ class MatchUnitTest extends TestCase
         // The next frame number is 4
         $this->assertEquals(4, $match->getNextFrameNumber());
     }
+
+    /**
+     * @test
+     */
+    public function it_can_generate_the_home_score()
+    {
+        // Given we have a match with a few frames
+        $playerHome = $this->playerWithTeam();
+        $playerAway = $this->playerWithTeam();
+
+        $match = create(LeagueMatch::class, [
+            'home_team_id' => $playerHome['team']->id,
+            'away_team_id' => $playerAway['team']->id
+        ]);
+
+        $this->frameWithPlayers($match, $playerHome['player'], $playerAway['player'], 'home');
+        $this->frameWithPlayers($match, $playerHome['player'], $playerAway['player'], 'away');
+        $this->frameWithPlayers($match, $playerHome['player'], $playerAway['player'], 'away');
+
+        // the home team points can be calculated
+        $this->assertEquals(1, $match->homePoints);
+    }
+
+
+    /**
+     * @test
+     */
+    public function it_can_generate_the_away_score()
+    {
+        // Given we have a match with a few frames
+        $playerHome = $this->playerWithTeam();
+        $playerAway = $this->playerWithTeam();
+
+        $match = create(LeagueMatch::class, [
+            'home_team_id' => $playerHome['team']->id,
+            'away_team_id' => $playerAway['team']->id
+        ]);
+
+        $this->frameWithPlayers($match, $playerHome['player'], $playerAway['player'], 'home');
+        $this->frameWithPlayers($match, $playerHome['player'], $playerAway['player'], 'away');
+        $this->frameWithPlayers($match, $playerHome['player'], $playerAway['player'], 'away');
+
+        // the home team points can be calculated
+        $this->assertEquals(2, $match->awayPoints);
+    }
 }

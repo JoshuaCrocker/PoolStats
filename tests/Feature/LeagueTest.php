@@ -2,14 +2,14 @@
 
 namespace Tests\Feature;
 
+use App\League;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
-use App\League;
 
 class LeagueTest extends TestCase
 {
     use DatabaseMigrations;
-    
+
     /**
      * @test
      */
@@ -80,7 +80,7 @@ class LeagueTest extends TestCase
         // ... there should be an error in the session
         $response->assertSessionHasErrors('name');
     }
-    
+
     /**
      * @test
      */
@@ -212,6 +212,4 @@ class LeagueTest extends TestCase
         // ... the league should be displayed
         $response->assertSee($league->name);
     }
-
-    // @todo a_league_displays_its_matches_on_its_page
 }

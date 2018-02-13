@@ -10,6 +10,11 @@ use Illuminate\Validation\Rule;
 
 class LeagueFrameController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -110,13 +115,49 @@ class LeagueFrameController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\LeagueFrame  $leagueFrame
+     * @param  \Illuminate\Http\Request $request
+     * @param LeagueMatch $match
+     * @param  \App\LeagueFrame $frame
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, LeagueFrame $leagueFrame)
+    public function update(Request $request, LeagueMatch $match, LeagueFrame $frame)
     {
-        //
+        $request->validate([
+            'frame_type' => [
+                'required',
+                Rule::in(['single', 'double'])
+            ],
+            'home_player_id' => 'required|exists:players,id',
+            'away_player_id' => 'required|exists:players,id',
+            'winning_team' => [
+                'required',
+                Rule::in(['home', 'away'])
+            ]
+        ]);
+
+        // Create the frame
+        $frame->doubles = $request->frame_type == 'single' ? false : true;
+        $frame->save();
+
+        $frame->players->each->delete();
+
+        foreach ($request->home_player_id as $homePlayerID) {
+            $playerHome = new LeagueFramePlayer();
+            $playerHome->league_frame_id = $frame->id;
+            $playerHome->player_id = $homePlayerID;
+            $playerHome->winner = $request->winning_team == 'home';
+            $playerHome->save();
+        }
+
+        foreach ($request->away_player_id as $awayPlayerID) {
+            $playerAway = new LeagueFramePlayer();
+            $playerAway->league_frame_id = $frame->id;
+            $playerAway->player_id = $awayPlayerID;
+            $playerAway->winner = $request->winning_team == 'away';
+            $playerAway->save();
+        }
+
+        return redirect($match->endpoint());
     }
 
     /**

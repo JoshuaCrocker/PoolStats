@@ -43,6 +43,32 @@ class LeagueMatch extends Model
             ')';
     }
 
+    public function getHomePointsAttribute()
+    {
+        $won = 0;
+
+        $this->frames->each(function ($frame) use (&$won) {
+            if ($frame->isWinner($frame->homePlayer)) {
+                $won++;
+            }
+        });
+
+        return $won;
+    }
+
+    public function getAwayPointsAttribute()
+    {
+        $won = 0;
+
+        $this->frames->each(function ($frame) use (&$won) {
+            if ($frame->isWinner($frame->awayPlayer)) {
+                $won++;
+            }
+        });
+
+        return $won;
+    }
+
     public function getNextFrameNumber()
     {
         $highestFrameNumber = $this->fresh()->frames->map(function ($frame) {

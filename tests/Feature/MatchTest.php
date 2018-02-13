@@ -508,9 +508,31 @@ class MatchTest extends TestCase
         $this->assertDatabaseMissing('league_matches', $match->toArray());
     }
 
-    // TODO delete match - clear all data
-    // TODO generate match score (home)
-    // TODO generate match score (away)
+    /**
+     * @test
+     */
+    public function a_frame_cannot_pair_the_same_team()
+    {
+        // Given we're signed in ...
+        $this->signIn();
+        $this->withExceptionHandling();
+
+        // and we try to create a match,
+        // where the same team is both home and away
+        $team = create(Team::class);
+
+        $match = make(LeagueMatch::class, [
+            'home_team_id' => $team->id,
+            'away_team_id' => $team->id
+        ])->toArray();
+
+        $request = $this->post('/matches', $match);
+
+        // the record isn't added
+        $request->assertSessionHasErrors('home_team_id');
+        $request->assertSessionHasErrors('away_team_id');
+        $this->assertDatabaseMissing('league_matches', $match);
+    }
 
     // Historic Data
     // TODO working with historic data

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\LeagueFrame;
 use App\LeagueMatch;
 use App\Player;
 use App\PlayerTeam;
@@ -19,6 +20,9 @@ class FrameTest extends TestCase
      */
     public function the_user_can_record_a_singles_frame()
     {
+        // Given we're signed in ...
+        $this->signIn();
+
         // Given we have a match
         // - Teams
         $teamHome = create(Team::class);
@@ -91,6 +95,9 @@ class FrameTest extends TestCase
      */
     public function the_user_can_record_a_doubles_frame()
     {
+        // Given we're signed in ...
+        $this->signIn();
+
         // Given we have a match
         // - Teams
         $teamHome = create(Team::class);
@@ -193,6 +200,9 @@ class FrameTest extends TestCase
      */
     public function a_frame_must_have_a_valid_type()
     {
+        // Given we're signed in ...
+        $this->signIn();
+
         $this->withExceptionHandling();
 
         $match = create(LeagueMatch::class);
@@ -214,6 +224,9 @@ class FrameTest extends TestCase
      */
     public function a_frame_must_have_a_valid_home_player()
     {
+        // Given we're signed in ...
+        $this->signIn();
+
         $this->withExceptionHandling();
 
         $match = create(LeagueMatch::class);
@@ -235,6 +248,9 @@ class FrameTest extends TestCase
      */
     public function a_frame_must_have_a_valid_away_player()
     {
+        // Given we're signed in ...
+        $this->signIn();
+
         $this->withExceptionHandling();
 
         $match = create(LeagueMatch::class);
@@ -256,6 +272,9 @@ class FrameTest extends TestCase
      */
     public function a_frame_must_have_a_valid_winning_team()
     {
+        // Given we're signed in ...
+        $this->signIn();
+
         $this->withExceptionHandling();
 
         $match = create(LeagueMatch::class);
@@ -271,4 +290,81 @@ class FrameTest extends TestCase
 
         $request->assertSessionHasErrors('winning_team');
     }
+
+    /** @test */
+    public function the_user_must_be_logged_in_to_create_a_frame()
+    {
+        // Given we're not signed in ...
+        // $this->signIn();
+
+        $this->withExceptionHandling();
+
+        // ... and we try to create a new frame
+        $match = create(LeagueMatch::class);
+
+        $frame = make(LeagueFrame::class, [
+            'league_match_id' => $match->id
+        ])->toArray();
+
+        $request = $this->post('/matches/' . $match->id . '/frames', $frame);
+
+        // ... we should be redirected to the login page
+        $request->assertRedirect('/login');
+    }
+
+    /**
+     * @test
+     */
+    public function the_user_can_edit_a_frame()
+    {
+        // Give we're signed in ...
+        $this->signIn();
+
+        // ... and we have a frame ...
+        $match = create(LeagueMatch::class);
+        $frame = $this->frameWithPlayers($match);
+
+        // ... when we hit the update endpoint ...
+        $payload = [
+            'frame_type' => 'double',
+            'home_player_id' => [
+                create(Player::class)->id,
+                create(Player::class)->id
+            ],
+            'away_player_id' => [
+                create(Player::class)->id,
+                create(Player::class)->id
+            ],
+            'winning_team' => 'away'
+        ];
+
+        $this->patch($frame['frame']->endpoint(), $payload);
+
+        // ... the record is updated
+        $this->assertDatabaseHas('league_frames', [
+            'id' => $frame['frame']->id,
+            'doubles' => true
+        ]);
+
+        foreach ($payload['home_player_id'] as $pid) {
+            $this->assertDatabaseHas('league_frame_players', [
+                'player_id' => $pid,
+                'winner' => false
+            ]);
+        }
+
+        foreach ($payload['away_player_id'] as $pid) {
+            $this->assertDatabaseHas('league_frame_players', [
+                'player_id' => $pid,
+                'winner' => true
+            ]);
+        }
+    }
+
+    // TODO edit - gui
+    // TODO delete
+
+    // Historic Data
+    // TODO working with historic data
+    // All data needs to be current at the time of the match
 }
