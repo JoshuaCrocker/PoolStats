@@ -22,6 +22,7 @@
                         <form action="{{ route('frames.update', ['match' => $match->id, 'frame' => $frame->id]) }}"
                               method="POST">
                             {{ csrf_field() }}
+                            {{ method_field('PATCH') }}
 
                             <div class="form-group">
                                 <label for="frame_type">Frame Type</label>
@@ -37,7 +38,9 @@
                                     <select name="home_player_id[]" id="home_player_id_1" class="form-control">
                                         <option value="">Select Home Player</option>
                                         @foreach ($homePlayers as $player)
-                                            <option value="{{ $player->id }}">{{ $player->name }}</option>
+                                            <option value="{{ $player->id }}" {{ $frame->homePlayers[0]->id == $player->id ? 'selected' : '' }}>
+                                                {{ $player->name }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -47,7 +50,9 @@
                                     <select name="away_player_id[]" id="away_player_id_1" class="form-control">
                                         <option value="">Select Away Player</option>
                                         @foreach ($awayPlayers as $player)
-                                            <option value="{{ $player->id }}">{{ $player->name }}</option>
+                                            <option value="{{ $player->id }}" {{ $frame->awayPlayers[0]->id == $player->id ? 'selected' : '' }}>
+                                                {{ $player->name }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -59,7 +64,9 @@
                                     <select name="home_player_id[]" id="home_player_id_2" class="form-control">
                                         <option value="">Select Home Player</option>
                                         @foreach ($homePlayers as $player)
-                                            <option value="{{ $player->id }}">{{ $player->name }}</option>
+                                            <option value="{{ $player->id }}" {{ $frame->homePlayers[1]->id == $player->id ? 'selected' : '' }}>
+                                                {{ $player->name }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -69,7 +76,9 @@
                                     <select name="away_player_id[]" id="away_player_id_2" class="form-control">
                                         <option value="">Select Away Player</option>
                                         @foreach ($awayPlayers as $player)
-                                            <option value="{{ $player->id }}">{{ $player->name }}</option>
+                                            <option value="{{ $player->id }}" {{ $frame->awayPlayers[1]->id == $player->id ? 'selected' : '' }}>
+                                                {{ $player->name }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -78,8 +87,12 @@
                             <div class="form-group">
                                 <label for="winning_team">Winning Team</label>
                                 <select name="winning_team" id="winning_team" class="form-control">
-                                    <option value="home">Home</option>
-                                    <option value="away">Away</option>
+                                    <option value="home" {{ $frame->isWinner($frame->homePlayer) ? 'selected' : '' }}>
+                                        Home
+                                    </option>
+                                    <option value="away" {{ $frame->isWinner($frame->awayPlayer) ? 'selected' : '' }}>
+                                        Away
+                                    </option>
                                 </select>
                             </div>
 

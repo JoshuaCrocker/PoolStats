@@ -50,8 +50,8 @@ class LeagueFrame extends Model
         })->values();
 
         return collect([
-            isset($players[0]) ? $players[0] : null,
-            isset($players[1]) ? $players[1] : null
+            isset($players[0]) ? $players[0] : new Player(),
+            isset($players[1]) ? $players[1] : new Player()
         ]);
     }
 

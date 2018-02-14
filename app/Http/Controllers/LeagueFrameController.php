@@ -104,12 +104,18 @@ class LeagueFrameController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\LeagueFrame  $leagueFrame
+     * @param LeagueMatch $match
+     * @param LeagueFrame $frame
      * @return \Illuminate\Http\Response
      */
-    public function edit(LeagueFrame $leagueFrame)
+    public function edit(LeagueMatch $match, LeagueFrame $frame)
     {
-        //
+        return view('frame.edit', [
+            'frame' => $frame,
+            'match' => $match,
+            'homePlayers' => $match->homeTeam->getCurrentRoster(),
+            'awayPlayers' => $match->awayTeam->getCurrentRoster()
+        ]);
     }
 
     /**
