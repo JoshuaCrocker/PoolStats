@@ -169,11 +169,15 @@ class LeagueFrameController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\LeagueFrame  $leagueFrame
-     * @return \Illuminate\Http\Response
+     * @param LeagueMatch $match
+     * @param LeagueFrame $frame
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Exception
      */
-    public function destroy(LeagueFrame $leagueFrame)
+    public function destroy(LeagueMatch $match, LeagueFrame $frame)
     {
-        //
+        $frame->delete();
+
+        return redirect($match->endpoint());
     }
 }

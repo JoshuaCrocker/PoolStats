@@ -361,8 +361,29 @@ class FrameTest extends TestCase
         }
     }
 
-    // TODO edit - gui
-    // TODO delete
+    /**
+     * @test
+     */
+    public function the_user_can_delete_a_frame()
+    {
+        // Given we're signed in ...
+        $this->signIn();
+
+        // ... and we have a frame ...
+        $frame = create(LeagueFrame::class);
+
+        // ... if we hit the delete endpoint ...
+        $this->delete($frame->endpoint());
+
+        // ... the frame is deleted
+        $data = [
+            'id' => $frame->id,
+            'league_match_id' => $frame->league_match_id,
+            'frame_number' => $frame->frame_number
+        ];
+
+        $this->assertDatabaseMissing('league_frames', $data);
+    }
 
     // Historic Data
     // TODO working with historic data
