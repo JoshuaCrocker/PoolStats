@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreLeague;
 use App\League;
-use Illuminate\Http\Request;
 
 class LeagueController extends Controller
 {
@@ -41,15 +41,11 @@ class LeagueController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param StoreLeague $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreLeague $request)
     {
-        $request->validate([
-            'name' => 'required'
-        ]);
-
         $league = new League();
         $league->name = $request->name;
         $league->save();
@@ -91,15 +87,14 @@ class LeagueController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param StoreLeague $request
      * @param  \App\League $league
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, League $league)
+    public function update(StoreLeague $request, League $league)
     {
-        $league->update(request()->validate([
-            'name' => 'required'
-        ]));
+        $league->name = $request->name;
+        $league->save();
 
         return redirect('/leagues');
     }
@@ -109,6 +104,7 @@ class LeagueController extends Controller
      *
      * @param  \App\League $league
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(League $league)
     {

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Support\Database\CacheQueryBuilder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -10,6 +11,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class PlayerTeam extends Model
 {
+    use CacheQueryBuilder;
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Support\Database\CacheQueryBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
@@ -12,7 +13,7 @@ use Illuminate\Support\Collection;
  */
 class Team extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, CacheQueryBuilder;
 
     /**
      * Don't auto-apply mass assignment protection.
@@ -46,5 +47,10 @@ class Team extends Model
             ->map(function ($pt) {
                 return $pt->player;
             });
+    }
+
+    public function getVenueAttribute() {
+        // NYI - this needs to be changed to a `venue` method
+        return Venue::all()->first();
     }
 }
