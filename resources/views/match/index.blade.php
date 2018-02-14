@@ -14,6 +14,7 @@
                         <thead>
                             <tr>
                                 <th>Match Name</th>
+                                <th>Score</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -22,6 +23,7 @@
                             @foreach ($matches as $match)
                                 <tr>
                                     <td>{{ $match->name }}</td>
+                                    <td>{{ $match->homePoints }}-{{ $match->awayPoints }}</td>
                                     <td>
                                         <a href="{{ $match->endpoint() }}" class="btn btn-default btn-xs">View Details</a>
                                         <a href="{{ $match->endpoint() }}/edit" class="btn btn-default btn-xs">Edit</a>
