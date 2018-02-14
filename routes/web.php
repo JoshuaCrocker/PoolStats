@@ -14,3 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('teams', 'TeamController');
+Route::resource('leagues', 'LeagueController');
+Route::resource('matches', 'LeagueMatchController');
+Route::resource('matches/{match}/frames', 'LeagueFrameController');

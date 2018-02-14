@@ -2,12 +2,13 @@
 
 namespace App;
 
+use App\Support\Database\CacheQueryBuilder;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, CacheQueryBuilder;
 
     /**
      * The attributes that are mass assignable.

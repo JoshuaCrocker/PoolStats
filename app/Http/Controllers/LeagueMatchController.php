@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreLeagueMatch;
+use App\Http\Requests\UpdateLeagueMatch;
+use App\League;
 use App\LeagueMatch;
+use App\Team;
 use Illuminate\Http\Request;
 
 class LeagueMatchController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,9 @@ class LeagueMatchController extends Controller
      */
     public function index()
     {
-        //
+        return view('match.index', [
+            'matches' => LeagueMatch::all()
+        ]);
     }
 
     /**
@@ -24,62 +35,108 @@ class LeagueMatchController extends Controller
      */
     public function create()
     {
-        //
+        $data = [
+            'leagues' => League::all(),
+            'teams' => Team::all()
+        ];
+
+        return view('match.create', $data);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreLeagueMatch $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreLeagueMatch $request)
     {
-        //
+        $request->validate([
+
+        ]);
+
+        if (! $request->exists('venue_id')) {
+            $request->venue_id = Team::find($request->home_team_id)->venue->id;
+        }
+
+        $match = new LeagueMatch();
+        $match->league_id = $request->league_id;
+        $match->venue_id = $request->venue_id;
+        $match->match_date = $request->match_date;
+        $match->home_team_id = $request->home_team_id;
+        $match->away_team_id = $request->away_team_id;
+        $match->save();
+
+        return redirect('/matches');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\LeagueMatch  $leagueMatch
+     * @param  \App\LeagueMatch $leagueMatch
      * @return \Illuminate\Http\Response
      */
-    public function show(LeagueMatch $leagueMatch)
+    public function show(Request $request)
     {
-        //
+        $leagueMatch = LeagueMatch::find((int) $request->match);
+
+        return view('match.show', [
+            'match' => $leagueMatch
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\LeagueMatch  $leagueMatch
+     * @param Request $request
+     * @param $match
      * @return \Illuminate\Http\Response
      */
-    public function edit(LeagueMatch $leagueMatch)
+    public function edit(Request $request, $match)
     {
-        //
+        $leagueMatch = LeagueMatch::find($match);
+
+        $data = [
+            'leagues' => League::all(),
+            'teams' => Team::all(),
+            'match' => $leagueMatch
+        ];
+
+        return view('match.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\LeagueMatch  $leagueMatch
+     * @param UpdateLeagueMatch $request
+     * @param LeagueMatch $match
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, LeagueMatch $leagueMatch)
+    public function update(UpdateLeagueMatch $request, LeagueMatch $match)
     {
-        //
+        if ($request->exists('venue_id')) {
+            $match->venue_id = $request->venue_id;
+        }
+
+        $match->league_id = $request->league_id;
+        $match->match_date = $request->match_date;
+        $match->save();
+
+        return redirect($match->endpoint());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\LeagueMatch  $leagueMatch
+     * @param Request $request
+     * @param $match
      * @return \Illuminate\Http\Response
      */
-    public function destroy(LeagueMatch $leagueMatch)
+    public function destroy(Request $request, $match)
     {
-        //
+        // Todo make safer?
+        LeagueMatch::destroy($match);
+
+        return redirect('/matches');
     }
 }
