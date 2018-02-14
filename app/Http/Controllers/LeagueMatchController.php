@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreLeagueMatch;
+use App\Http\Requests\UpdateLeagueMatch;
 use App\League;
 use App\LeagueMatch;
 use App\Team;
@@ -44,16 +46,13 @@ class LeagueMatchController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param StoreLeagueMatch $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreLeagueMatch $request)
     {
         $request->validate([
-            'league_id' => 'required|exists:leagues,id',
-            'match_date' => 'required|date',
-            'home_team_id' => 'required|exists:teams,id|different:away_team_id',
-            'away_team_id' => 'required|exists:teams,id|different:home_team_id'
+
         ]);
 
         if (! $request->exists('venue_id')) {
@@ -109,17 +108,12 @@ class LeagueMatchController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\LeagueMatch $leagueMatch
+     * @param UpdateLeagueMatch $request
+     * @param LeagueMatch $match
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, LeagueMatch $match)
+    public function update(UpdateLeagueMatch $request, LeagueMatch $match)
     {
-        $request->validate([
-            'league_id' => 'required|exists:leagues,id',
-            'match_date' => 'required|date'
-        ]);
-
         if ($request->exists('venue_id')) {
             $match->venue_id = $request->venue_id;
         }

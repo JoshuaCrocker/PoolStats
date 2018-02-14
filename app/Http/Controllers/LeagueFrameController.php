@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreLeagueMatchFrame;
 use App\LeagueFrame;
 use App\LeagueFramePlayer;
 use App\LeagueMatch;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class LeagueFrameController extends Controller
 {
@@ -45,25 +44,12 @@ class LeagueFrameController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param StoreLeagueMatchFrame $request
      * @param LeagueMatch $match
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request, LeagueMatch $match)
+    public function store(StoreLeagueMatchFrame $request, LeagueMatch $match)
     {
-        $request->validate([
-            'frame_type' => [
-                'required',
-                Rule::in(['single', 'double'])
-            ],
-            'home_player_id' => 'required|exists:players,id',
-            'away_player_id' => 'required|exists:players,id',
-            'winning_team' => [
-                'required',
-                Rule::in(['home', 'away'])
-            ]
-        ]);
-
         // Create the frame
         $frame = new LeagueFrame();
         $frame->league_match_id = $match->id;
@@ -121,25 +107,14 @@ class LeagueFrameController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param StoreLeagueMatchFrame $request
      * @param LeagueMatch $match
      * @param  \App\LeagueFrame $frame
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, LeagueMatch $match, LeagueFrame $frame)
+    public function update(StoreLeagueMatchFrame $request, LeagueMatch $match, LeagueFrame $frame)
     {
-        $request->validate([
-            'frame_type' => [
-                'required',
-                Rule::in(['single', 'double'])
-            ],
-            'home_player_id' => 'required|exists:players,id',
-            'away_player_id' => 'required|exists:players,id',
-            'winning_team' => [
-                'required',
-                Rule::in(['home', 'away'])
-            ]
-        ]);
+
 
         // Create the frame
         $frame->doubles = $request->frame_type == 'single' ? false : true;
