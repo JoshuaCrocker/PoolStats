@@ -39,6 +39,29 @@ class PlayerUnitTest extends TestCase
     /**
      * @test
      */
+    public function it_can_get_details_about_its_current_team_membership()
+    {
+        // Given we have a player
+        $player = create(Player::class);
+
+        // and they're a member of a team
+        $team = create(Team::class);
+
+        $membership = create(PlayerTeam::class, [
+            'player_id' => $player->id,
+            'team_id' => $team->id,
+            'member_from' => Carbon::parse('-1 day'),
+            'member_to' => Carbon::parse('+1 day')
+        ]);
+
+        // we can get details about the team from the Player class
+        $this->assertEquals($player->membership->member_from, $membership->member_from);
+        $this->assertEquals($player->membership->member_to, $membership->member_to);
+    }
+
+    /**
+     * @test
+     */
     public function it_only_returns_the_current_team()
     {
         // Given we have a player

@@ -3,6 +3,30 @@
 @section('content')
     <div class="container">
         <div class="row">
+            <div class="col-md-8 col-md-offset 2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {{ $team->name }} Statistics
+                    </div>
+
+                    <table class="table table-bordered">
+                        <tr>
+                            <th style="width: 200px">Highest Performing Player</th>
+                            <td>
+                                {{ $team->highestPerformingPlayer->name }}
+                                (
+                                {{ $team->highestPerformingPlayer->membership->member_from }}
+                                &mdash;
+                                {{ $team->highestPerformingPlayer->membership->member_to }}
+                                )
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -24,7 +48,7 @@
                                 <tr>
                                     <td>{{ $member->name }}</td>
                                     <td>{{ $member->link->member_from }}</td>
-                                    <td>{{ $member->link->member_to == null ? "Current" : $member->link->member_to }}</td>
+                                    <td>{{ $member->link->member_to }}</td>
                                     <td>
                                         <a href="{{ $member->endpoint() }}/edit" class="btn btn-default btn-xs">Edit</a>
 

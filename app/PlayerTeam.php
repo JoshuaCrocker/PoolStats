@@ -38,4 +38,9 @@ class PlayerTeam extends Model
     {
         return $this->belongsTo(Player::class);
     }
+
+    public function getMemberToAttribute($value)
+    {
+        return $value == null ? 'Current' : $value;
+    }
 }
