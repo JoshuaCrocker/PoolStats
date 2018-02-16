@@ -25,7 +25,16 @@
                                     <td>{{ $member->name }}</td>
                                     <td>{{ $member->link->member_from }}</td>
                                     <td>{{ $member->link->member_to == null ? "Current" : $member->link->member_to }}</td>
-                                    <td></td>
+                                    <td>
+                                        <a href="{{ $member->endpoint() }}/edit" class="btn btn-default btn-xs">Edit</a>
+
+                                        <form action="{{ $member->link->endpoint() }}" method="POST">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
+
+                                            <input type="submit" value="Terminate" class="btn btn-danger btn-xs"/>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

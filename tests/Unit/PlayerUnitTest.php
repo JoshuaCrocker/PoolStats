@@ -126,4 +126,19 @@ class PlayerUnitTest extends TestCase
         $this->assertEquals($player2->team->id, $team2->id);
         $this->assertEquals($player2->team->name, $team2->name);
     }
+
+    /**
+     * @test
+     */
+    public function it_can_generate_its_endpoint()
+    {
+        // Given we have a Match
+        $player = create(Player::class);
+
+        // it can generate its endpoint
+        $this->assertEquals(
+            $player->endpoint(),
+            '/players/1'
+        );
+    }
 }

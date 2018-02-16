@@ -11,6 +11,16 @@ class Player extends Model
     use CacheQueryBuilder;
 
     /**
+     * Get the URL endpoint for the Player Model
+     *
+     * @return string
+     */
+    public function endpoint()
+    {
+        return '/players/' . $this->id;
+    }
+
+    /**
      * @return Team|null
      */
     public function getTeamAttribute()

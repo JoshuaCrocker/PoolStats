@@ -14,6 +14,16 @@ class PlayerTeam extends Model
     use CacheQueryBuilder;
 
     /**
+     * Get the URL endpoint for the Player Model
+     *
+     * @return string
+     */
+    public function endpoint()
+    {
+        return '/playerteam/' . $this->id;
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function team()

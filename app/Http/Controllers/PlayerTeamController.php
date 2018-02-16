@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\PlayerTeam;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PlayerTeamController extends Controller
@@ -75,11 +76,14 @@ class PlayerTeamController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\PlayerTeam  $playerTeam
+     * @param PlayerTeam $playerteam
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PlayerTeam $playerTeam)
+    public function destroy(PlayerTeam $playerteam)
     {
-        //
+        $playerteam->member_to = Carbon::parse('-1 day');
+        $playerteam->save();
+
+        return redirect()->back();
     }
 }
