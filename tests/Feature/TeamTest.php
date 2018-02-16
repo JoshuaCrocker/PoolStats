@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\PlayerTeam;
 use App\Team;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -115,6 +116,24 @@ class TeamTest extends TestCase
         // Given we have a team ...
         // ... and that team has a member ...
         $player_team = create(PlayerTeam::class);
+
+        // ... the member is displayed on the team page ...
+        $response = $this->get($player_team->team->endpoint());
+
+        $response->assertSee($player_team->player->name);
+    }
+
+    /**
+     * @test
+     */
+    public function a_team_displays_its_previous_members_on_its_page()
+    {
+        // Given we have a team ...
+        // ... and that team has a member ...
+        $player_team = create(PlayerTeam::class);
+
+        $player_team->member_from = Carbon::parse('-1 week');
+        $player_team->member_to = Carbon::parse('-1 day');
 
         // ... the member is displayed on the team page ...
         $response = $this->get($player_team->team->endpoint());

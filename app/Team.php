@@ -45,6 +45,23 @@ class Team extends Model
             ->where('member_to', '>=', date('Y-m-d'), 'OR')
             ->get()
             ->map(function ($pt) {
+                $pt->player->link = $pt;
+                return $pt->player;
+            });
+    }
+
+    /**
+     * Get the previous team members
+     *
+     * @return Collection
+     */
+    public function getHistoricRoster()
+    {
+        return PlayerTeam::where('team_id', $this->id)
+            ->where('member_to', '<', date('Y-m-d'))
+            ->get()
+            ->map(function ($pt) {
+                $pt->player->link = $pt;
                 return $pt->player;
             });
     }

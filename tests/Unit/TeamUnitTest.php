@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use App\Player;
 use App\PlayerTeam;
 use App\Team;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -46,7 +47,50 @@ class TeamUnitTest extends TestCase
             'player_id' => $player2->id
         ]);
 
+        create(PlayerTeam::class, [
+            'team_id' => $team->id,
+            'player_id' => $player1->id,
+            'member_from' => Carbon::parse('-1 week'),
+            'member_to' => Carbon::parse('-1 day')
+        ]);
+
+
         $roster = $team->getCurrentRoster();
+
+        $this->assertCount(2, $roster);
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_list_its_historic_roster()
+    {
+        $team = create(Team::class);
+        $player1 = create(Player::class);
+        $player2 = create(Player::class);
+
+        create(PlayerTeam::class, [
+            'team_id' => $team->id,
+            'player_id' => $player1->id,
+            'member_from' => Carbon::parse('+1 week'),
+            'member_to' => Carbon::parse('+2 weeks')
+        ]);
+
+        create(PlayerTeam::class, [
+            'team_id' => $team->id,
+            'player_id' => $player1->id,
+            'member_from' => Carbon::parse('-1 week'),
+            'member_to' => Carbon::parse('-1 day')
+        ]);
+
+        create(PlayerTeam::class, [
+            'team_id' => $team->id,
+            'player_id' => $player2->id,
+            'member_from' => Carbon::parse('-1 week'),
+            'member_to' => Carbon::parse('-1 day')
+        ]);
+
+        $roster = $team->getHistoricRoster();
 
         $this->assertCount(2, $roster);
     }
