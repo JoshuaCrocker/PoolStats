@@ -118,21 +118,7 @@ class RecalculateHighestPerformingPlayerStatCommand extends Command
             foreach ($players as $player) {
                 // Check they're on this team
                 if ($player->player->findTeam(Carbon::parse($frame->match->match_date))->id != $teamID) continue;
-
-                // Set up output record if it doesn't exist
-                if (!isset($playerStats[$player->player->id])) {
-                    $playerStats[$player->player->id] = [
-                        'wins' => 0,
-                        'loses' => 0
-                    ];
-                }
-
-                // Increment correct counter
-                if ($player->winner) {
-                    $playerStats[$player->player->id]['wins']++;
-                } else {
-                    $playerStats[$player->player->id]['loses']++;
-                }
+                $playerStats[$player->player->id] = $this->calculateWinsLoses($player);
             }
 
         }
@@ -145,5 +131,23 @@ class RecalculateHighestPerformingPlayerStatCommand extends Command
         $total = $wins + $loses;
         $score = $wins / max(1, $total);
         return round($score * 100);
+    }
+
+    private function calculateWinsLoses($player)
+    {
+        // Set up output record if it doesn't exist
+        $output = [
+            'wins' => 0,
+            'loses' => 0
+        ];
+
+        // Increment correct counter
+        if ($player->winner) {
+            $output['wins']++;
+        } else {
+            $output['loses']++;
+        }
+
+        return $output;
     }
 }
