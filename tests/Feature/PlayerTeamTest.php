@@ -283,4 +283,123 @@ class PlayerTeamTest extends TestCase
         // the new membership exists
         $this->assertDatabaseMissing('player_teams', $payload);
     }
+
+    /**
+     * @test
+     */
+    public function the_user_can_edit_a_players_membership()
+    {
+        $this->signIn();
+
+        // Give we have a membership record
+        $joint = $this->playerWithTeam();
+
+        $team = $joint['team'];
+        $player = $joint['player'];
+        $membership = $joint['subscription'];
+
+        // and we hit its endpoint with updated dates
+        $payload = [
+            'member_from' => Carbon::parse('+1 month')->toDateString(),
+            'member_to' => Carbon::parse('+2 months')->toDateString()
+        ];
+
+        $request = $this->patch('/teams/' . $team->id . '/membership/' . $membership->id, $payload);
+
+        $payload['id'] = $membership->id;
+
+        // The record is updated
+        $this->assertDatabaseHas('player_teams', $payload);
+    }
+
+    /**
+     * @test
+     */
+    public function an_edited_membership_must_have_a_valid_member_from()
+    {
+        $this->signIn();
+        $this->withExceptionHandling();
+
+        // Give we have a membership record
+        $joint = $this->playerWithTeam();
+
+        $team = $joint['team'];
+        $player = $joint['player'];
+        $membership = $joint['subscription'];
+
+        // and we hit its endpoint with updated dates
+        $payload = [
+            'member_from' => '17-03-2018',
+            'member_to' => Carbon::parse('+2 months')->toDateString()
+        ];
+
+        $request = $this->patch('/teams/' . $team->id . '/membership/' . $membership->id, $payload);
+
+        $request->assertSessionHasErrors('member_from');
+
+        // The record is updated
+        $payload['id'] = $membership->id;
+        $this->assertDatabaseMissing('player_teams', $payload);
+    }
+
+    /**
+     * @test
+     */
+    public function an_edited_membership_must_have_a_valid_member_to()
+    {
+        $this->signIn();
+        $this->withExceptionHandling();
+
+        // Give we have a membership record
+        $joint = $this->playerWithTeam();
+
+        $team = $joint['team'];
+        $player = $joint['player'];
+        $membership = $joint['subscription'];
+
+        // and we hit its endpoint with updated dates
+        $payload = [
+            'member_from' => Carbon::parse('+1 day')->toDateString(),
+            'member_to' => '17-03-2018'
+        ];
+
+        $request = $this->patch('/teams/' . $team->id . '/membership/' . $membership->id, $payload);
+
+        $request->assertSessionHasErrors('member_to');
+
+        // The record is updated
+        $payload['id'] = $membership->id;
+        $this->assertDatabaseMissing('player_teams', $payload);
+    }
+
+    /**
+     * @test
+     */
+    public function an_edited_membership_must_have_member_to_after_member_from()
+    {
+        $this->signIn();
+        $this->withExceptionHandling();
+
+        // Give we have a membership record
+        $joint = $this->playerWithTeam();
+
+        $team = $joint['team'];
+        $player = $joint['player'];
+        $membership = $joint['subscription'];
+
+        // and we hit its endpoint with updated dates
+        $payload = [
+            'member_from' => Carbon::parse('+2 months')->toDateString(),
+            'member_to' => Carbon::parse('+1 month')->toDateString()
+        ];
+
+        $request = $this->patch('/teams/' . $team->id . '/membership/' . $membership->id, $payload);
+
+        $request->assertSessionHasErrors('member_from');
+        $request->assertSessionHasErrors('member_to');
+
+        // The record is updated
+        $payload['id'] = $membership->id;
+        $this->assertDatabaseMissing('player_teams', $payload);
+    }
 }

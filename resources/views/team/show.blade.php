@@ -58,7 +58,10 @@
                                     <td>{{ $member->link->member_from }}</td>
                                     <td>{{ $member->link->member_to }}</td>
                                     <td>
-                                        <a href="{{ $member->endpoint() }}/edit" class="btn btn-default btn-xs">Edit</a>
+                                        <a href="{{ route('membership.edit', [
+                                            'team' => $team,
+                                            'membership' => $member->link
+                                        ]) }}" class="btn btn-default btn-xs">Edit Membership</a>
 
                                         <form action="{{ $member->link->endpoint() }}" method="POST">
                                             {{ csrf_field() }}

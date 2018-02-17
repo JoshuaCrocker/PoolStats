@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePlayerTeam;
+use App\Http\Requests\UpdatePlayerTeam;
 use App\Player;
 use App\PlayerTeam;
 use App\Team;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class PlayerTeamController extends Controller
 {
@@ -78,24 +78,35 @@ class PlayerTeamController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\PlayerTeam  $playerTeam
+     * @param Team $team
+     * @param PlayerTeam $membership
      * @return \Illuminate\Http\Response
      */
     public function edit(Team $team, PlayerTeam $membership)
     {
-        //
+        $data = [
+            'team' => $team,
+            'membership' => $membership
+        ];
+
+        return view('team.membership.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\PlayerTeam  $playerTeam
+     * @param UpdatePlayerTeam $request
+     * @param Team $team
+     * @param PlayerTeam $membership
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Team $team, PlayerTeam $membership)
+    public function update(UpdatePlayerTeam $request, Team $team, PlayerTeam $membership)
     {
-        //
+        $membership->member_from = $request->member_from;
+        $membership->member_to = $request->member_to;
+        $membership->save();
+
+        return redirect($team->endpoint());
     }
 
     /**
