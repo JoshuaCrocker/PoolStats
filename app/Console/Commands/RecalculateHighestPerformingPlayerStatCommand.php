@@ -50,11 +50,11 @@ class RecalculateHighestPerformingPlayerStatCommand extends Command
 
         $teams->each(function ($team) {
             // TODO validate
-            $this->recalculate($team);
+            $this->recalculateTeamStats($team);
         });
     }
 
-    private function recalculate($teamID)
+    private function recalculateTeamStats($teamID)
     {
         // Empty these results out...
         HPPStat::where('team_id', $teamID)->delete();
@@ -62,7 +62,7 @@ class RecalculateHighestPerformingPlayerStatCommand extends Command
         $this->info("Recalculating " . $teamID);
 
         $frames = $this->collectFrames($teamID);
-        $playerStats = $this->calculatePlayerStats($frames, $teamID);
+        $playerStats = $this->getTeamPlayers($frames, $teamID);
 
         $this->info('Calculating scores');
 
@@ -104,7 +104,7 @@ class RecalculateHighestPerformingPlayerStatCommand extends Command
         return $frames;
     }
 
-    private function calculatePlayerStats($frames, $teamID)
+    private function getTeamPlayers($frames, $teamID)
     {
         // Set up output array
         $playerStats = [];
@@ -112,15 +112,24 @@ class RecalculateHighestPerformingPlayerStatCommand extends Command
         // Iterate over frames
         foreach ($frames as $frame) {
             // Get all frame players
-            $players = $frame->players->all();
+            $frame->players->each(function ($player) use ($frame, &$playerStats, $teamID) {
+                if ($player->player->findTeam(Carbon::parse($frame->match->match_date))->id == $teamID) {
+                    if (!isset($playerStats[$player->player->id])) {
+                        $playerStats[$player->player->id] = [
+                            'wins' => 0,
+                            'loses' => 0
+                        ];
+                    }
 
-            // Iterate over players
-            foreach ($players as $player) {
-                // Check they're on this team
-                if ($player->player->findTeam(Carbon::parse($frame->match->match_date))->id != $teamID) continue;
-                $playerStats[$player->player->id] = $this->calculateWinsLoses($player);
-            }
+                    // Increment correct counter
+                    if ($player->winner) {
+                        $playerStats[$player->player->id]['wins']++;
+                    } else {
+                        $playerStats[$player->player->id]['loses']++;
+                    }
+                }
 
+            });
         }
 
         return $playerStats;
@@ -131,23 +140,5 @@ class RecalculateHighestPerformingPlayerStatCommand extends Command
         $total = $wins + $loses;
         $score = $wins / max(1, $total);
         return round($score * 100);
-    }
-
-    private function calculateWinsLoses($player)
-    {
-        // Set up output record if it doesn't exist
-        $output = [
-            'wins' => 0,
-            'loses' => 0
-        ];
-
-        // Increment correct counter
-        if ($player->winner) {
-            $output['wins']++;
-        } else {
-            $output['loses']++;
-        }
-
-        return $output;
     }
 }
