@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset 2">
+            <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         {{ $team->name }} Statistics
@@ -13,12 +13,16 @@
                         <tr>
                             <th style="width: 200px">Highest Performing Player</th>
                             <td>
-                                {{ $team->highestPerformingPlayer->name }}
-                                (
-                                {{ $team->highestPerformingPlayer->membership->member_from }}
-                                &mdash;
-                                {{ $team->highestPerformingPlayer->membership->member_to }}
-                                )
+                                @if ($team->highestPerformingPlayer == null)
+                                    <em>Not calculated</em>
+                                @else
+                                    {{ $team->highestPerformingPlayer->name }}
+                                    (
+                                    {{ $team->highestPerformingPlayer->membership->member_from }}
+                                    &mdash;
+                                    {{ $team->highestPerformingPlayer->membership->member_to }}
+                                    )
+                                @endif
                             </td>
                         </tr>
                     </table>

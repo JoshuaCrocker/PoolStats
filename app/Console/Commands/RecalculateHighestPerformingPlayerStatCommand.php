@@ -117,7 +117,7 @@ class RecalculateHighestPerformingPlayerStatCommand extends Command
             // Iterate over players
             foreach ($players as $player) {
                 // Check they're on this team
-                if ($player->player->getTeam(Carbon::parse($frame->match->match_date))->team_id != $teamID) continue;
+                if ($player->player->findTeam(Carbon::parse($frame->match->match_date))->id != $teamID) continue;
 
                 // Set up output record if it doesn't exist
                 if (!isset($playerStats[$player->player->id])) {

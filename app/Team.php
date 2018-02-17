@@ -70,4 +70,16 @@ class Team extends Model
         // NYI - this needs to be changed to a `venue` method
         return Venue::all()->first();
     }
+
+    public function getHighestPerformingPlayerAttribute()
+    {
+        $hppRecord = HPPStat::where('team_id', $this->id)
+            ->orderBy('score', 'desc')->get();
+
+        if ($hppRecord->count() == 0) {
+            return null;
+        }
+
+        return $hppRecord->first()->player;
+    }
 }

@@ -15,4 +15,14 @@ class HPPStat extends Model
      * @var string
      */
     protected $table = 'stats_hpp';
+
+    public function player()
+    {
+        return $this->belongsTo(Player::class);
+    }
+
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
+    }
 }

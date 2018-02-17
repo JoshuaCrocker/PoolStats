@@ -120,34 +120,21 @@ class PlayerUnitTest extends TestCase
     public function it_returns_the_correct_membership_to_the_correct_players()
     {
         // Given we have two players
-        $player1 = create(Player::class);
-        $player2 = create(Player::class);
-
         // and two teams
+        // with one player in each team
+
         $team1 = create(Team::class);
         $team2 = create(Team::class);
 
-        // with one player in each team
-        create(PlayerTeam::class, [
-            'player_id' => $player1->id,
-            'team_id' => $team1->id,
-            'member_from' => Carbon::parse('-1 day'),
-            'member_to' => Carbon::parse('+1 day')
-        ]);
-
-        create(PlayerTeam::class, [
-            'player_id' => $player2->id,
-            'team_id' => $team2->id,
-            'member_from' => Carbon::parse('-1 day'),
-            'member_to' => Carbon::parse('+1 day')
-        ]);
+        $player1 = $this->playerWithTeam($team1)['player'];
+        $player2 = $this->playerWithTeam($team2)['player'];
 
         // the player class returns the correct membership
-        $this->assertEquals($player1->team->id, $team1->id);
-        $this->assertEquals($player1->team->name, $team1->name);
+        $this->assertEquals($team1->id, $player1->team->id);
+        $this->assertEquals($team1->name, $player1->team->name);
 
-        $this->assertEquals($player2->team->id, $team2->id);
-        $this->assertEquals($player2->team->name, $team2->name);
+        $this->assertEquals($team2->id, $player2->team->id);
+        $this->assertEquals($team2->name, $player2->team->name);
     }
 
     /**

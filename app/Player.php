@@ -25,7 +25,7 @@ class Player extends Model
      */
     public function getMembershipAttribute()
     {
-        return $this->getMembership();
+        return $this->findMembership();
     }
 
     /**
@@ -33,21 +33,27 @@ class Player extends Model
      */
     public function getTeamAttribute()
     {
-        return $this->getTeam();
+        return $this->findTeam();
     }
 
     // TODO test - historic
-    public function getTeam(Carbon $when = null)
+    public function findTeam(Carbon $when = null)
     {
         if ($when == null) {
             $when = Carbon::now();
         }
 
-        return $this->getMembership($when) == null ? null : $this->getMembership($when);
+        $membership = $this->findMembership($when);
+
+        if ($membership === null) {
+            return null;
+        }
+
+        return $membership->team;
     }
 
     // TODO test - historic
-    public function getMembership(Carbon $when = null)
+    public function findMembership(Carbon $when = null)
     {
         if ($when == null) {
             $when = Carbon::now();
@@ -57,7 +63,7 @@ class Player extends Model
         ->where('member_from', '<=', $when, 'AND')// where is membership started in the past
         ->where(function ($query) use ($when) {
             $query->where('member_to', null)// and is continuous
-            ->where('member_to', '>=', $when, 'OR'); // or ends in the future
+            ->orWhere('member_to', '>=', $when); // or ends in the future
         });
 
         // TODO error handling
