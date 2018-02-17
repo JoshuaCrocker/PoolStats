@@ -75,4 +75,9 @@ class Player extends Model
 
         return $team_link->get()->first();
     }
+
+    public function getMembershipsAttribute()
+    {
+        return PlayerTeam::where('player_id', $this->id)->get();
+    }
 }

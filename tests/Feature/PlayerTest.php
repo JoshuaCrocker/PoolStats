@@ -171,5 +171,19 @@ class PlayerTest extends TestCase
         $request->assertSee($player->name);
     }
 
-    // TODO read
+    /**
+     * @test
+     */
+    public function the_player_page_displays_all_memberships()
+    {
+        $this->signIn();
+
+        $data = $this->playerWithTeam();
+
+        $request = $this->get(route('players.show', $data['player']));
+        
+        $request->assertSee($data['team']->name);
+        $request->assertSee($data['subscription']->member_from->toDateString());
+        $request->assertSee("Current");
+    }
 }
