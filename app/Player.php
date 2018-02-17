@@ -5,10 +5,11 @@ namespace App;
 use App\Support\Database\CacheQueryBuilder;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Player extends Model
 {
-    use CacheQueryBuilder;
+    use CacheQueryBuilder, SoftDeletes;
 
     /**
      * Get the URL endpoint for the Player Model
