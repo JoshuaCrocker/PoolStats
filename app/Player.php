@@ -11,27 +11,67 @@ class Player extends Model
     use CacheQueryBuilder;
 
     /**
+     * Get the URL endpoint for the Player Model
+     *
+     * @return string
+     */
+    public function endpoint()
+    {
+        return '/players/' . $this->id;
+    }
+
+    /**
+     * @return PlayerTeam|null
+     */
+    public function getMembershipAttribute()
+    {
+        return $this->findMembership();
+    }
+
+    /**
      * @return Team|null
      */
     public function getTeamAttribute()
     {
-        // Get teams
+        return $this->findTeam();
+    }
+
+    // TODO test - historic
+    public function findTeam(Carbon $when = null)
+    {
+        if ($when == null) {
+            $when = Carbon::now();
+        }
+
+        $membership = $this->findMembership($when);
+
+        if ($membership === null) {
+            return null;
+        }
+
+        return $membership->team;
+    }
+
+    // TODO test - historic
+    public function findMembership(Carbon $when = null)
+    {
+        if ($when == null) {
+            $when = Carbon::now();
+        }
+
         $team_link = PlayerTeam::where('player_id', $this->id)// Where the player is/was a member
-        ->where('member_from', '<=', Carbon::now(), 'AND')// where is membership started in the past
-        ->where(function ($query) {
+        ->where('member_from', '<=', $when, 'AND')// where is membership started in the past
+        ->where(function ($query) use ($when) {
             $query->where('member_to', null)// and is continuous
-            ->where('member_to', '>=', Carbon::now(), 'OR'); // or ends in the future
+            ->orWhere('member_to', '>=', $when); // or ends in the future
         });
 
-
-        if ($team_link->get()->count() > 1) {
-            // Error?
-        }
+        // TODO error handling
 
         if ($team_link->get()->count() == 0) {
             return null;
         }
 
-        return $team_link->first()->team;
+        return $team_link->get()->first();
     }
 }

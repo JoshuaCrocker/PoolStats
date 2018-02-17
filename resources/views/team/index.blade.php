@@ -23,6 +23,8 @@
                                 <tr>
                                     <td>{{ $team->name }}</td>
                                     <td>
+                                        <a href="{{ $team->endpoint() }}" class="btn btn-default btn-xs">View
+                                                                                                         Details</a>
                                         <a href="{{ $team->endpoint() }}/edit" class="btn btn-default btn-xs">Edit</a>
 
                                         <form action="{{ $team->endpoint() }}" method="POST">

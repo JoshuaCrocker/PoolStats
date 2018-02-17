@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\PlayerTeam;
 use App\Team;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -24,7 +25,6 @@ class TeamTest extends TestCase
     }
 
     /**
-     * @todo Ensure the user is logged in
      * @test
      */
     public function a_new_team_can_be_created()
@@ -121,6 +121,61 @@ class TeamTest extends TestCase
         $response = $this->get($player_team->team->endpoint());
 
         $response->assertSee($player_team->player->name);
+    }
+
+    /**
+     * @test
+     */
+    public function a_team_displays_its_previous_members_on_its_page()
+    {
+        // Given we have a team ...
+        // ... and that team has a member ...
+        $player_team = create(PlayerTeam::class);
+
+        $player_team->member_from = Carbon::parse('-1 week');
+        $player_team->member_to = Carbon::parse('-1 day');
+
+        // ... the member is displayed on the team page ...
+        $response = $this->get($player_team->team->endpoint());
+
+        $response->assertSee($player_team->player->name);
+    }
+
+    /** @test */
+    public function the_user_must_be_logged_in_to_create_a_team()
+    {
+        // Given we're not signed in ...
+        // $this->signIn();
+
+        $this->withExceptionHandling();
+
+        $team = make(Team::class)->toArray();
+        $request = $this->post('/teams', $team);
+
+        // ... we should be redirected to the login page
+        $request->assertRedirect('/login');
+    }
+
+    /** @test */
+    public function the_user_must_be_logged_in_to_update_a_team()
+    {
+        // Given we're not signed in ...
+        // $this->signIn();
+
+        $this->withExceptionHandling();
+
+        // Given we have a team
+        $team = create(Team::class);
+
+        // and we update the name
+        $update_data = [
+            'name' => 'Updated Team'
+        ];
+
+        $request = $this->patch($team->endpoint(), $update_data);
+
+        // ... we should be redirected to the login page
+        $request->assertRedirect('/login');
     }
 
 }

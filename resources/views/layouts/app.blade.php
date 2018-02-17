@@ -38,6 +38,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="{{ route('leagues.index') }}">Leagues</a></li>
                         <li><a href="{{ route('matches.index') }}">Matches</a></li>
+                        <li><a href="{{ route('teams.index') }}">Teams</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

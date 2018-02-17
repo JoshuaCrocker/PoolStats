@@ -45,6 +45,23 @@ class Team extends Model
             ->where('member_to', '>=', date('Y-m-d'), 'OR')
             ->get()
             ->map(function ($pt) {
+                $pt->player->link = $pt;
+                return $pt->player;
+            });
+    }
+
+    /**
+     * Get the previous team members
+     *
+     * @return Collection
+     */
+    public function getHistoricRoster()
+    {
+        return PlayerTeam::where('team_id', $this->id)
+            ->where('member_to', '<', date('Y-m-d'))
+            ->get()
+            ->map(function ($pt) {
+                $pt->player->link = $pt;
                 return $pt->player;
             });
     }
@@ -52,5 +69,17 @@ class Team extends Model
     public function getVenueAttribute() {
         // NYI - this needs to be changed to a `venue` method
         return Venue::all()->first();
+    }
+
+    public function getHighestPerformingPlayerAttribute()
+    {
+        $hppRecord = HPPStat::where('team_id', $this->id)
+            ->orderBy('score', 'desc')->get();
+
+        if ($hppRecord->count() == 0) {
+            return null;
+        }
+
+        return $hppRecord->first()->player;
     }
 }
