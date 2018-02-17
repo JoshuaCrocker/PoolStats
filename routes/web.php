@@ -24,4 +24,4 @@ Route::resource('leagues', 'LeagueController');
 Route::resource('matches', 'LeagueMatchController');
 Route::resource('players', 'PlayerController');
 Route::resource('matches/{match}/frames', 'LeagueFrameController');
-Route::resource('playerteam', 'PlayerTeamController');
+Route::resource('teams/{team}/membership', 'PlayerTeamController');

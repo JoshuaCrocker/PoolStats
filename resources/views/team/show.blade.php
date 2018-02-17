@@ -35,6 +35,10 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         {{ $team->name }} Members
+
+                        <a href="{{ url("{$team->endpoint()}/membership/create") }}"
+                           class="btn btn-primary btn-xs pull-right">Add
+                                                                     Member</a>
                     </div>
 
                     <table class="table table-bordered">

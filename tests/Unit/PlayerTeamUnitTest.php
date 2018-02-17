@@ -21,7 +21,7 @@ class PlayerTeamUnitTest extends TestCase
         // it can generate its endpoint
         $this->assertEquals(
             $player->endpoint(),
-            '/playerteam/1'
+            '/teams/' . $player->team_id . '/membership/1'
         );
     }
 }

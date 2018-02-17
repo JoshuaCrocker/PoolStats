@@ -20,7 +20,7 @@ class PlayerTeam extends Model
      */
     public function endpoint()
     {
-        return '/playerteam/' . $this->id;
+        return '/teams/' . $this->id . '/membership/' . $this->id;
     }
 
     /**
