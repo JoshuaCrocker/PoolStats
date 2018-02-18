@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\LeagueMatch;
 use App\Player;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 
 class PlayerTest extends TestCase
@@ -207,6 +208,8 @@ class PlayerTest extends TestCase
         $this->frameWithPlayers($match, $player['player'], null, 'away');
         $this->frameWithPlayers($match, $player['player'], null, 'draw');
         $this->frameWithPlayers($match, $player['player'], null, 'draw');
+
+        Artisan::call('stats:wld');
 
         $request = $this->get(route('players.show', $player['player']));
         $request->assertSeeText('3W');
