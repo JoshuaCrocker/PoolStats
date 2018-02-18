@@ -39,5 +39,6 @@ class RecalculateStatsCommand extends Command
     public function handle()
     {
         Artisan::call('stats:hpp');
+        Artisan::call('stats:wld');
     }
 }

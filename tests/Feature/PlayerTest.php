@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\LeagueMatch;
 use App\Player;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -181,9 +182,35 @@ class PlayerTest extends TestCase
         $data = $this->playerWithTeam();
 
         $request = $this->get(route('players.show', $data['player']));
-        
+
         $request->assertSee($data['team']->name);
         $request->assertSee($data['subscription']->member_from->toDateString());
         $request->assertSee("Current");
+    }
+
+    /**
+     * @test
+     */
+    public function the_player_page_displays_the_players_all_time_wins_and_loses()
+    {
+        $this->signIn();
+
+        $player = $this->playerWithTeam();
+
+        $match = create(LeagueMatch::class, [
+            'home_team_id' => $player['team']->id
+        ]);
+
+        $this->frameWithPlayers($match, $player['player']);
+        $this->frameWithPlayers($match, $player['player']);
+        $this->frameWithPlayers($match, $player['player']);
+        $this->frameWithPlayers($match, $player['player'], null, 'away');
+        $this->frameWithPlayers($match, $player['player'], null, 'draw');
+        $this->frameWithPlayers($match, $player['player'], null, 'draw');
+
+        $request = $this->get(route('players.show', $player['player']));
+        $request->assertSeeText('3W');
+        $request->assertSeeText('1L');
+        $request->assertSeeText('2D');
     }
 }

@@ -11,9 +11,20 @@
 
                     <table class="table table-bordered">
                         <tr>
-                            <th style="width: 200px">NYI</th>
+                            <th style="width: 200px">Overall Wins / Loses</th>
                             <td>
-                                NYI
+                                @if (is_null($stat_wld))
+                                    <em>Stat not yet calculated.</em>
+                                @else
+                                    <strong class="text-success">{{ $stat_wld->wins }}<abbr
+                                                title="Wins">W</abbr></strong>
+                                    /
+                                    <strong class="text-danger">{{ $stat_wld->loses }}<abbr
+                                                title="Loses">L</abbr></strong>
+                                    /
+                                    <strong class="text-gray">{{ $stat_wld->draws }}<abbr
+                                                title="Draws">D</abbr></strong>
+                                @endif
                             </td>
                         </tr>
                     </table>

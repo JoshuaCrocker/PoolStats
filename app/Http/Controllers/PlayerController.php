@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePlayer;
 use App\Player;
+use App\WLDStat;
 
 class PlayerController extends Controller
 {
@@ -62,8 +63,17 @@ class PlayerController extends Controller
      */
     public function show(Player $player)
     {
+        $statWLD = WLDStat::where('player_id', $player->id)->get();
+
+        if ($statWLD->count() == 0) {
+            $statWLD = null;
+        } else {
+            $statWLD = $statWLD->first();
+        }
+
         $data = [
-            'player' => $player
+            'player' => $player,
+            'stat_wld' => $statWLD
         ];
 
         return view('player.show', $data);

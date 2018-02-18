@@ -266,4 +266,40 @@ class FrameUnitTest extends TestCase
         $this->assertContains($playerAway1['player']->name, $frame['frame']->awayPlayers[0]->name);
         $this->assertContains($playerAway2['player']->name, $frame['frame']->awayPlayers[1]->name);
     }
+
+    /**
+     * @test
+     */
+    public function it_can_determine_if_the_match_was_a_draw()
+    {
+        $match = create(LeagueMatch::class);
+
+        $frames = $this->frameWithPlayers($match, null, null, 'draw');
+
+        $this->assertTrue($frames['frame']->isDraw());
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_determine_if_the_doubles_match_was_a_draw()
+    {
+        $match = create(LeagueMatch::class);
+
+        $frames = $this->doublesFrameWithPlayers($match, null, null, null, null, 'draw');
+
+        $this->assertTrue($frames['frame']->isDraw());
+    }
+
+    /**
+     * @test
+     */
+    public function it_doesnt_incorrectly_call_it_a_draw()
+    {
+        $match = create(LeagueMatch::class);
+
+        $frames = $this->frameWithPlayers($match, null, null, 'home');
+
+        $this->assertFalse($frames['frame']->isDraw());
+    }
 }
