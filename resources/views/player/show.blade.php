@@ -27,6 +27,11 @@
                                 @endif
                             </td>
                         </tr>
+
+                        <tr>
+                            <th>Match Attendance</th>
+                            <td>x% (xx / xx)</td>
+                        </tr>
                     </table>
                 </div>
             </div>
