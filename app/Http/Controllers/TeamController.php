@@ -68,7 +68,8 @@ class TeamController extends Controller
     {
         $data = [
             'team' => $team,
-            'members' => $team->getCurrentRoster()
+            'members' => $team->getCurrentRoster(),
+            'historic' => $team->getHistoricRoster()
         ];
 
         return view('team.show', $data);

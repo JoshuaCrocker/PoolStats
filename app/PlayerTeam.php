@@ -14,6 +14,16 @@ class PlayerTeam extends Model
     use CacheQueryBuilder;
 
     /**
+     * Get the URL endpoint for the Player Model
+     *
+     * @return string
+     */
+    public function endpoint()
+    {
+        return '/teams/' . $this->id . '/membership/' . $this->id;
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function team()
@@ -27,5 +37,10 @@ class PlayerTeam extends Model
     public function player()
     {
         return $this->belongsTo(Player::class);
+    }
+
+    public function getMemberToAttribute($value)
+    {
+        return $value == null ? 'Current' : $value;
     }
 }
