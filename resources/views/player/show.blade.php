@@ -30,7 +30,14 @@
 
                         <tr>
                             <th>Match Attendance</th>
-                            <td>x% (xx / xx)</td>
+                            <td>
+                                @if (is_null($stat_attendance))
+                                    <em>Stat not yet calculated.</em>
+                                @else
+                                    {{ $stat_attendance->percentage }}%
+                                    ({{ $stat_attendance->played }} / {{ $stat_attendance->total }})
+                                @endif
+                            </td>
                         </tr>
                     </table>
                 </div>

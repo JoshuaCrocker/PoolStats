@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePlayer;
 use App\Player;
 use App\WLDStat;
+use App\StatAttendance;
 
 class PlayerController extends Controller
 {
@@ -64,6 +65,7 @@ class PlayerController extends Controller
     public function show(Player $player)
     {
         $statWLD = WLDStat::where('player_id', $player->id)->get();
+        $statAttendance = StatAttendance::where('player_id', $player->id)->get();
 
         if ($statWLD->count() == 0) {
             $statWLD = null;
@@ -71,9 +73,16 @@ class PlayerController extends Controller
             $statWLD = $statWLD->first();
         }
 
+        if ($statAttendance->count() == 0) {
+            $statAttendance = null;
+        } else {
+            $statAttendance = $statAttendance->first();
+        }
+
         $data = [
             'player' => $player,
-            'stat_wld' => $statWLD
+            'stat_wld' => $statWLD,
+            'stat_attendance' => $statAttendance
         ];
 
         return view('player.show', $data);

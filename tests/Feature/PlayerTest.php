@@ -216,4 +216,46 @@ class PlayerTest extends TestCase
         $request->assertSeeText('1L');
         $request->assertSeeText('2D');
     }
+
+    /**
+     * @test
+     */
+    public function the_player_page_displays_the_players_match_attendance() {
+        $this->signIn();
+
+        $player = $this->playerWithTeam();
+
+        // Create matches where player didn't attend
+        create(LeagueMatch::class, [
+            'home_team_id' => $player['team']->id
+        ]);
+
+        create(LeagueMatch::class, [
+            'home_team_id' => $player['team']->id
+        ]);
+
+        // Create matches where player did attend
+        $match1 = create(LeagueMatch::class, [
+            'home_team_id' => $player['team']->id
+        ]);
+
+        $match2 = create(LeagueMatch::class, [
+            'home_team_id' => $player['team']->id
+        ]);
+
+        $match3 = create(LeagueMatch::class, [
+            'home_team_id' => $player['team']->id
+        ]);
+
+        $this->frameWithPlayers($match1, $player['player']);
+        $this->frameWithPlayers($match2, $player['player']);
+        $this->frameWithPlayers($match3, $player['player']);
+
+        Artisan::call('stats:attendance');
+
+        $request = $this->get(route('players.show', $player['player']));
+
+        $request->assertSee('60.00%');
+        $request->assertSee('3 / 5');
+    }
 }
