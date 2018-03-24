@@ -179,4 +179,37 @@ class TeamUnitTest extends TestCase
         $this->assertEquals($player1->id, $team->highestPerformingPlayer->id);
         $this->assertEquals($player1->name, $team->highestPerformingPlayer->name);
     }
+
+    /**
+     * @test
+     */
+    public function it_can_calculate_the_overall_team_wins_loses_draws()
+    {
+        $this->signIn();
+
+        $team = create(Team::class);
+
+        $player1 = $this->playerWithTeam($team);
+        $player2 = $this->playerWithTeam($team);
+
+        $match = create(LeagueMatch::class, [
+            'home_team_id' => $team->id
+        ]);
+
+        $this->frameWithPlayers($match, $player1['player']);
+        $this->frameWithPlayers($match, $player1['player'], null, 'away');
+        $this->frameWithPlayers($match, $player1['player'], null, 'draw');
+
+        $this->frameWithPlayers($match, $player2['player']);
+        $this->frameWithPlayers($match, $player2['player']);
+        $this->frameWithPlayers($match, $player2['player'], null, 'away');
+        $this->frameWithPlayers($match, $player2['player'], null, 'draw');
+
+        Artisan::call('stats:wld');
+
+        $response = $this->get(route('teams.show', $team->id));
+        $response->assertSeeText('3W');
+        $response->assertSeeText('2D');
+        $response->assertSeeText('2L');
+    }
 }

@@ -41,5 +41,6 @@ class RecalculateStatsCommand extends Command
         Artisan::call('stats:hpp');
         Artisan::call('stats:wld');
         Artisan::call('stats:attendance');
+        Artisan::call('stats:venues');
     }
 }

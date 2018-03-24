@@ -25,6 +25,24 @@
                                 @endif
                             </td>
                         </tr>
+
+                        <tr>
+                            <th style="width: 200px">Overall Wins / Loses</th>
+                            <td>
+                                @if ($team->wld == null)
+                                    <em>Not calculated</em>
+                                @else
+                                    <strong class="text-success">{{ $team->wld['wins'] }}<abbr
+                                                title="Wins">W</abbr></strong>
+                                    /
+                                    <strong class="text-danger">{{ $team->wld['loses'] }}<abbr
+                                                title="Loses">L</abbr></strong>
+                                    /
+                                    <strong class="text-gray">{{ $team->wld['draws'] }}<abbr
+                                                title="Draws">D</abbr></strong>
+                                @endif
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>
