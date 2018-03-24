@@ -75,6 +75,12 @@
         </nav>
 
         @yield('content')
+
+        <footer>
+            <div class="container text-center">
+                <p>@version</p>
+            </div>
+        </footer>
     </div>
 
     <!-- Scripts -->
