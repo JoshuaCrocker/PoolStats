@@ -21,7 +21,7 @@ class TeamTest extends TestCase
 
         $response = $this->get('/teams');
 
-        $response->assertSee($team->name);
+        $response->assertSee(e($team->name));
     }
 
     /**
@@ -105,7 +105,7 @@ class TeamTest extends TestCase
         $response = $this->get($team->endpoint());
 
         // .. the team should be displayed
-        $response->assertSee($team->name);
+        $response->assertSee(e($team->name));
     }
 
     /**
@@ -120,7 +120,7 @@ class TeamTest extends TestCase
         // ... the member is displayed on the team page ...
         $response = $this->get($player_team->team->endpoint());
 
-        $response->assertSee($player_team->player->name);
+        $response->assertSee(e($player_team->player->name));
     }
 
     /**
@@ -138,7 +138,7 @@ class TeamTest extends TestCase
         // ... the member is displayed on the team page ...
         $response = $this->get($player_team->team->endpoint());
 
-        $response->assertSee($player_team->player->name);
+        $response->assertSee(e($player_team->player->name));
     }
 
     /** @test */

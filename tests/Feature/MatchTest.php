@@ -29,7 +29,7 @@ class MatchTest extends TestCase
         $request = $this->get('/matches');
 
         // ... we gee it on the page
-        $request->assertSee($match->name);
+        $request->assertSee(e($match->name));
     }
 
     /** @test */
@@ -152,7 +152,7 @@ class MatchTest extends TestCase
         $response = $this->get($match->endpoint());
 
         // the match details should be displayed
-        $response->assertSee($match->name);
+        $response->assertSee(e($match->name));
     }
 
     /**
@@ -308,8 +308,8 @@ class MatchTest extends TestCase
         $homePlayers = e($playerHome1->name . ' & ' . $playerHome2->name);
         $awayPlayers = e($playerAway1->name . ' & ' . $playerAway2->name);
 
-        $request->assertSee($homePlayers);
-        $request->assertSee($awayPlayers);
+        $request->assertSee(e($homePlayers));
+        $request->assertSee(e($awayPlayers));
     }
 
     /**

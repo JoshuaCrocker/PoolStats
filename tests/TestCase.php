@@ -217,4 +217,30 @@ abstract class TestCase extends BaseTestCase
 
         return $output;
     }
+
+    protected function assertDatabaseHas($table, array $data, $connection = null)
+    {
+        if (isset($data['created_at'])) {
+            unset($data['created_at']);
+        }
+
+        if (isset($data['updated_at'])) {
+            unset($data['updated_at']);
+        }
+
+        parent::assertDatabaseHas($table, $data, $connection);
+    }
+
+    protected function assertDatabaseMissing($table, array $data, $connection = null)
+    {
+        if (isset($data['created_at'])) {
+            unset($data['created_at']);
+        }
+
+        if (isset($data['updated_at'])) {
+            unset($data['updated_at']);
+        }
+
+        parent::assertDatabaseMissing($table, $data, $connection);
+    }
 }
