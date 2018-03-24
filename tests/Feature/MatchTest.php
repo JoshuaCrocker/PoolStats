@@ -308,8 +308,8 @@ class MatchTest extends TestCase
         $homePlayers = e($playerHome1->name . ' & ' . $playerHome2->name);
         $awayPlayers = e($playerAway1->name . ' & ' . $playerAway2->name);
 
-        $request->assertSee(e($homePlayers));
-        $request->assertSee(e($awayPlayers));
+        $request->assertSee($homePlayers);
+        $request->assertSee($awayPlayers);
     }
 
     /**
