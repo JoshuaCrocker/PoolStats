@@ -39,6 +39,8 @@ class RecalculateMatchAttendanceStat extends Command
      */
     public function handle()
     {
+        StatAttendance::truncate();
+
         // Get all players
         $players = Player::all();
 

@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\LeagueMatch;
 use App\Player;
+use App\Venue;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
@@ -257,5 +258,28 @@ class PlayerTest extends TestCase
 
         $request->assertSee('60.00%');
         $request->assertSee('3 / 5');
+    }
+
+    /**
+     * @test
+     */
+    public function the_player_page_displays_the_players_venue_performance() {
+        $venue = create(Venue::class);
+        $player = $this->playerWithTeam();
+
+        $match = create(LeagueMatch::class, [
+            'venue_id' => $venue->id,
+            'home_team_id' => $player['team']->id
+        ]);
+
+        $this->frameWithPlayers($match, $player['player'], null, 'home');
+        $this->frameWithPlayers($match, $player['player'], null, 'away');
+
+        Artisan::call('stats:venues');
+
+        $request = $this->get(route('players.show', $player['player']));
+
+        $request->assertSee(e($venue->name));
+        $request->assertSee('50.00%');
     }
 }

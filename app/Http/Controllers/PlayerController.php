@@ -6,6 +6,7 @@ use App\Http\Requests\StorePlayer;
 use App\Player;
 use App\WLDStat;
 use App\StatAttendance;
+use App\StatVenuePerformance;
 
 class PlayerController extends Controller
 {
@@ -66,6 +67,8 @@ class PlayerController extends Controller
     {
         $statWLD = WLDStat::where('player_id', $player->id)->get();
         $statAttendance = StatAttendance::where('player_id', $player->id)->get();
+        $statPerformance = StatVenuePerformance::where('player_id', $player->id)
+            ->orderBy('won')->get();
 
         if ($statWLD->count() == 0) {
             $statWLD = null;
@@ -79,10 +82,15 @@ class PlayerController extends Controller
             $statAttendance = $statAttendance->first();
         }
 
+        if ($statPerformance->count() == 0) {
+            $statPerformance = null;
+        }
+
         $data = [
             'player' => $player,
             'stat_wld' => $statWLD,
-            'stat_attendance' => $statAttendance
+            'stat_attendance' => $statAttendance,
+            'performance' => $statPerformance
         ];
 
         return view('player.show', $data);

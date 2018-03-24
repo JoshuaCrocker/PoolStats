@@ -69,7 +69,7 @@ abstract class TestCase extends BaseTestCase
         $membership = create(TeamVenue::class, [
             'team_id' => $team->id,
             'venue_id' => $venue->id,
-            'venue_from' => CCarbon::parse('-1 day')
+            'venue_from' => Carbon::parse('-1 day')
         ]);
 
         return [
