@@ -14,11 +14,9 @@ class CreateStatAttendancesTable extends Migration
     public function up()
     {
         Schema::create('stat_attendances', function (Blueprint $table) {
-            $table->increments('id');
             $table->integer('player_id')->unsigned();
             $table->integer('played')->unsigned();
             $table->integer('total')->unsigned();
-            $table->timestamps();
         });
 
         Schema::table('stat_attendances', function (Blueprint $table) {

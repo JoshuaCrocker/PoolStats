@@ -14,12 +14,10 @@ class CreateStatVenuePerformancesTable extends Migration
     public function up()
     {
         Schema::create('stat_venue_performances', function (Blueprint $table) {
-            $table->increments('id');
             $table->integer('player_id')->unsigned();
             $table->integer('venue_id')->unsigned();
             $table->integer('won')->unsigned();
             $table->integer('played')->unsigned();
-            $table->timestamps();
         });
 
         Schema::table('stat_venue_performances', function (Blueprint $table) {
