@@ -2,6 +2,11 @@ language: php
 
 php:
   - 7.1
+  - nightly
+
+matrix:
+  allow_failures:
+  - php: nightly
 
 before_script:
   - chmod +x codeclimate.sh
