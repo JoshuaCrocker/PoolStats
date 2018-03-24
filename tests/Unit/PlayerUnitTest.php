@@ -151,4 +151,36 @@ class PlayerUnitTest extends TestCase
             '/players/1'
         );
     }
+
+    /**
+     * @test
+     */
+    public function it_can_get_all_memberships()
+    {
+        // Given we have a player
+        $player = create(Player::class);
+
+        // and they were previously a member of a team
+        $historicTeam = create(Team::class);
+
+        create(PlayerTeam::class, [
+            'player_id' => $player->id,
+            'team_id' => $historicTeam->id,
+            'member_from' => Carbon::parse('-7 days'),
+            'member_to' => Carbon::parse('-2 days')
+        ]);
+
+        // and they are a member of a team
+        $currentTeam = create(Team::class);
+
+        create(PlayerTeam::class, [
+            'player_id' => $player->id,
+            'team_id' => $currentTeam->id,
+            'member_from' => Carbon::parse('-1 day'),
+            'member_to' => Carbon::parse('+7 days')
+        ]);
+
+        // The memberships are listed
+        $this->assertCount(2, $player->memberships);
+    }
 }
