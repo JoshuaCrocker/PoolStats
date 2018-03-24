@@ -46,7 +46,7 @@ class LeagueFrame extends Model
         $players = $this->players->map(function ($player) {
             return $player->player;
         })->filter(function ($player) use ($teamID) {
-            return $player->team->id == $teamID;
+            return optional($player->team)->id == $teamID;
         })->values();
 
         return collect([
