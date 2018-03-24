@@ -13,4 +13,9 @@ class LeagueFramePlayer extends Model
     {
         return $this->belongsTo(Player::class);
     }
+
+    public function getFrameAttribute()
+    {
+        return LeagueFrame::where('id', $this->league_frame_id)->get()->first();
+    }
 }

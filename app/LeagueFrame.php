@@ -94,4 +94,13 @@ class LeagueFrame extends Model
 
         return $player->winner;
     }
+
+    public function isDraw()
+    {
+        foreach ($this->players as $player) {
+            if ($player->winner) return false;
+        }
+
+        return true;
+    }
 }

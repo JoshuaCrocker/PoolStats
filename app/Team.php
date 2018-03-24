@@ -82,4 +82,8 @@ class Team extends Model
 
         return $hppRecord->first()->player;
     }
+
+    public function getMatchesAttribute() {
+        return LeagueMatch::where('home_team_id', $this->id)->orWhere('away_team_id', $this->id)->get();
+    }
 }

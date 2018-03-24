@@ -132,4 +132,34 @@ class CommandsTest extends TestCase
         $this->assertDatabaseHas('stats_hpp', $player2stats);
         $this->assertDatabaseHas('stats_hpp', $player3stats);
     }
+
+    /**
+     * @test
+     */
+    public function players_wins_loses_and_draws_are_calculated()
+    {
+        $player = $this->playerWithTeam();
+
+        $match = create(LeagueMatch::class, [
+            'home_team_id' => $player['team']->id
+        ]);
+
+        $this->frameWithPlayers($match, $player['player']);
+        $this->frameWithPlayers($match, $player['player']);
+        $this->frameWithPlayers($match, $player['player']);
+        $this->frameWithPlayers($match, $player['player'], null, 'away');
+        $this->frameWithPlayers($match, $player['player'], null, 'draw');
+        $this->frameWithPlayers($match, $player['player'], null, 'draw');
+
+        Artisan::call('stats:wld');
+
+        $data = [
+            'player_id' => $player['player']->id,
+            'wins' => 3,
+            'loses' => 1,
+            'draws' => 2
+        ];
+
+        $this->assertDatabaseHas('stats_wins_loses', $data);
+    }
 }
