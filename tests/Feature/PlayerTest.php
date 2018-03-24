@@ -22,7 +22,7 @@ class PlayerTest extends TestCase
 
         $request = $this->get('players');
 
-        $request->assertSee($player->name);
+        $request->assertSee(e($player->name));
     }
 
     /**
@@ -171,7 +171,7 @@ class PlayerTest extends TestCase
 
         $request = $this->get(route('players.show', $player));
 
-        $request->assertSee($player->name);
+        $request->assertSee(e($player->name));
     }
 
     /**
@@ -185,8 +185,8 @@ class PlayerTest extends TestCase
 
         $request = $this->get(route('players.show', $data['player']));
 
-        $request->assertSee($data['team']->name);
-        $request->assertSee($data['subscription']->member_from->toDateString());
+        $request->assertSee(e($data['team']->name));
+        $request->assertSee(e($data['subscription']->member_from->toDateString()));
         $request->assertSee("Current");
     }
 
