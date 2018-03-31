@@ -6,28 +6,28 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Teams
-                        <a href="{{ url('/teams/create') }}" class="btn btn-primary btn-xs pull-right">New Team</a>
+                        Players
+                        <a href="{{ url('/players/create') }}" class="btn btn-primary btn-xs pull-right">New Player</a>
                     </div>
 
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>Team Name</th>
+                                <th>Name</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            @foreach ($teams as $team)
+                            @foreach ($players as $player)
                                 <tr>
-                                    <td>{{ $team->name }}</td>
+                                    <td>{{ $player->name }}</td>
                                     <td>
-                                        <a href="{{ $team->endpoint() }}" class="btn btn-default btn-xs">View
-                                                                                                         Details</a>
-                                        <a href="{{ $team->endpoint() }}/edit" class="btn btn-default btn-xs">Edit</a>
+                                        <a href="{{ route('players.show', $player) }}" class="btn btn-default btn-xs">View
+                                                                                                                      Details</a>
+                                        <a href="{{ route('players.edit', $player) }}" class="btn btn-default btn-xs">Edit</a>
 
-                                        <form action="{{ $team->endpoint() }}" method="POST">
+                                        <form action="{{ route('players.destroy', $player) }}" method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
 

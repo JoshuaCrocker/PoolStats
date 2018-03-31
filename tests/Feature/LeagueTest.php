@@ -22,7 +22,7 @@ class LeagueTest extends TestCase
         $request = $this->get('/leagues');
 
         // ... we see it on the page
-        $request->assertSee($league->name);
+        $request->assertSee(e($league->name));
     }
 
     /**
@@ -210,6 +210,6 @@ class LeagueTest extends TestCase
         $response = $this->get($league->endpoint());
 
         // ... the league should be displayed
-        $response->assertSee($league->name);
+        $response->assertSee(e($league->name));
     }
 }

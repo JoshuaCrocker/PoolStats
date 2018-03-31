@@ -46,7 +46,7 @@ class LeagueFrame extends Model
         $players = $this->players->map(function ($player) {
             return $player->player;
         })->filter(function ($player) use ($teamID) {
-            return $player->team->id == $teamID;
+            return optional($player->team)->id == $teamID;
         })->values();
 
         return collect([
@@ -93,5 +93,14 @@ class LeagueFrame extends Model
         $player = $this->players->where('player_id', $player->id)->first();
 
         return $player->winner;
+    }
+
+    public function isDraw()
+    {
+        foreach ($this->players as $player) {
+            if ($player->winner) return false;
+        }
+
+        return true;
     }
 }

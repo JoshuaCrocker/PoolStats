@@ -11,15 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
+Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('teams', 'TeamController');
 Route::resource('leagues', 'LeagueController');
 Route::resource('matches', 'LeagueMatchController');
+Route::resource('players', 'PlayerController');
 Route::resource('matches/{match}/frames', 'LeagueFrameController');
+Route::resource('teams/{team}/membership', 'PlayerTeamController');

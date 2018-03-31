@@ -38,6 +38,8 @@
                     <ul class="nav navbar-nav">
                         <li><a href="{{ route('leagues.index') }}">Leagues</a></li>
                         <li><a href="{{ route('matches.index') }}">Matches</a></li>
+                        <li><a href="{{ route('teams.index') }}">Teams</a></li>
+                        <li><a href="{{ route('players.index') }}">Players</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -73,6 +75,12 @@
         </nav>
 
         @yield('content')
+
+        <footer>
+            <div class="container text-center">
+                <p>@version</p>
+            </div>
+        </footer>
     </div>
 
     <!-- Scripts -->

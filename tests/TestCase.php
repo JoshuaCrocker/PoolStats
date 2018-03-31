@@ -8,6 +8,7 @@ use App\LeagueMatch;
 use App\Player;
 use App\PlayerTeam;
 use App\Team;
+use App\Venue;
 use Carbon\Carbon;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
@@ -58,6 +59,24 @@ abstract class TestCase extends BaseTestCase
         ]);
 
         return $output;
+    }
+
+    protected function teamWithVenue()
+    {
+        $team = create(Team::class);
+        $venue = create(Venue::class);
+
+        $membership = create(TeamVenue::class, [
+            'team_id' => $team->id,
+            'venue_id' => $venue->id,
+            'venue_from' => Carbon::parse('-1 day')
+        ]);
+
+        return [
+            'team' => $team,
+            'venue' => $venue,
+            'membership' => $membership
+        ];
     }
 
     // Hat tip, @adamwathan.
@@ -197,5 +216,31 @@ abstract class TestCase extends BaseTestCase
         ]);
 
         return $output;
+    }
+
+    protected function assertDatabaseHas($table, array $data, $connection = null)
+    {
+        if (isset($data['created_at'])) {
+            unset($data['created_at']);
+        }
+
+        if (isset($data['updated_at'])) {
+            unset($data['updated_at']);
+        }
+
+        parent::assertDatabaseHas($table, $data, $connection);
+    }
+
+    protected function assertDatabaseMissing($table, array $data, $connection = null)
+    {
+        if (isset($data['created_at'])) {
+            unset($data['created_at']);
+        }
+
+        if (isset($data['updated_at'])) {
+            unset($data['updated_at']);
+        }
+
+        parent::assertDatabaseMissing($table, $data, $connection);
     }
 }
