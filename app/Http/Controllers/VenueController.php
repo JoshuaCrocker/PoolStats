@@ -6,6 +6,10 @@ use App\Http\Requests\StoreVenue;
 use App\Venue;
 use Illuminate\Http\Request;
 
+/**
+ * Class VenueController
+ * @package App\Http\Controllers
+ */
 class VenueController extends Controller
 {
     /**
@@ -82,8 +86,8 @@ class VenueController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Venue  $venue
+     * @param StoreVenue $request
+     * @param  \App\Venue $venue
      * @return \Illuminate\Http\Response
      */
     public function update(StoreVenue $request, Venue $venue)
@@ -97,11 +101,14 @@ class VenueController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Venue  $venue
+     * @param  \App\Venue $venue
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Venue $venue)
     {
-        //
+        $venue->delete();
+
+        return redirect(route('venues.index'));
     }
 }
