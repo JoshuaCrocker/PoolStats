@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreVenue;
 use App\Venue;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,11 @@ class VenueController extends Controller
      */
     public function index()
     {
-        //
+        $venues = Venue::all();
+
+        return view('venue.index', [
+            'venues' => $venues
+        ]);
     }
 
     /**
@@ -24,18 +29,22 @@ class VenueController extends Controller
      */
     public function create()
     {
-        //
+        return view('venue.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreVenue $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreVenue $request)
     {
-        //
+        $venue = new Venue();
+        $venue->name = $request->name;
+        $venue->save();
+
+        return redirect(route('venues.index'));
     }
 
     /**

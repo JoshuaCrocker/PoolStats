@@ -40,6 +40,7 @@
                         <li><a href="{{ route('matches.index') }}">Matches</a></li>
                         <li><a href="{{ route('teams.index') }}">Teams</a></li>
                         <li><a href="{{ route('players.index') }}">Players</a></li>
+                        <li><a href="{{ route('venues.index') }}">Venues</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
