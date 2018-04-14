@@ -218,6 +218,19 @@ abstract class TestCase extends BaseTestCase
         return $output;
     }
 
+    protected function assertSoftDeleted($table, array $data, $connection = null)
+    {
+        if (isset($data['created_at'])) {
+            unset($data['created_at']);
+        }
+
+        if (isset($data['updated_at'])) {
+            unset($data['updated_at']);
+        }
+
+        parent::assertSoftDeleted($table, $data, $connection);
+    }
+
     protected function assertDatabaseHas($table, array $data, $connection = null)
     {
         if (isset($data['created_at'])) {
