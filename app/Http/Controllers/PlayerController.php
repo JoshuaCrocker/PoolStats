@@ -54,7 +54,7 @@ class PlayerController extends Controller
         $player->name = $request->name;
         $player->save();
 
-        return redirect('/player');
+        return redirect(route('players.index'));
     }
 
     /**
