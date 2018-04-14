@@ -9,6 +9,7 @@ matrix:
   - php: nightly
 
 before_script:
+  - phpenv config-rm xdebug.ini
   - chmod +x codeclimate.sh
   - cp .env.travis .env
   - mysql -e 'create database homestead_test;'
@@ -19,4 +20,4 @@ after_script:
   - ./codeclimate.sh
 
 script:
-  - vendor/bin/phpunit
+  - phpdbg -qrr vendor/bin/phpunit
