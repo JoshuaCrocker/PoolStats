@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 class VenueController extends Controller
 {
     /**
+     * TeamController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -66,7 +74,9 @@ class VenueController extends Controller
      */
     public function edit(Venue $venue)
     {
-        //
+        return view('venue.edit', [
+            'venue' => $venue
+        ]);
     }
 
     /**
@@ -76,9 +86,12 @@ class VenueController extends Controller
      * @param  \App\Venue  $venue
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Venue $venue)
+    public function update(StoreVenue $request, Venue $venue)
     {
-        //
+        $venue->name = $request->name;
+        $venue->save();
+
+        return redirect(route('venues.index'));
     }
 
     /**
