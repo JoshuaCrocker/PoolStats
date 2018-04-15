@@ -67,8 +67,17 @@ class Team extends Model
     }
 
     public function getVenueAttribute() {
-        // NYI - this needs to be changed to a `venue` method
-        return Venue::all()->first();
+        return TeamVenue::where('team_id', $this->id)
+            ->where('venue_from', '<=', date('Y-m-d'), 'AND')
+            ->where(function ($query) {
+                return $query->where('venue_to', NULL, 'AND')
+                    ->where('venue_to', '>=', date('Y-m-d'), 'OR');
+            }, 'AND')
+            ->get()
+            ->map(function ($tv) {
+                $tv->venue->link = $tv;
+                return $tv->venue;
+            })->first();
     }
 
     public function getHighestPerformingPlayerAttribute()

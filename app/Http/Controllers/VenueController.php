@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreVenue;
 use App\Venue;
-use Illuminate\Http\Request;
 
 /**
  * Class VenueController
@@ -67,7 +66,12 @@ class VenueController extends Controller
      */
     public function show(Venue $venue)
     {
-        //
+
+
+        return view('venue.show', [
+            'venue' => $venue,
+            'matches' => $venue->matches
+        ]);
     }
 
     /**

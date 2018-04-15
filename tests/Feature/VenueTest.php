@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\LeagueMatch;
 use App\Venue;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -66,7 +68,7 @@ class VenueTest extends TestCase
         $request->assertSessionHasErrors('name');
         $this->assertDatabaseMIssing('venues', $venue);
     }
-    
+
     /**
      * @test
      */
@@ -158,6 +160,46 @@ class VenueTest extends TestCase
 
         $request->assertRedirect('/login');
         $this->assertDatabaseHas('venues', $venue->toArray());
+    }
+
+    /**
+     * @test
+     */
+    public function the_venue_page_displays_the_venue_details()
+    {
+        $this->signIn();
+
+        $venue = create(Venue::class);
+
+        $request = $this->get(route('venues.show', $venue));
+
+        $request->assertSee(e($venue->name));
+    }
+
+    /**
+     * @test
+     */
+    public function the_venue_displays_its_upcoming_matches()
+    {
+        $this->signIn();
+
+        $group = $this->teamWithVenue();
+
+        $venue = $group['venue'];
+        $team = $group['team'];
+
+        $match = create(LeagueMatch::class, [
+            'match_date' => Carbon::parse('+1 week'),
+            'home_team_id' => $team->id
+        ]);
+
+        $request = $this->get(route('venues.show', $venue));
+
+        $request->assertSee(
+            e($match->homeTeam->name)
+            . ' vs. '
+            . e($match->awayTeam->name)
+        );
     }
 }
 

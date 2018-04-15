@@ -8,6 +8,7 @@ use App\LeagueMatch;
 use App\Player;
 use App\PlayerTeam;
 use App\Team;
+use App\TeamVenue;
 use App\Venue;
 use Carbon\Carbon;
 use Illuminate\Contracts\Debug\ExceptionHandler;
