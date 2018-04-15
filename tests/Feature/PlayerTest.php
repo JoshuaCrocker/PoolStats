@@ -221,7 +221,8 @@ class PlayerTest extends TestCase
     /**
      * @test
      */
-    public function the_player_page_displays_the_players_match_attendance() {
+    public function the_player_page_displays_the_players_match_attendance()
+    {
         $this->signIn();
 
         $player = $this->playerWithTeam();
@@ -263,7 +264,8 @@ class PlayerTest extends TestCase
     /**
      * @test
      */
-    public function the_player_page_displays_the_players_venue_performance() {
+    public function the_player_page_displays_the_players_venue_performance()
+    {
         $venue = create(Venue::class);
         $player = $this->playerWithTeam();
 

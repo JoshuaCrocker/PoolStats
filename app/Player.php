@@ -29,31 +29,6 @@ class Player extends Model
         return $this->findMembership();
     }
 
-    /**
-     * @return Team|null
-     */
-    public function getTeamAttribute()
-    {
-        return $this->findTeam();
-    }
-
-    // TODO test - historic
-    public function findTeam(Carbon $when = null)
-    {
-        if ($when == null) {
-            $when = Carbon::now();
-        }
-
-        $membership = $this->findMembership($when);
-
-        if ($membership === null) {
-            return null;
-        }
-
-        return $membership->team;
-    }
-
-    // TODO test - historic
     public function findMembership(Carbon $when = null)
     {
         if ($when == null) {
@@ -74,6 +49,33 @@ class Player extends Model
         }
 
         return $team_link->get()->first();
+    }
+
+    // TODO test - historic
+
+    /**
+     * @return Team|null
+     */
+    public function getTeamAttribute()
+    {
+        return $this->findTeam();
+    }
+
+    // TODO test - historic
+
+    public function findTeam(Carbon $when = null)
+    {
+        if ($when == null) {
+            $when = Carbon::now();
+        }
+
+        $membership = $this->findMembership($when);
+
+        if ($membership === null) {
+            return null;
+        }
+
+        return $membership->team;
     }
 
     public function getMembershipsAttribute()

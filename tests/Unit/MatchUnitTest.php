@@ -16,7 +16,8 @@ class MatchUnitTest extends TestCase
     /**
      * @test
      */
-    public function it_can_generate_its_endpoint() {
+    public function it_can_generate_its_endpoint()
+    {
         // Given we have a Match
         $match = create(LeagueMatch::class);
 
