@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateTeamVenuesTable extends Migration
 {
@@ -34,7 +34,7 @@ class CreateTeamVenuesTable extends Migration
      */
     public function down()
     {
-        Schema::table('team_venues', function(Blueprint $table) {
+        Schema::table('team_venues', function (Blueprint $table) {
             $table->dropForeign('team_venues_team_id_foreign');
             $table->dropForeign('team_venues_venue_id_foreign');
         });

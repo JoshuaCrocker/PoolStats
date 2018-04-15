@@ -212,4 +212,20 @@ class TeamUnitTest extends TestCase
         $response->assertSeeText('2D');
         $response->assertSeeText('2L');
     }
+
+    /**
+     * @test
+     */
+    public function it_can_get_its_current_venue()
+    {
+        $group = $this->teamWithVenue();
+
+        $team = $group['team'];
+        $venue = $group['venue'];
+
+        $this->assertEquals(
+            $venue->name,
+            $team->venue->name
+        );
+    }
 }

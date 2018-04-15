@@ -57,10 +57,10 @@ return [
         'testing' => [
             'driver' => 'sqlite',
             'database' => ':memory:',
-            'charset'   => 'utf8',
+            'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
-            'prefix'    => '',
-            'strict'    => false,
+            'prefix' => '',
+            'strict' => false,
         ],
 
         'pgsql' => [

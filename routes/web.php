@@ -16,6 +16,7 @@ Auth::routes();
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::Resource('venues', 'VenueController');
 Route::resource('teams', 'TeamController');
 Route::resource('leagues', 'LeagueController');
 Route::resource('matches', 'LeagueMatchController');

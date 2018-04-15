@@ -6,26 +6,24 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Matches
-                        <a href="{{ route('matches.create') }}" class="btn btn-primary btn-xs pull-right">New Match</a>
+                        {{ $venue->name }} Upcoming Matches
                     </div>
 
                     <table class="table table-bordered">
                         <thead>
-                            <tr>
-                                <th>Match Name</th>
-                                <th>Score</th>
-                                <th>Actions</th>
-                            </tr>
+                            <th>Match Name</th>
+                            <th>Match Date</th>
+                            <th>Actions</th>
                         </thead>
 
                         <tbody>
                             @foreach ($matches as $match)
                                 <tr>
-                                    <td>{{ $match->name }}</td>
-                                    <td>{{ $match->homePoints }}-{{ $match->awayPoints }}</td>
+                                    <td>{{ $match->homeTeam->name }} vs. {{ $match->awayTeam->name }}</td>
+                                    <td>{{ $match->match_date }}</td>
                                     <td>
-                                        <a href="{{ $match->endpoint() }}" class="btn btn-default btn-xs">View Details</a>
+                                        <a href="{{ $match->endpoint() }}"
+                                           class="btn btn-default btn-xs">View Details</a>
                                     </td>
                                 </tr>
                             @endforeach
