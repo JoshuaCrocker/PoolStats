@@ -10,6 +10,17 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-40681705-4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-40681705-4');
+    </script>
+
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -40,6 +51,7 @@
                         <li><a href="{{ route('matches.index') }}">Matches</a></li>
                         <li><a href="{{ route('teams.index') }}">Teams</a></li>
                         <li><a href="{{ route('players.index') }}">Players</a></li>
+                        <li><a href="{{ route('venues.index') }}">Venues</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

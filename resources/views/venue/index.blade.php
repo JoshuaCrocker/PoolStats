@@ -6,28 +6,28 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Leagues
-                        <a href="{{ url('/leagues/create') }}" class="btn btn-primary btn-xs pull-right">New League</a>
+                        Venues
+                        <a href="{{ route('venues.create') }}" class="btn btn-primary btn-xs pull-right">New Venue</a>
                     </div>
 
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>League Name</th>
+                                <th>Name</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            @foreach ($leagues as $league)
+                            @foreach ($venues as $venue)
                                 <tr>
-                                    <td>{{ $league->name }}</td>
+                                    <td>{{ $venue->name }}</td>
                                     <td>
-                                        <a href="{{ $league->endpoint() }}" class="btn btn-default btn-xs">View
-                                                                                                           Details</a>
-                                        <a href="{{ $league->endpoint() }}/edit" class="btn btn-default btn-xs">Edit</a>
+                                        <a href="{{ route('venues.show', $venue) }}" class="btn btn-default btn-xs">View
+                                                                                                                      Details</a>
+                                        <a href="{{ route('venues.edit', $venue) }}" class="btn btn-default btn-xs">Edit</a>
 
-                                        <form action="{{ $league->endpoint() }}" method="POST">
+                                        <form action="{{ route('venues.destroy', $venue) }}" method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
 

@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class LeagueFrame extends Model
 {
-    use CacheQueryBuilder;
-
     /**
      * Boot the model.
      */
@@ -41,20 +39,6 @@ class LeagueFrame extends Model
         return $value ? true : false;
     }
 
-    private function getPlayersOnTeam($teamID)
-    {
-        $players = $this->players->map(function ($player) {
-            return $player->player;
-        })->filter(function ($player) use ($teamID) {
-            return optional($player->team)->id == $teamID;
-        })->values();
-
-        return collect([
-            isset($players[0]) ? $players[0] : new Player(),
-            isset($players[1]) ? $players[1] : new Player()
-        ]);
-    }
-
     public function getHomePlayerAttribute()
     {
         return $this->homePlayers->first();
@@ -67,6 +51,20 @@ class LeagueFrame extends Model
         $homePlayers = $this->getPlayersOnTeam($homeTeamID);
 
         return $homePlayers;
+    }
+
+    private function getPlayersOnTeam($teamID)
+    {
+        $players = $this->players->map(function ($player) {
+            return $player->player;
+        })->filter(function ($player) use ($teamID) {
+            return optional($player->team)->id == $teamID;
+        })->values();
+
+        return collect([
+            isset($players[0]) ? $players[0] : new Player(),
+            isset($players[1]) ? $players[1] : new Player()
+        ]);
     }
 
     public function getAwayPlayerAttribute()

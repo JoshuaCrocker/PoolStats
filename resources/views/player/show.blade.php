@@ -51,31 +51,31 @@
 
                     <table class="table table-bordered">
                         @if (is_null($performance))
-                        <tbody>
-                            <td>
-                                <em>Stat not yet calculated.</em>
-                            </td>
-                        </tbody>
+                            <tbody>
+                                <td>
+                                    <em>Stat not yet calculated.</em>
+                                </td>
+                            </tbody>
                         @else
-                        <thead>
-                            <tr>
-                                <th>Venue Name</th>
-                                <th>% Won</th>
-                                <th># Won</th>
-                                <th># Played</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            @foreach ($performance as $record)
+                            <thead>
                                 <tr>
-                                    <td>{{ $record->venue->name }}</td>
-                                    <td>{{ $record->percentage }}%</td>
-                                    <td>{{ $record->won }}</td>
-                                    <td>{{ $record->played }}</td>
+                                    <th>Venue Name</th>
+                                    <th>% Won</th>
+                                    <th># Won</th>
+                                    <th># Played</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
+                            </thead>
+
+                            <tbody>
+                                @foreach ($performance as $record)
+                                    <tr>
+                                        <td>{{ $record->venue->name }}</td>
+                                        <td>{{ $record->percentage }}%</td>
+                                        <td>{{ $record->won }}</td>
+                                        <td>{{ $record->played }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
                         @endif
                     </table>
                 </div>

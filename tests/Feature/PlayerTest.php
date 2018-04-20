@@ -221,7 +221,8 @@ class PlayerTest extends TestCase
     /**
      * @test
      */
-    public function the_player_page_displays_the_players_match_attendance() {
+    public function the_player_page_displays_the_players_match_attendance()
+    {
         $this->signIn();
 
         $player = $this->playerWithTeam();
@@ -256,14 +257,15 @@ class PlayerTest extends TestCase
 
         $request = $this->get(route('players.show', $player['player']));
 
-        $request->assertSee('60.00%');
-        $request->assertSee('3 / 5');
+        $request->assertSeeText('60.00%');
+        $request->assertSeeText('3 / 5');
     }
 
     /**
      * @test
      */
-    public function the_player_page_displays_the_players_venue_performance() {
+    public function the_player_page_displays_the_players_venue_performance()
+    {
         $venue = create(Venue::class);
         $player = $this->playerWithTeam();
 

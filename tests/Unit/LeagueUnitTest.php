@@ -3,8 +3,8 @@
 namespace Tests\Unit;
 
 use App\League;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\TestCase;
 
 class LeagueUnitTest extends TestCase
 {

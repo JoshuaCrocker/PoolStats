@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class League extends Model
 {
-    use CacheQueryBuilder;
-
     /**
      * Don't auto-apply mass assignment protection.
      *

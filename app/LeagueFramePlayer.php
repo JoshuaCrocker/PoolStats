@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class LeagueFramePlayer extends Model
 {
-    use CacheQueryBuilder;
-
     public function player()
     {
         return $this->belongsTo(Player::class);

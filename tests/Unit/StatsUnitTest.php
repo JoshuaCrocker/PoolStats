@@ -2,17 +2,17 @@
 
 namespace Tests\Unit;
 
-use App\Player;
-use App\Team;
-use App\PlayerTeam;
 use App\LeagueFrame;
 use App\LeagueFramePlayer;
 use App\LeagueMatch;
+use App\Player;
+use App\PlayerTeam;
+use App\Team;
 use App\Venue;
 use Carbon\Carbon;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
+use Tests\TestCase;
 
 class StatsUnitTest extends TestCase
 {
@@ -93,7 +93,8 @@ class StatsUnitTest extends TestCase
     /**
      * @test
      */
-    public function it_can_calculate_the_players_match_attendance_statistic() {
+    public function it_can_calculate_the_players_match_attendance_statistic()
+    {
         $this->signIn();
 
         $player = $this->playerWithTeam();
@@ -131,14 +132,15 @@ class StatsUnitTest extends TestCase
             'played' => 3,
             'total' => 5
         ];
-        
+
         $this->assertDatabaseHas('stat_attendances', $check);
     }
 
     /**
      * @test
      */
-    public function it_can_calculate_the_players_match_attendance_statistic_including_historic_data() {
+    public function it_can_calculate_the_players_match_attendance_statistic_including_historic_data()
+    {
         $this->signIn();
 
         $player = create(Player::class);
@@ -184,14 +186,15 @@ class StatsUnitTest extends TestCase
             'played' => 3,
             'total' => 5
         ];
-        
+
         $this->assertDatabaseHas('stat_attendances', $check);
     }
 
     /**
      * @test
      */
-    public function in_can_calculate_the_players_venue_performance_statistic() {
+    public function in_can_calculate_the_players_venue_performance_statistic()
+    {
         $venue = create(Venue::class);
         $player = $this->playerWithTeam();
 
@@ -218,9 +221,10 @@ class StatsUnitTest extends TestCase
     /**
      * @test
      */
-    public function in_can_calculate_the_players_venue_performance_statistic_including_historic_data() {
+    public function in_can_calculate_the_players_venue_performance_statistic_including_historic_data()
+    {
         $venue = create(Venue::class);
-        
+
         $player = create(Player::class);
         $team = create(Team::class);
 
@@ -252,6 +256,7 @@ class StatsUnitTest extends TestCase
     }
 
     // Base Highest Performing Player Stat
+
     /**
      * @test
      */
