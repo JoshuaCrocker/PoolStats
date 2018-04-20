@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Player extends Model
 {
-    use CacheQueryBuilder, SoftDeletes;
+    use SoftDeletes;
 
     /**
      * Get the URL endpoint for the Player Model

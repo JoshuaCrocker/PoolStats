@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateLeagueFramePlayersTable extends Migration
 {
@@ -33,7 +33,7 @@ class CreateLeagueFramePlayersTable extends Migration
      */
     public function down()
     {
-        Schema::table('league_frame_players', function(Blueprint $table) {
+        Schema::table('league_frame_players', function (Blueprint $table) {
             $table->dropForeign('league_frame_players_league_frame_id_foreign');
             $table->dropForeign('league_frame_players_player_id_foreign');
         });

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Venue extends Model
 {
-    use CacheQueryBuilder, SoftDeletes;
+    use SoftDeletes;
 
     public function getMatchesAttribute()
     {

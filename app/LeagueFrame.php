@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class LeagueFrame extends Model
 {
-    use CacheQueryBuilder;
-
     /**
      * Boot the model.
      */

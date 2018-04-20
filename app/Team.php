@@ -13,7 +13,7 @@ use Illuminate\Support\Collection;
  */
 class Team extends Model
 {
-    use SoftDeletes, CacheQueryBuilder;
+    use SoftDeletes;
 
     /**
      * Don't auto-apply mass assignment protection.

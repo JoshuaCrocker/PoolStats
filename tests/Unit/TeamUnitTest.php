@@ -228,4 +228,15 @@ class TeamUnitTest extends TestCase
             $team->venue->name
         );
     }
+   
+    /**
+     * @test
+     */
+    public function it_doesnt_get_an_unrelated_venue()
+    {
+        $team1 = $this->teamWithVenue();
+        $team2 = create(Team::class);
+
+        $this->assertNull($team2->venue);
+    }
 }

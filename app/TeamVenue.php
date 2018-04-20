@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TeamVenue extends Model
 {
-    use CacheQueryBuilder;
-
+  
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

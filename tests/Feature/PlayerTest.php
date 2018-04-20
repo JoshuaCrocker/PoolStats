@@ -257,8 +257,8 @@ class PlayerTest extends TestCase
 
         $request = $this->get(route('players.show', $player['player']));
 
-        $request->assertSee('60.00%');
-        $request->assertSee('3 / 5');
+        $request->assertSeeText('60.00%');
+        $request->assertSeeText('3 / 5');
     }
 
     /**
