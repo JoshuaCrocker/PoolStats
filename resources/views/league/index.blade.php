@@ -23,7 +23,8 @@
                                 <tr>
                                     <td>{{ $league->name }}</td>
                                     <td>
-                                        <a href="{{ $league->endpoint() }}" class="btn btn-default btn-xs">View Details</a>
+                                        <a href="{{ $league->endpoint() }}" class="btn btn-default btn-xs">View
+                                                                                                           Details</a>
                                         <a href="{{ $league->endpoint() }}/edit" class="btn btn-default btn-xs">Edit</a>
 
                                         <form action="{{ $league->endpoint() }}" method="POST">

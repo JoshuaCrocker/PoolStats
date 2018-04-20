@@ -13,7 +13,7 @@ use Illuminate\Support\Collection;
  */
 class Team extends Model
 {
-    use SoftDeletes, CacheQueryBuilder;
+    use SoftDeletes;
 
     /**
      * Don't auto-apply mass assignment protection.
@@ -33,24 +33,6 @@ class Team extends Model
     }
 
     /**
-     * Get the current team members
-     *
-     * @return Collection
-     */
-    public function getCurrentRoster()
-    {
-        return PlayerTeam::where('team_id', $this->id)
-            ->where('member_from', '<=', date('Y-m-d'), 'AND')
-            ->where('member_to', NULL, 'AND')
-            ->where('member_to', '>=', date('Y-m-d'), 'OR')
-            ->get()
-            ->map(function ($pt) {
-                $pt->player->link = $pt;
-                return $pt->player;
-            });
-    }
-
-    /**
      * Get the previous team members
      *
      * @return Collection
@@ -66,9 +48,19 @@ class Team extends Model
             });
     }
 
-    public function getVenueAttribute() {
-        // NYI - this needs to be changed to a `venue` method
-        return Venue::all()->first();
+    public function getVenueAttribute()
+    {
+        return TeamVenue::where('team_id', $this->id)
+            ->where('venue_from', '<=', date('Y-m-d'), 'AND')
+            ->where(function ($query) {
+                return $query->where('venue_to', NULL, 'AND')
+                    ->where('venue_to', '>=', date('Y-m-d'), 'OR');
+            }, 'AND')
+            ->get()
+            ->map(function ($tv) {
+                $tv->venue->link = $tv;
+                return $tv->venue;
+            })->first();
     }
 
     public function getHighestPerformingPlayerAttribute()
@@ -83,18 +75,20 @@ class Team extends Model
         return $hppRecord->first()->player;
     }
 
-    public function getMatchesAttribute() {
+    public function getMatchesAttribute()
+    {
         return LeagueMatch::where('home_team_id', $this->id)->orWhere('away_team_id', $this->id)->get();
     }
 
-    public function getWldAttribute() {
+    public function getWldAttribute()
+    {
         $output = [
             'wins' => 0,
             'loses' => 0,
             'draws' => 0
         ];
 
-        $this->getCurrentRoster()->each(function($player) use (&$output) {
+        $this->getCurrentRoster()->each(function ($player) use (&$output) {
             $wld = optional(WLDStat::where('player_id', $player->id))->first();
 
             if (!is_null($wld)) {
@@ -105,5 +99,23 @@ class Team extends Model
         });
 
         return $output;
+    }
+
+    /**
+     * Get the current team members
+     *
+     * @return Collection
+     */
+    public function getCurrentRoster()
+    {
+        return PlayerTeam::where('team_id', $this->id)
+            ->where('member_from', '<=', date('Y-m-d'), 'AND')
+            ->where('member_to', NULL, 'AND')
+            ->where('member_to', '>=', date('Y-m-d'), 'OR')
+            ->get()
+            ->map(function ($pt) {
+                $pt->player->link = $pt;
+                return $pt->player;
+            });
     }
 }

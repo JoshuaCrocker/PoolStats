@@ -7,6 +7,9 @@ use App\Http\Requests\UpdateLeagueMatch;
 use App\League;
 use App\LeagueMatch;
 use App\Team;
+use App\TeamVenue;
+use App\Venue;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class LeagueMatchController extends Controller
@@ -51,12 +54,22 @@ class LeagueMatchController extends Controller
      */
     public function store(StoreLeagueMatch $request)
     {
-        $request->validate([
+        if (!$request->exists('venue_id') || is_null($request->venue_id)) {
+            $request->venue_id = optional(Team::find($request->home_team_id)->venue)->id;
 
-        ]);
+            if (is_null($request->venue_id)) {
+                $venue = new Venue();
+                $venue->name = Team::find($request->home_team_id)->name . ' Venue';
+                $venue->save();
 
-        if (! $request->exists('venue_id')) {
-            $request->venue_id = Team::find($request->home_team_id)->venue->id;
+                $link = new TeamVenue();
+                $link->team_id = $request->home_team_id;
+                $link->venue_id = $venue->id;
+                $link->venue_from = Carbon::now();
+                $link->save();
+
+                $request->venue_id = $venue->id;
+            }
         }
 
         $match = new LeagueMatch();

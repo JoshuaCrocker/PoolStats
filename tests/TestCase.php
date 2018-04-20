@@ -1,4 +1,5 @@
 <?php
+
 namespace Tests;
 
 use App\Exceptions\Handler;
@@ -8,6 +9,7 @@ use App\LeagueMatch;
 use App\Player;
 use App\PlayerTeam;
 use App\Team;
+use App\TeamVenue;
 use App\Venue;
 use Carbon\Carbon;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -29,6 +31,32 @@ abstract class TestCase extends BaseTestCase
         $this->disableExceptionHandling();
     }
 
+    protected function disableExceptionHandling()
+    {
+        $this->oldExceptionHandler = $this->app->make(ExceptionHandler::class);
+        $this->app->instance(ExceptionHandler::class, new class extends Handler
+        {
+            public function __construct()
+            {
+            }
+
+            public function report(\Exception $e)
+            {
+            }
+
+            /**
+             * @param \Illuminate\Http\Request $request
+             * @param \Exception $e
+             * @return \Illuminate\Http\Response|void
+             * @throws \Exception
+             */
+            public function render($request, \Exception $e)
+            {
+                throw $e;
+            }
+        });
+    }
+
     /**
      * @param null $user
      * @return $this
@@ -38,27 +66,6 @@ abstract class TestCase extends BaseTestCase
         $user = $user ?: create('App\User');
         $this->actingAs($user);
         return $this;
-    }
-
-    /**
-     * @param Team|null $team
-     * @return array
-     */
-    protected function playerWithTeam(Team $team = null)
-    {
-        $output = [
-            'player' => create(Player::class),
-            'team' => $team === null ? create(Team::class) : $team
-        ];
-
-        $output['subscription'] = create(PlayerTeam::class, [
-            'player_id' => $output['player']->id,
-            'team_id' => $output['team']->id,
-            'member_from' => Carbon::parse('-1 day'),
-            'member_to' => null
-        ]);
-
-        return $output;
     }
 
     protected function teamWithVenue()
@@ -80,24 +87,6 @@ abstract class TestCase extends BaseTestCase
     }
 
     // Hat tip, @adamwathan.
-    protected function disableExceptionHandling()
-    {
-        $this->oldExceptionHandler = $this->app->make(ExceptionHandler::class);
-        $this->app->instance(ExceptionHandler::class, new class extends Handler {
-            public function __construct() {}
-            public function report(\Exception $e) {}
-
-            /**
-             * @param \Illuminate\Http\Request $request
-             * @param \Exception $e
-             * @return \Illuminate\Http\Response|void
-             * @throws \Exception
-             */
-            public function render($request, \Exception $e) {
-                throw $e;
-            }
-        });
-    }
 
     protected function withExceptionHandling()
     {
@@ -145,6 +134,27 @@ abstract class TestCase extends BaseTestCase
             'league_frame_id' => $output['frame']->id,
             'player_id' => $playerAway->id,
             'winner' => $winner == 'away'
+        ]);
+
+        return $output;
+    }
+
+    /**
+     * @param Team|null $team
+     * @return array
+     */
+    protected function playerWithTeam(Team $team = null)
+    {
+        $output = [
+            'player' => create(Player::class),
+            'team' => $team === null ? create(Team::class) : $team
+        ];
+
+        $output['subscription'] = create(PlayerTeam::class, [
+            'player_id' => $output['player']->id,
+            'team_id' => $output['team']->id,
+            'member_from' => Carbon::parse('-1 day'),
+            'member_to' => null
         ]);
 
         return $output;
@@ -216,6 +226,19 @@ abstract class TestCase extends BaseTestCase
         ]);
 
         return $output;
+    }
+
+    protected function assertSoftDeleted($table, array $data, $connection = null)
+    {
+        if (isset($data['created_at'])) {
+            unset($data['created_at']);
+        }
+
+        if (isset($data['updated_at'])) {
+            unset($data['updated_at']);
+        }
+
+        parent::assertSoftDeleted($table, $data, $connection);
     }
 
     protected function assertDatabaseHas($table, array $data, $connection = null)

@@ -534,6 +534,34 @@ class MatchTest extends TestCase
         $this->assertDatabaseMissing('league_matches', $match);
     }
 
+    /**
+     * @test
+     */
+    public function it_creates_a_default_venue_if_none_is_assigned()
+    {
+        // Given we're signed in ...
+        $this->signIn();
+
+        // ... and we try to create a new match ...
+        $team = create(Team::class);
+        $match = make(LeagueMatch::class, [
+            'home_team_id' => $team->id,
+            'venue_id' => null
+        ])->toArray();
+        $this->post('/matches', $match);
+
+        $match = LeagueMatch::where('home_team_id', $team->id)->firstOrFail();
+        $team = $match->homeTeam->fresh();
+
+//        $this->assertNotNull($match);
+
+        $venueName = $team->name . ' Venue';
+
+        $this->assertDatabaseHas('venues', [
+            'name' => $venueName
+        ]);
+    }
+
     // Historic Data
     // TODO working with historic data
     // All data needs to be current at the time of the match
