@@ -228,7 +228,7 @@ class TeamUnitTest extends TestCase
             $team->venue->name
         );
     }
-    
+   
     /**
      * @test
      */

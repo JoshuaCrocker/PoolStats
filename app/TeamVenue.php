@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TeamVenue extends Model
 {
-
+  
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
