@@ -382,7 +382,7 @@ class FrameTest extends TestCase
             'frame_number' => $frame->frame_number
         ];
 
-        $this->assertDatabaseMissing('league_frames', $data);
+        $this->assertSoftDeleted('league_frames', $data);
     }
 
     // Historic Data

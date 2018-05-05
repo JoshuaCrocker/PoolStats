@@ -160,7 +160,7 @@ class LeagueTest extends TestCase
     /**
      * @test
      */
-    public function a_team_can_be_deleted()
+    public function a_league_can_be_deleted()
     {
         // Given we're signed in ...
         $this->signIn();
@@ -172,7 +172,7 @@ class LeagueTest extends TestCase
         $this->delete($league->endpoint());
 
         // ... the league is deleted
-        $this->assertDatabaseMissing('leagues', $league->toArray());
+        $this->assertSoftDeleted('leagues', $league->toArray());
     }
 
     /**

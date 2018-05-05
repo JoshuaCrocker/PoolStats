@@ -505,7 +505,7 @@ class MatchTest extends TestCase
         $this->delete($match->endpoint());
 
         // the match is deleted
-        $this->assertDatabaseMissing('league_matches', $match->toArray());
+        $this->assertSoftDeleted('league_matches', $match->toArray());
     }
 
     /**

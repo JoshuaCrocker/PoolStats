@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class PlayerTeam
@@ -10,6 +11,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class PlayerTeam extends Model
 {
+    use SoftDeletes;
+
     /**
      * Get the URL endpoint for the Player Model
      *
