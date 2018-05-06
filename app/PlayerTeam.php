@@ -51,8 +51,14 @@ class PlayerTeam extends Model
 
     public function getTerminatesTodayAttribute()
     {
-        $member_to = Carbon::parse($this->getOriginal('member_to'));
+        $member_to = $this->getOriginal('member_to');
 
-        return $member_to->format('y-m-d') == Carbon::now()->format('y-m-d');
+        if ($member_to == null) {
+            return false;
+        }
+
+        $member_to_date = Carbon::parse($member_to);
+
+        return $member_to_date->format('y-m-d') == Carbon::now()->format('y-m-d');
     }
 }
