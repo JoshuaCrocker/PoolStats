@@ -14,7 +14,9 @@ class LeagueFramePlayerController extends Controller
      */
     public function index()
     {
-        //
+        $this
+            ->middleware('auth')
+            ->except('index', 'show');
     }
 
     /**
