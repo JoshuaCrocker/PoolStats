@@ -4,10 +4,12 @@ namespace App;
 
 use App\Support\Database\CacheQueryBuilder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TeamVenue extends Model
 {
-  
+    use SoftDeletes;
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

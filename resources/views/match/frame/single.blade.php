@@ -17,7 +17,7 @@
     <td>
         <a href="{{ $frame->endpoint() }}/edit" class="btn btn-primary btn-xs">Edit</a>
 
-        <form action="{{ $match->endpoint() }}" method="POST">
+        <form action="{{ $frame->endpoint() }}" method="POST">
             {{ csrf_field() }}
             {{ method_field('DELETE') }}
 
