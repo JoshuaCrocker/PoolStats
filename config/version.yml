@@ -1,8 +1,8 @@
 version_source: config
 blade_directive: version
 current:
-    major: 0
-    minor: 2
+    major: 1
+    minor: 0
     patch: 0
     format: '{$major}.{$minor}.{$patch}'
     git_absorb: false

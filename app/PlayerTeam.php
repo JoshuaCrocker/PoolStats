@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 /**
  * Class PlayerTeam
@@ -41,6 +42,21 @@ class PlayerTeam extends Model
 
     public function getMemberToAttribute($value)
     {
-        return $value == null ? 'Current' : $value;
+        if ($value == null) {
+            return $current;
+        }
+
+        if ($this->terminates_today) {
+            return 'Ending Today';
+        }
+
+        return $value;
+    }
+
+    public function getTerminatesTodayAttribute()
+    {
+        $member_to = Carbon::parse($this->getOriginal('member_to'));
+
+        return $member_to->format('y-m-d') == Carbon::now()->format('y-m-d');
     }
 }

@@ -81,12 +81,14 @@
                                             'membership' => $member->link
                                         ]) }}" class="btn btn-default btn-xs">Edit Membership</a>
 
+                                        @if (!$member->link->terminates_today)
                                         <form action="{{ $member->link->endpoint() }}" method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
 
                                             <input type="submit" value="Terminate" class="btn btn-danger btn-xs"/>
                                         </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -118,7 +120,7 @@
                                 <tr>
                                     <td>{{ $member->name }}</td>
                                     <td>{{ $member->link->member_from }}</td>
-                                    <td>{{ $member->link->member_to == null ? "Current" : $member->link->member_to }}</td>
+                                    <td>{{ $member->link->member_to }}</td>
                                     <td></td>
                                 </tr>
                             @endforeach

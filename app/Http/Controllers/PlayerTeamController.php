@@ -117,7 +117,7 @@ class PlayerTeamController extends Controller
      */
     public function destroy(Team $team, PlayerTeam $membership)
     {
-        $membership->member_to = Carbon::parse('-1 day');
+        $membership->member_to = Carbon::now();
         $membership->save();
 
         return redirect()->back();
