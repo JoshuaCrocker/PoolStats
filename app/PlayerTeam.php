@@ -43,11 +43,7 @@ class PlayerTeam extends Model
     public function getMemberToAttribute($value)
     {
         if ($value == null) {
-            return $current;
-        }
-
-        if ($this->terminates_today) {
-            return 'Ending Today';
+            return 'Current';
         }
 
         return $value;

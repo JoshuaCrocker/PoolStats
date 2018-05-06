@@ -31,7 +31,7 @@ class PlayerTeamTest extends TestCase
 
         $this->assertNotNull($link->member_to);
         $this->assertEquals(
-            Carbon::parse('-1 day')->toDateString(),
+            Carbon::now()->toDateString(),
             Carbon::parse($link->member_to)->toDateString()
         );
     }
