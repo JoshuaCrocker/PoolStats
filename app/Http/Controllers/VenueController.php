@@ -68,11 +68,11 @@ class VenueController extends Controller
      */
     public function show(Venue $venue)
     {
-
-
         return view('venue.show', [
             'venue' => $venue,
-            'matches' => $venue->matches
+            'matches' => $venue->matches,
+            'members' => $venue->currentTeams,
+            'historic' => $venue->historicTeams
         ]);
     }
 

@@ -402,4 +402,6 @@ class PlayerTeamTest extends TestCase
         $payload['id'] = $membership->id;
         $this->assertDatabaseMissing('player_teams', $payload);
     }
+
+    // TODO it_terminates_any_current_memberships_when_a_new_one_is_registered
 }
