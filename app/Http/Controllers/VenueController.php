@@ -16,7 +16,9 @@ class VenueController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['index', 'show']);
+        $this
+            ->middleware('auth')
+            ->except('index', 'show');
     }
 
     /**
@@ -66,11 +68,11 @@ class VenueController extends Controller
      */
     public function show(Venue $venue)
     {
-
-
         return view('venue.show', [
             'venue' => $venue,
-            'matches' => $venue->matches
+            'matches' => $venue->matches,
+            'members' => $venue->currentTeams,
+            'historic' => $venue->historicTeams
         ]);
     }
 

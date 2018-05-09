@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTeamVenue;
+use App\Http\Requests\UpdateTeamVenue;
 use App\TeamVenue;
+use App\Team;
+use App\Venue;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class TeamVenueController extends Controller
 {
@@ -14,7 +19,9 @@ class TeamVenueController extends Controller
      */
     public function index()
     {
-        //
+        $this
+            ->middleware('auth')
+            ->except('index', 'show');
     }
 
     /**
@@ -22,9 +29,15 @@ class TeamVenueController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Venue $venue)
     {
-        //
+        $teams = Team::all();
+
+        return view('venue.membership.create', [
+            'venue' => $venue,
+            'today' => Carbon::now()->format('Y-m-d'),
+            'teams' => $teams
+        ]);
     }
 
     /**
@@ -33,9 +46,24 @@ class TeamVenueController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTeamVenue $request, Venue $venue)
     {
-        //
+        $team = Team::find($request->team_id);
+
+        if (!is_null($team->venue)) {
+            $old = TeamVenue::find($team->venue->link->id);
+            $old->venue_to = $request->member_from;
+            $old->save();
+        }
+
+        $membership = new TeamVenue();
+        $membership->team_id = $request->team_id;
+        $membership->venue_id = $venue->id;
+        $membership->venue_from = $request->member_from;
+        $membership->venue_to = empty($request->member_to) ? NULL : $request->member_to;
+        $membership->save();
+
+        return redirect($venue->endpoint());
     }
 
     /**
@@ -55,9 +83,16 @@ class TeamVenueController extends Controller
      * @param  \App\TeamVenue  $teamVenue
      * @return \Illuminate\Http\Response
      */
-    public function edit(TeamVenue $teamVenue)
+    public function edit(Venue $venue, TeamVenue $membership)
     {
-        //
+        $teams = Team::all();
+
+        return view('venue.membership.edit', [
+            'membership' => $membership,
+            'venue' => $venue,
+            'today' => Carbon::now()->format('Y-m-d'),
+            'teams' => $teams
+        ]);
     }
 
     /**
@@ -67,9 +102,13 @@ class TeamVenueController extends Controller
      * @param  \App\TeamVenue  $teamVenue
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TeamVenue $teamVenue)
+    public function update(UpdateTeamVenue $request, Venue $venue, TeamVenue $membership)
     {
-        //
+        $membership->venue_from = $request->member_from;
+        $membership->venue_to = $request->member_to;
+        $membership->save();
+
+        return redirect($venue->endpoint());
     }
 
     /**
@@ -78,8 +117,11 @@ class TeamVenueController extends Controller
      * @param  \App\TeamVenue  $teamVenue
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TeamVenue $teamVenue)
+    public function destroy(Venue $venue, TeamVenue $membership)
     {
-        //
+        $membership->venue_to = Carbon::now();
+        $membership->save();
+
+        return redirect()->back();
     }
 }

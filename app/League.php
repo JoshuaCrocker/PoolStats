@@ -4,9 +4,12 @@ namespace App;
 
 use App\Support\Database\CacheQueryBuilder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class League extends Model
 {
+    use SoftDeletes;
+
     /**
      * Don't auto-apply mass assignment protection.
      *

@@ -4,6 +4,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
+                <p><a href="{{ route('matches.index') }}" class="btn btn-default">&laquo; Back</a></p>
+
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         {{ $match->name }}
@@ -27,11 +29,15 @@
                         </thead>
 
                         <tbody>
-                            @foreach ($match->frames as $frame)
+                            @forelse ($match->frames as $frame)
                                 @if (view()->exists("match.frame.{$frame->type}"))
                                     @include ("match.frame.{$frame->type}", ['frame' => $frame])
                                 @endif
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center"><em>No Records</em></td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

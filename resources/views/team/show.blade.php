@@ -4,6 +4,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
+                <p><a href="{{ route('teams.index') }}" class="btn btn-default">&laquo; Back</a></p>
+
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         {{ $team->name }} Statistics
@@ -70,7 +72,7 @@
                         </thead>
 
                         <tbody>
-                            @foreach ($members as $member)
+                            @forelse ($members as $member)
                                 <tr>
                                     <td>{{ $member->name }}</td>
                                     <td>{{ $member->link->member_from }}</td>
@@ -81,15 +83,21 @@
                                             'membership' => $member->link
                                         ]) }}" class="btn btn-default btn-xs">Edit Membership</a>
 
+                                        @if (!$member->link->terminates_today)
                                         <form action="{{ $member->link->endpoint() }}" method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
 
                                             <input type="submit" value="Terminate" class="btn btn-danger btn-xs"/>
                                         </form>
+                                        @endif
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center"><em>No Records</em></td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -114,14 +122,18 @@
                         </thead>
 
                         <tbody>
-                            @foreach ($historic as $member)
+                            @forelse ($historic as $member)
                                 <tr>
                                     <td>{{ $member->name }}</td>
                                     <td>{{ $member->link->member_from }}</td>
-                                    <td>{{ $member->link->member_to == null ? "Current" : $member->link->member_to }}</td>
+                                    <td>{{ $member->link->member_to }}</td>
                                     <td></td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center"><em>No Records</em></td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

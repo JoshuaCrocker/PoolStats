@@ -4,6 +4,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
+                <p><a href="{{ route('teams.show', $team) }}" class="btn btn-default">&laquo; Back</a></p>
+
                 <div class="panel panel-default">
                     <div class="panel-heading">Teams &mdash; Edit Membership</div>
 
@@ -38,7 +40,7 @@
                             </div>
 
                             <div class="form-group">
-                                <input type="submit" class="btn btn-primary"/>
+                                <input type="submit" value="Save" class="btn btn-primary"/>
                             </div>
                         </form>
                     </div>

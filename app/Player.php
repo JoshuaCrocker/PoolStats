@@ -75,6 +75,7 @@ class Player extends Model
             return null;
         }
 
+        $membership->team->link = $membership;
         return $membership->team;
     }
 

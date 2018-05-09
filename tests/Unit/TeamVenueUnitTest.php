@@ -12,6 +12,19 @@ class TeamVenueUnitTest extends TestCase
     /**
      * @test
      */
+    public function it_can_get_its_endpoint()
+    {
+        $link = create(\App\TeamVenue::class);
+
+        $this->assertEquals(
+            'venues/' . $link->venue->id . '/membership/' . $link->id,
+            $link->endpoint()
+        );
+    }
+
+    /**
+     * @test
+     */
     public function it_can_get_its_team()
     {
         $group = $this->teamWithVenue();

@@ -23,3 +23,4 @@ Route::resource('matches', 'LeagueMatchController');
 Route::resource('players', 'PlayerController');
 Route::resource('matches/{match}/frames', 'LeagueFrameController');
 Route::resource('teams/{team}/membership', 'PlayerTeamController');
+Route::resource('venues/{venue}/membership', 'TeamVenueController')->names('venues.membership');

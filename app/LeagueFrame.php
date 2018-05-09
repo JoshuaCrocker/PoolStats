@@ -4,9 +4,12 @@ namespace App;
 
 use App\Support\Database\CacheQueryBuilder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class LeagueFrame extends Model
 {
+    use SoftDeletes;
+
     /**
      * Boot the model.
      */
@@ -89,6 +92,10 @@ class LeagueFrame extends Model
     public function isWinner($player)
     {
         $player = $this->players->where('player_id', $player->id)->first();
+
+        if (is_null($player)) {
+            return false;
+        }
 
         return $player->winner;
     }

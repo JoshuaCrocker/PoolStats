@@ -186,7 +186,7 @@ class PlayerTest extends TestCase
         $request = $this->get(route('players.show', $data['player']));
 
         $request->assertSee(e($data['team']->name));
-        $request->assertSee(e($data['subscription']->member_from->toDateString()));
+        $request->assertSee(e($data['subscription']->member_from));
         $request->assertSee("Current");
     }
 
