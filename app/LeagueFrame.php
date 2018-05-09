@@ -93,6 +93,10 @@ class LeagueFrame extends Model
     {
         $player = $this->players->where('player_id', $player->id)->first();
 
+        if (is_null($player)) {
+            return false;
+        }
+
         return $player->winner;
     }
 
