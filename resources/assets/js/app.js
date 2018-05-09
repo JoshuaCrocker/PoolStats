@@ -15,3 +15,10 @@ if (!Modernizr.inputtypes.date) {
         new Pikaday({ field: this });
     });
 }
+
+/**
+ * Confirm before deleting
+ */
+$(".btn.btn-danger").click(function() {
+    return confirm('Are you sure?');
+});
