@@ -154,7 +154,7 @@ abstract class TestCase extends BaseTestCase
         $output['subscription'] = create(PlayerTeam::class, [
             'player_id' => $output['player']->id,
             'team_id' => $output['team']->id,
-            'member_from' => Carbon::parse('-1 day'),
+            'member_from' => Carbon::parse('-1 day')->toDateString(),
             'member_to' => null
         ]);
 

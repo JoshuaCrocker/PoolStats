@@ -54,6 +54,14 @@ class PlayerTeamController extends Controller
      */
     public function store(StorePlayerTeam $request, Team $team)
     {
+        $player = Player::find($request->player_id);
+
+        if (!is_null($player->team)) {
+            $old = PlayerTeam::find($player->team->link->id);
+            $old->member_to = $request->member_from;
+            $old->save();
+        }
+
         $membership = new PlayerTeam();
         $membership->player_id = $request->player_id;
         $membership->team_id = $team->id;
