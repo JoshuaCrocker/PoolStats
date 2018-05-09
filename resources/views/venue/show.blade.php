@@ -67,7 +67,7 @@
                                         ]) }}" class="btn btn-default btn-xs">Edit Membership</a>
 
                                         @if (!$member['link']->terminates_today)
-                                        <form action="{{ $member['link']->endpoint() }}" method="POST">
+                                        <form action="{{ url($member['link']->endpoint()) }}" method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
 
