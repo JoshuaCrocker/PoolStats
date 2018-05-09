@@ -19,7 +19,7 @@
                         </thead>
 
                         <tbody>
-                            @foreach ($matches as $match)
+                            @forelse ($matches as $match)
                                 <tr>
                                     <td>{{ $match->homeTeam->name }} vs. {{ $match->awayTeam->name }}</td>
                                     <td>{{ $match->match_date }}</td>
@@ -28,7 +28,11 @@
                                            class="btn btn-default btn-xs">View Details</a>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center"><em>No Records</em></td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -57,7 +61,7 @@
                         </thead>
 
                         <tbody>
-                            @foreach ($members as $member)
+                            @forelse ($members as $member)
                                 <tr>
                                     <td>{{ $member['team']->name }}</td>
                                     <td>{{ $member['link']->venue_from }}</td>
@@ -78,7 +82,11 @@
                                         @endif
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center"><em>No Records</em></td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -103,14 +111,18 @@
                         </thead>
 
                         <tbody>
-                            @foreach ($historic as $member)
+                            @forelse ($historic as $member)
                                 <tr>
                                     <td>{{ $member['team']->name }}</td>
                                     <td>{{ $member['link']->venue_from }}</td>
                                     <td>{{ $member['link']->venue_to }}</td>
                                     <td></td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center"><em>No Records</em></td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

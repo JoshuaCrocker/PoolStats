@@ -29,11 +29,15 @@
                         </thead>
 
                         <tbody>
-                            @foreach ($match->frames as $frame)
+                            @forelse ($match->frames as $frame)
                                 @if (view()->exists("match.frame.{$frame->type}"))
                                     @include ("match.frame.{$frame->type}", ['frame' => $frame])
                                 @endif
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center"><em>No Records</em></td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

@@ -72,7 +72,7 @@
                         </thead>
 
                         <tbody>
-                            @foreach ($members as $member)
+                            @forelse ($members as $member)
                                 <tr>
                                     <td>{{ $member->name }}</td>
                                     <td>{{ $member->link->member_from }}</td>
@@ -93,7 +93,11 @@
                                         @endif
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center"><em>No Records</em></td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -118,14 +122,18 @@
                         </thead>
 
                         <tbody>
-                            @foreach ($historic as $member)
+                            @forelse ($historic as $member)
                                 <tr>
                                     <td>{{ $member->name }}</td>
                                     <td>{{ $member->link->member_from }}</td>
                                     <td>{{ $member->link->member_to }}</td>
                                     <td></td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center"><em>No Records</em></td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

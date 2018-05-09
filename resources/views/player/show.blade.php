@@ -69,14 +69,18 @@
                             </thead>
 
                             <tbody>
-                                @foreach ($performance as $record)
+                                @forelse ($performance as $record)
                                     <tr>
                                         <td>{{ $record->venue->name }}</td>
                                         <td>{{ $record->percentage }}%</td>
                                         <td>{{ $record->won }}</td>
                                         <td>{{ $record->played }}</td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="4" class="text-center"><em>No Records</em></td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         @endif
                     </table>
@@ -99,13 +103,17 @@
                         </thead>
 
                         <tbody>
-                            @foreach ($player->memberships as $membership)
+                            @forelse ($player->memberships as $membership)
                                 <tr>
                                     <td>{{ $membership->team->name }}</td>
                                     <td>{{ $membership->member_from }}</td>
                                     <td>{{ $membership->member_to ?: "Current" }}</td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center"><em>No Records</em></td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
