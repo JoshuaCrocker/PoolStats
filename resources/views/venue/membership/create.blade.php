@@ -4,10 +4,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <p><a href="{{ route('teams.show', $team) }}" class="btn btn-default">&laquo; Back</a></p>
+                <p><a href="{{ route('venues.show', $venue) }}" class="btn btn-default">&laquo; Back</a></p>
 
                 <div class="panel panel-default">
-                    <div class="panel-heading">Teams &mdash; Add Member</div>
+                    <div class="panel-heading">Venues &mdash; Add Team</div>
 
                     <div class="panel-body">
 
@@ -21,23 +21,23 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('membership.index', $team) }}" method="POST">
+                        <form action="{{ route('venues.membership.index', $venue) }}" method="POST">
                             {{ csrf_field() }}
 
                             <div class="form-group">
-                                <label for="player_id">Player</label>
-                                <select name="player_id" id="player_id" class="form-control">
-                                    <option value="">Select Player</option>
-                                    @foreach ($players as $player)
-                                        <option value="{{ $player->id }}"
-                                                data-team-id="{{ $player->team ? $player->team->id : "" }}"
-                                                data-team-name="{{ $player->team ? $player->team->name : "" }}">{{ $player->name }}</option>
+                                <label for="team_id">Team</label>
+                                <select name="team_id" id="team_id" class="form-control">
+                                    <option value="">Select Team</option>
+                                    @foreach ($teams as $team)
+                                        <option value="{{ $team->id }}"
+                                                data-venue-id="{{ $team->venue ? $team->venue->id : "" }}"
+                                                data-venue-name="{{ $team->venue ? $team->venue->name : "" }}">{{ $team->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
 
                             <div class="alert alert-warning" id="terminate-warning">
-                                <strong>Warning</strong>! Adding this member to <strong>{{ $team->name }}</strong> will
+                                <strong>Warning</strong>! Adding this team to <strong>{{ $venue->name }}</strong> will
                                                         terminate their membership with <strong
                                         id="current-team"></strong> (effective from <em>Member From</em> date).
                             </div>
@@ -73,12 +73,12 @@
 
             termination_warning.hide();
 
-            $("#player_id").change(function () {
+            $("#team_id").change(function () {
                 var me = $(this);
                 var opt = me.children(':selected');
 
-                if (opt.data('team-id')) {
-                    current_team.html(opt.data('team-name'));
+                if (opt.data('venue-id')) {
+                    current_team.html(opt.data('venue-name'));
                     termination_warning.show();
                 } else {
                     termination_warning.hide();

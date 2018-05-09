@@ -17158,6 +17158,13 @@ if (!Modernizr.inputtypes.date) {
   });
 }
 
+/**
+ * Confirm before deleting
+ */
+$(".btn.btn-danger").click(function () {
+  return confirm('Are you sure?');
+});
+
 /***/ }),
 /* 134 */
 /***/ (function(module, exports, __webpack_require__) {

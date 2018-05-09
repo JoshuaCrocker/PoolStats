@@ -402,4 +402,43 @@ class PlayerTeamTest extends TestCase
         $payload['id'] = $membership->id;
         $this->assertDatabaseMissing('player_teams', $payload);
     }
+
+
+
+    /**
+     * @test
+     */
+    public function it_terminates_any_current_memberships_when_a_new_one_is_registered()
+    {
+        $this->signIn();
+
+        $team = create(Team::class);
+
+        $initial = $this->playerWithTeam();
+
+        $payload = [
+            'player_id' => $initial['player']->id,
+            'member_from' => Carbon::now()->toDateString(),
+            'member_to' => NULL
+        ];
+
+        $request = $this->post(route('membership.store', $team), $payload);
+
+        $check_old = [
+            'player_id' => $initial['player']->id,
+            'team_id' => $initial['team']->id,
+            'member_from' => $initial['subscription']['member_from'],
+            'member_to' => Carbon::now()->toDateString()
+        ];
+
+        $check_new = [
+            'player_id' => $initial['player']->id,
+            'team_id' => $team->id,
+            'member_from' => $payload['member_from'],
+            'member_to' => NULL
+        ];
+
+        $this->assertDatabaseHas('player_teams', $check_old);
+        $this->assertDatabaseHas('player_teams', $check_new);
+    }
 }

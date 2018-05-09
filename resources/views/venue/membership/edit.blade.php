@@ -4,10 +4,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <p><a href="{{ route('matches.index') }}" class="btn btn-default">&laquo; Back</a></p>
+                <p><a href="{{ route('venues.show', $venue) }}" class="btn btn-default">&laquo; Back</a></p>
 
                 <div class="panel panel-default">
-                    <div class="panel-heading">Matches</div>
+                    <div class="panel-heading">Venues &mdash; Add Team</div>
 
                     <div class="panel-body">
 
@@ -21,24 +21,24 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('matches.update', ['match' => $match]) }}" method="POST">
+                        <form action="{{ route('venues.membership.update', [
+                            'venue' => $venue,
+                            'memvership' => $membership]) }}" method="POST">
                             {{ csrf_field() }}
-                            {{ method_field('PATCH') }}
+                            @method('PATCH')
+
+                            <input type="hidden" name="team_id" value="{{ $membership->team_id }}">
 
                             <div class="form-group">
-                                <label for="league_id">League</label>
-                                <select name="league_id" id="league_id" class="form-control">
-                                    @foreach ($leagues as $league)
-                                        <option value="{{ $league->id }}" {{ $match->league_id == $league->id ? 'selected' : '' }}>{{ $league->name }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="member_from">Member From</label>
+                                <input type="date" id="member_from" name="member_from" value="{{ $membership->venue_from }}"
+                                       class="form-control" required>
                             </div>
 
                             <div class="form-group">
-                                <label for="match_date">Match Date</label>
-                                <input type="date" name="match_date" id="match_date"
-                                       value="{{ $match->match_date->toDateString() }}"
-                                       class="form-control">
+                                <label for="member_to">Member To</label>
+                                <input type="date" id="member_to" name="member_to" value="{{ $membership->venue_to }}" class="form-control">
+                                <p class="help-block">Leave blank if the end date isn't yet known.</p>
                             </div>
 
                             <div class="form-group">

@@ -68,15 +68,16 @@ abstract class TestCase extends BaseTestCase
         return $this;
     }
 
-    protected function teamWithVenue()
+    protected function teamWithVenue(Team $team = null, Venue $venue = null)
     {
-        $team = create(Team::class);
-        $venue = create(Venue::class);
+        $team = $team == null ? create(Team::class) : $team;
+        $venue = $venue == null ? create(Venue::class) : $venue;
 
         $membership = create(TeamVenue::class, [
             'team_id' => $team->id,
             'venue_id' => $venue->id,
-            'venue_from' => Carbon::parse('-1 day')
+            'venue_from' => Carbon::parse('-1 day')->format('Y-m-d'),
+            'venue_to' => NULL
         ]);
 
         return [
@@ -153,7 +154,7 @@ abstract class TestCase extends BaseTestCase
         $output['subscription'] = create(PlayerTeam::class, [
             'player_id' => $output['player']->id,
             'team_id' => $output['team']->id,
-            'member_from' => Carbon::parse('-1 day'),
+            'member_from' => Carbon::parse('-1 day')->toDateString(),
             'member_to' => null
         ]);
 

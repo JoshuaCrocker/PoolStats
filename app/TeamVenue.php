@@ -10,6 +10,20 @@ class TeamVenue extends Model
 {
     use SoftDeletes;
 
+    public function endpoint()
+    {
+        return 'venues/' . $this->venue->id . '/membership/' . $this->id;
+    }
+
+    public function getVenueToAttribute($value)
+    {
+        if ($value == null) {
+            return 'Current';
+        }
+
+        return $value;
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
