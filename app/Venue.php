@@ -32,7 +32,7 @@ class Venue extends Model
             ->where('venue_from', '<=', date('Y-m-d'), 'AND')
             ->where(function($query) {
                 $query->where('venue_to', NULL, 'AND')
-                      ->where('venue_to', '>=', date('Y-m-d'), 'OR');
+                      ->where('venue_to', '>', date('Y-m-d'), 'OR');
             }, 'AND')
             ->get()
             ->map(function ($tv) {
