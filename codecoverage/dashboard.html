@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /Applications/MAMP/htdocs/PoolStats/app</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href=".css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href=".css/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <link href=".css/style.css" rel="stylesheet" type="text/css">
+  <!--[if lt IE 9]>
+  <script src=".js/html5shiv.min.js"></script>
+  <script src=".js/respond.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <header>
+   <div class="container">
+    <div class="row">
+     <div class="col-md-12">
+      <ol class="breadcrumb">
+        <li><a href="index.html">/Applications/MAMP/htdocs/PoolStats/app</a></li>
+        <li class="active">(Dashboard)</li>
+
+      </ol>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Http/Controllers/HomeController.php.html#7">App\Http\Controllers\HomeController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/LeagueFramePlayerController.php.html#8">App\Http\Controllers\LeagueFramePlayerController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Providers/BroadcastServiceProvider.php.html#8">App\Providers\BroadcastServiceProvider</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Support/Database/Builder.php.html#14">App\Support\Database\Builder</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Support/Database/CacheQueryBuilder.php.html#12">CacheQueryBuilder</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/ResetPassword.php.html#10">App\Notifications\ResetPassword</a></td><td class="text-right">18%</td></tr>
+       <tr><td><a href="Http/Middleware/RedirectIfAuthenticated.php.html#8">App\Http\Middleware\RedirectIfAuthenticated</a></td><td class="text-right">66%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Notifications/ResetPassword.php.html#10">App\Notifications\ResetPassword</a></td><td class="text-right">18</td></tr>
+       <tr><td><a href="Http/Middleware/RedirectIfAuthenticated.php.html#8">App\Http\Middleware\RedirectIfAuthenticated</a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Http/Controllers/HomeController.php.html#14"><abbr title="App\Http\Controllers\HomeController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LeagueMatch.php.html#97"><abbr title="App\LeagueMatch::league">league</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Support/Database/Builder.php.html#60"><abbr title="App\Support\Database\Builder::getCacheKey">getCacheKey</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Support/Database/Builder.php.html#50"><abbr title="App\Support\Database\Builder::anonymousFunction:50#178">anonymousFunction:50#178</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Support/Database/Builder.php.html#48"><abbr title="App\Support\Database\Builder::runSelect">runSelect</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Support/Database/Builder.php.html#36"><abbr title="App\Support\Database\Builder::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Support/Database/Builder.php.html#23"><abbr title="App\Support\Database\Builder::updateOrInsert">updateOrInsert</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Providers/BroadcastServiceProvider.php.html#15"><abbr title="App\Providers\BroadcastServiceProvider::boot">boot</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/ResetPassword.php.html#74"><abbr title="App\Notifications\ResetPassword::toMailUsing">toMailUsing</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/ResetPassword.php.html#56"><abbr title="App\Notifications\ResetPassword::toMail">toMail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/ResetPassword.php.html#45"><abbr title="App\Notifications\ResetPassword::via">via</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Support/Database/CacheQueryBuilder.php.html#19"><abbr title="CacheQueryBuilder::newBaseQueryBuilder">newBaseQueryBuilder</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/HomeController.php.html#24"><abbr title="App\Http\Controllers\HomeController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/LeagueFramePlayerController.php.html#83"><abbr title="App\Http\Controllers\LeagueFramePlayerController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/LeagueFramePlayerController.php.html#72"><abbr title="App\Http\Controllers\LeagueFramePlayerController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/LeagueFramePlayerController.php.html#60"><abbr title="App\Http\Controllers\LeagueFramePlayerController::edit">edit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/LeagueFramePlayerController.php.html#49"><abbr title="App\Http\Controllers\LeagueFramePlayerController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/LeagueFramePlayerController.php.html#38"><abbr title="App\Http\Controllers\LeagueFramePlayerController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/LeagueFramePlayerController.php.html#27"><abbr title="App\Http\Controllers\LeagueFramePlayerController::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/LeagueFramePlayerController.php.html#15"><abbr title="App\Http\Controllers\LeagueFramePlayerController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/LeagueFrameController.php.html#87"><abbr title="App\Http\Controllers\LeagueFrameController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/LeagueFrameController.php.html#24"><abbr title="App\Http\Controllers\LeagueFrameController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Middleware/RedirectIfAuthenticated.php.html#18"><abbr title="App\Http\Middleware\RedirectIfAuthenticated::handle">handle</abbr></a></td><td class="text-right">66%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Notifications/ResetPassword.php.html#56"><abbr title="App\Notifications\ResetPassword::toMail">toMail</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Middleware/RedirectIfAuthenticated.php.html#18"><abbr title="App\Http\Middleware\RedirectIfAuthenticated::handle">handle</abbr></a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 6.0.1</a> using <a href="https://secure.php.net/" target="_top">PHP 7.1.12</a> with <a href="https://xdebug.org/">Xdebug 2.5.0</a> and <a href="https://phpunit.de/">PHPUnit 7.0.2</a> at Thu May 10 13:46:23 UTC 2018.</small>
+    </p>
+   </footer>
+  </div>
+  <script src=".js/jquery.min.js" type="text/javascript"></script>
+  <script src=".js/bootstrap.min.js" type="text/javascript"></script>
+  <script src=".js/holder.min.js" type="text/javascript"></script>
+  <script src=".js/d3.min.js" type="text/javascript"></script>
+  <script src=".js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([5,0,1,0,0,0,0,1,0,0,2,51], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([22,0,0,0,0,0,0,1,0,0,0,206], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[100,19,"<a href=\"Console\/Commands\/RecalculateHighestPerformingPlayerStatCommand.php.html#11\">App\\Console\\Commands\\RecalculateHighestPerformingPlayerStatCommand<\/a>"],[100,7,"<a href=\"Console\/Commands\/RecalculateMatchAttendanceStat.php.html#9\">App\\Console\\Commands\\RecalculateMatchAttendanceStat<\/a>"],[100,2,"<a href=\"Console\/Commands\/RecalculateStatsCommand.php.html#8\">App\\Console\\Commands\\RecalculateStatsCommand<\/a>"],[100,20,"<a href=\"Console\/Commands\/RecalculateVenuePerformanceStat.php.html#9\">App\\Console\\Commands\\RecalculateVenuePerformanceStat<\/a>"],[100,13,"<a href=\"Console\/Commands\/RecalculateWinsLosesDraws.php.html#9\">App\\Console\\Commands\\RecalculateWinsLosesDraws<\/a>"],[100,2,"<a href=\"Console\/Kernel.php.html#8\">App\\Console\\Kernel<\/a>"],[100,2,"<a href=\"Exceptions\/Handler.php.html#8\">App\\Exceptions\\Handler<\/a>"],[100,2,"<a href=\"HPPStat.php.html#7\">App\\HPPStat<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Auth\/ForgotPasswordController.php.html#8\">App\\Http\\Controllers\\Auth\\ForgotPasswordController<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Auth\/LoginController.php.html#8\">App\\Http\\Controllers\\Auth\\LoginController<\/a>"],[100,3,"<a href=\"Http\/Controllers\/Auth\/RegisterController.php.html#10\">App\\Http\\Controllers\\Auth\\RegisterController<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Auth\/ResetPasswordController.php.html#8\">App\\Http\\Controllers\\Auth\\ResetPasswordController<\/a>"],[100,0,"<a href=\"Http\/Controllers\/Controller.php.html#10\">App\\Http\\Controllers\\Controller<\/a>"],[0,2,"<a href=\"Http\/Controllers\/HomeController.php.html#7\">App\\Http\\Controllers\\HomeController<\/a>"],[100,8,"<a href=\"Http\/Controllers\/LeagueController.php.html#8\">App\\Http\\Controllers\\LeagueController<\/a>"],[96,14,"<a href=\"Http\/Controllers\/LeagueFrameController.php.html#10\">App\\Http\\Controllers\\LeagueFrameController<\/a>"],[0,7,"<a href=\"Http\/Controllers\/LeagueFramePlayerController.php.html#8\">App\\Http\\Controllers\\LeagueFramePlayerController<\/a>"],[100,12,"<a href=\"Http\/Controllers\/LeagueMatchController.php.html#15\">App\\Http\\Controllers\\LeagueMatchController<\/a>"],[100,11,"<a href=\"Http\/Controllers\/PlayerController.php.html#11\">App\\Http\\Controllers\\PlayerController<\/a>"],[100,10,"<a href=\"Http\/Controllers\/PlayerTeamController.php.html#12\">App\\Http\\Controllers\\PlayerTeamController<\/a>"],[100,8,"<a href=\"Http\/Controllers\/TeamController.php.html#8\">App\\Http\\Controllers\\TeamController<\/a>"],[100,9,"<a href=\"Http\/Controllers\/TeamVenueController.php.html#13\">App\\Http\\Controllers\\TeamVenueController<\/a>"],[100,8,"<a href=\"Http\/Controllers\/VenueController.php.html#12\">App\\Http\\Controllers\\VenueController<\/a>"],[100,0,"<a href=\"Http\/Kernel.php.html#7\">App\\Http\\Kernel<\/a>"],[100,0,"<a href=\"Http\/Middleware\/EncryptCookies.php.html#7\">App\\Http\\Middleware\\EncryptCookies<\/a>"],[66.666666666666657192763523198664188385009765625,2,"<a href=\"Http\/Middleware\/RedirectIfAuthenticated.php.html#8\">App\\Http\\Middleware\\RedirectIfAuthenticated<\/a>"],[100,0,"<a href=\"Http\/Middleware\/TrimStrings.php.html#7\">App\\Http\\Middleware\\TrimStrings<\/a>"],[100,0,"<a href=\"Http\/Middleware\/TrustProxies.php.html#8\">App\\Http\\Middleware\\TrustProxies<\/a>"],[100,0,"<a href=\"Http\/Middleware\/VerifyCsrfToken.php.html#7\">App\\Http\\Middleware\\VerifyCsrfToken<\/a>"],[100,2,"<a href=\"Http\/Requests\/StoreLeague.php.html#8\">App\\Http\\Requests\\StoreLeague<\/a>"],[100,2,"<a href=\"Http\/Requests\/StoreLeagueMatch.php.html#8\">App\\Http\\Requests\\StoreLeagueMatch<\/a>"],[100,2,"<a href=\"Http\/Requests\/StoreLeagueMatchFrame.php.html#9\">App\\Http\\Requests\\StoreLeagueMatchFrame<\/a>"],[100,2,"<a href=\"Http\/Requests\/StorePlayer.php.html#8\">App\\Http\\Requests\\StorePlayer<\/a>"],[100,3,"<a href=\"Http\/Requests\/StorePlayerTeam.php.html#8\">App\\Http\\Requests\\StorePlayerTeam<\/a>"],[100,3,"<a href=\"Http\/Requests\/StoreTeamVenue.php.html#8\">App\\Http\\Requests\\StoreTeamVenue<\/a>"],[100,2,"<a href=\"Http\/Requests\/StoreVenue.php.html#8\">App\\Http\\Requests\\StoreVenue<\/a>"],[100,2,"<a href=\"Http\/Requests\/UpdateLeagueMatch.php.html#8\">App\\Http\\Requests\\UpdateLeagueMatch<\/a>"],[100,3,"<a href=\"Http\/Requests\/UpdatePlayerTeam.php.html#8\">App\\Http\\Requests\\UpdatePlayerTeam<\/a>"],[100,3,"<a href=\"Http\/Requests\/UpdateTeamVenue.php.html#8\">App\\Http\\Requests\\UpdateTeamVenue<\/a>"],[100,1,"<a href=\"League.php.html#9\">App\\League<\/a>"],[100,23,"<a href=\"LeagueFrame.php.html#9\">App\\LeagueFrame<\/a>"],[100,2,"<a href=\"LeagueFramePlayer.php.html#9\">App\\LeagueFramePlayer<\/a>"],[96.5517241379310320326112559996545314788818359375,19,"<a href=\"LeagueMatch.php.html#9\">App\\LeagueMatch<\/a>"],[18.181818181818183433051672182045876979827880859375,5,"<a href=\"Notifications\/ResetPassword.php.html#10\">App\\Notifications\\ResetPassword<\/a>"],[100,11,"<a href=\"Player.php.html#10\">App\\Player<\/a>"],[100,7,"<a href=\"PlayerTeam.php.html#13\">App\\PlayerTeam<\/a>"],[100,2,"<a href=\"Providers\/AppServiceProvider.php.html#8\">App\\Providers\\AppServiceProvider<\/a>"],[100,1,"<a href=\"Providers\/AuthServiceProvider.php.html#7\">App\\Providers\\AuthServiceProvider<\/a>"],[0,1,"<a href=\"Providers\/BroadcastServiceProvider.php.html#8\">App\\Providers\\BroadcastServiceProvider<\/a>"],[100,1,"<a href=\"Providers\/EventServiceProvider.php.html#7\">App\\Providers\\EventServiceProvider<\/a>"],[100,4,"<a href=\"Providers\/RouteServiceProvider.php.html#8\">App\\Providers\\RouteServiceProvider<\/a>"],[100,1,"<a href=\"StatAttendance.php.html#7\">App\\StatAttendance<\/a>"],[100,2,"<a href=\"StatVenuePerformance.php.html#7\">App\\StatVenuePerformance<\/a>"],[0,5,"<a href=\"Support\/Database\/Builder.php.html#14\">App\\Support\\Database\\Builder<\/a>"],[100,15,"<a href=\"Team.php.html#14\">App\\Team<\/a>"],[100,5,"<a href=\"TeamVenue.php.html#9\">App\\TeamVenue<\/a>"],[100,1,"<a href=\"User.php.html#10\">App\\User<\/a>"],[100,8,"<a href=\"Venue.php.html#10\">App\\Venue<\/a>"],[100,0,"<a href=\"WLDStat.php.html#7\">App\\WLDStat<\/a>"],[0,1,"<a href=\"Support\/Database\/CacheQueryBuilder.php.html#12\">CacheQueryBuilder<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[100,1,"<a href=\"Console\/Commands\/RecalculateHighestPerformingPlayerStatCommand.php.html#33\">App\\Console\\Commands\\RecalculateHighestPerformingPlayerStatCommand::__construct<\/a>"],[100,2,"<a href=\"Console\/Commands\/RecalculateHighestPerformingPlayerStatCommand.php.html#43\">App\\Console\\Commands\\RecalculateHighestPerformingPlayerStatCommand::handle<\/a>"],[100,1,"<a href=\"Console\/Commands\/RecalculateHighestPerformingPlayerStatCommand.php.html#51\">App\\Console\\Commands\\RecalculateHighestPerformingPlayerStatCommand::anonymousFunction:51#169<\/a>"],[100,2,"<a href=\"Console\/Commands\/RecalculateHighestPerformingPlayerStatCommand.php.html#57\">App\\Console\\Commands\\RecalculateHighestPerformingPlayerStatCommand::recalculateTeamStats<\/a>"],[100,1,"<a href=\"Console\/Commands\/RecalculateHighestPerformingPlayerStatCommand.php.html#82\">App\\Console\\Commands\\RecalculateHighestPerformingPlayerStatCommand::collectFrames<\/a>"],[100,1,"<a href=\"Console\/Commands\/RecalculateHighestPerformingPlayerStatCommand.php.html#94\">App\\Console\\Commands\\RecalculateHighestPerformingPlayerStatCommand::anonymousFunction:94#451<\/a>"],[100,1,"<a href=\"Console\/Commands\/RecalculateHighestPerformingPlayerStatCommand.php.html#96\">App\\Console\\Commands\\RecalculateHighestPerformingPlayerStatCommand::anonymousFunction:96#474<\/a>"],[100,5,"<a href=\"Console\/Commands\/RecalculateHighestPerformingPlayerStatCommand.php.html#107\">App\\Console\\Commands\\RecalculateHighestPerformingPlayerStatCommand::getTeamPlayers<\/a>"],[100,4,"<a href=\"Console\/Commands\/RecalculateHighestPerformingPlayerStatCommand.php.html#115\">App\\Console\\Commands\\RecalculateHighestPerformingPlayerStatCommand::anonymousFunction:115#576<\/a>"],[100,1,"<a href=\"Console\/Commands\/RecalculateHighestPerformingPlayerStatCommand.php.html#138\">App\\Console\\Commands\\RecalculateHighestPerformingPlayerStatCommand::generateScore<\/a>"],[100,1,"<a href=\"Console\/Commands\/RecalculateMatchAttendanceStat.php.html#30\">App\\Console\\Commands\\RecalculateMatchAttendanceStat::__construct<\/a>"],[100,1,"<a href=\"Console\/Commands\/RecalculateMatchAttendanceStat.php.html#40\">App\\Console\\Commands\\RecalculateMatchAttendanceStat::handle<\/a>"],[100,1,"<a href=\"Console\/Commands\/RecalculateMatchAttendanceStat.php.html#47\">App\\Console\\Commands\\RecalculateMatchAttendanceStat::anonymousFunction:47#123<\/a>"],[100,1,"<a href=\"Console\/Commands\/RecalculateMatchAttendanceStat.php.html#53\">App\\Console\\Commands\\RecalculateMatchAttendanceStat::anonymousFunction:53#157<\/a>"],[100,1,"<a href=\"Console\/Commands\/RecalculateMatchAttendanceStat.php.html#58\">App\\Console\\Commands\\RecalculateMatchAttendanceStat::anonymousFunction:58#209<\/a>"],[100,1,"<a href=\"Console\/Commands\/RecalculateMatchAttendanceStat.php.html#59\">App\\Console\\Commands\\RecalculateMatchAttendanceStat::anonymousFunction:59#232<\/a>"],[100,1,"<a href=\"Console\/Commands\/RecalculateMatchAttendanceStat.php.html#60\">App\\Console\\Commands\\RecalculateMatchAttendanceStat::anonymousFunction:60#253<\/a>"],[100,1,"<a href=\"Console\/Commands\/RecalculateStatsCommand.php.html#29\">App\\Console\\Commands\\RecalculateStatsCommand::__construct<\/a>"],[100,1,"<a href=\"Console\/Commands\/RecalculateStatsCommand.php.html#39\">App\\Console\\Commands\\RecalculateStatsCommand::handle<\/a>"],[100,1,"<a href=\"Console\/Commands\/RecalculateVenuePerformanceStat.php.html#30\">App\\Console\\Commands\\RecalculateVenuePerformanceStat::__construct<\/a>"],[100,4,"<a href=\"Console\/Commands\/RecalculateVenuePerformanceStat.php.html#40\">App\\Console\\Commands\\RecalculateVenuePerformanceStat::handle<\/a>"],[100,4,"<a href=\"Console\/Commands\/RecalculateVenuePerformanceStat.php.html#48\">App\\Console\\Commands\\RecalculateVenuePerformanceStat::anonymousFunction:48#125<\/a>"],[100,3,"<a href=\"Console\/Commands\/RecalculateVenuePerformanceStat.php.html#54\">App\\Console\\Commands\\RecalculateVenuePerformanceStat::anonymousFunction:54#155<\/a>"],[100,3,"<a href=\"Console\/Commands\/RecalculateVenuePerformanceStat.php.html#56\">App\\Console\\Commands\\RecalculateVenuePerformanceStat::anonymousFunction:56#182<\/a>"],[100,2,"<a href=\"Console\/Commands\/RecalculateVenuePerformanceStat.php.html#65\">App\\Console\\Commands\\RecalculateVenuePerformanceStat::anonymousFunction:65#257<\/a>"],[100,2,"<a href=\"Console\/Commands\/RecalculateVenuePerformanceStat.php.html#66\">App\\Console\\Commands\\RecalculateVenuePerformanceStat::anonymousFunction:66#295<\/a>"],[100,1,"<a href=\"Console\/Commands\/RecalculateVenuePerformanceStat.php.html#70\">App\\Console\\Commands\\RecalculateVenuePerformanceStat::anonymousFunction:70#357<\/a>"],[100,1,"<a href=\"Console\/Commands\/RecalculateWinsLosesDraws.php.html#30\">App\\Console\\Commands\\RecalculateWinsLosesDraws::__construct<\/a>"],[100,2,"<a href=\"Console\/Commands\/RecalculateWinsLosesDraws.php.html#40\">App\\Console\\Commands\\RecalculateWinsLosesDraws::handle<\/a>"],[100,5,"<a href=\"Console\/Commands\/RecalculateWinsLosesDraws.php.html#57\">App\\Console\\Commands\\RecalculateWinsLosesDraws::getPlayerStats<\/a>"],[100,5,"<a href=\"Console\/Commands\/RecalculateWinsLosesDraws.php.html#65\">App\\Console\\Commands\\RecalculateWinsLosesDraws::anonymousFunction:65#247<\/a>"],[100,1,"<a href=\"Console\/Kernel.php.html#25\">App\\Console\\Kernel::schedule<\/a>"],[100,1,"<a href=\"Console\/Kernel.php.html#36\">App\\Console\\Kernel::commands<\/a>"],[100,1,"<a href=\"Exceptions\/Handler.php.html#37\">App\\Exceptions\\Handler::report<\/a>"],[100,1,"<a href=\"Exceptions\/Handler.php.html#49\">App\\Exceptions\\Handler::render<\/a>"],[100,1,"<a href=\"HPPStat.php.html#19\">App\\HPPStat::player<\/a>"],[100,1,"<a href=\"HPPStat.php.html#24\">App\\HPPStat::team<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Auth\/ForgotPasswordController.php.html#28\">App\\Http\\Controllers\\Auth\\ForgotPasswordController::__construct<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Auth\/LoginController.php.html#35\">App\\Http\\Controllers\\Auth\\LoginController::__construct<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Auth\/RegisterController.php.html#37\">App\\Http\\Controllers\\Auth\\RegisterController::__construct<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Auth\/RegisterController.php.html#48\">App\\Http\\Controllers\\Auth\\RegisterController::validator<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Auth\/RegisterController.php.html#63\">App\\Http\\Controllers\\Auth\\RegisterController::create<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Auth\/ResetPasswordController.php.html#35\">App\\Http\\Controllers\\Auth\\ResetPasswordController::__construct<\/a>"],[0,1,"<a href=\"Http\/Controllers\/HomeController.php.html#14\">App\\Http\\Controllers\\HomeController::__construct<\/a>"],[0,1,"<a href=\"Http\/Controllers\/HomeController.php.html#24\">App\\Http\\Controllers\\HomeController::index<\/a>"],[100,1,"<a href=\"Http\/Controllers\/LeagueController.php.html#10\">App\\Http\\Controllers\\LeagueController::__construct<\/a>"],[100,1,"<a href=\"Http\/Controllers\/LeagueController.php.html#22\">App\\Http\\Controllers\\LeagueController::index<\/a>"],[100,1,"<a href=\"Http\/Controllers\/LeagueController.php.html#36\">App\\Http\\Controllers\\LeagueController::create<\/a>"],[100,1,"<a href=\"Http\/Controllers\/LeagueController.php.html#47\">App\\Http\\Controllers\\LeagueController::store<\/a>"],[100,1,"<a href=\"Http\/Controllers\/LeagueController.php.html#63\">App\\Http\\Controllers\\LeagueController::show<\/a>"],[100,1,"<a href=\"Http\/Controllers\/LeagueController.php.html#78\">App\\Http\\Controllers\\LeagueController::edit<\/a>"],[100,1,"<a href=\"Http\/Controllers\/LeagueController.php.html#94\">App\\Http\\Controllers\\LeagueController::update<\/a>"],[100,1,"<a href=\"Http\/Controllers\/LeagueController.php.html#109\">App\\Http\\Controllers\\LeagueController::destroy<\/a>"],[100,1,"<a href=\"Http\/Controllers\/LeagueFrameController.php.html#12\">App\\Http\\Controllers\\LeagueFrameController::__construct<\/a>"],[0,1,"<a href=\"Http\/Controllers\/LeagueFrameController.php.html#24\">App\\Http\\Controllers\\LeagueFrameController::index<\/a>"],[100,1,"<a href=\"Http\/Controllers\/LeagueFrameController.php.html#35\">App\\Http\\Controllers\\LeagueFrameController::create<\/a>"],[100,4,"<a href=\"Http\/Controllers\/LeagueFrameController.php.html#53\">App\\Http\\Controllers\\LeagueFrameController::store<\/a>"],[0,1,"<a href=\"Http\/Controllers\/LeagueFrameController.php.html#87\">App\\Http\\Controllers\\LeagueFrameController::show<\/a>"],[100,1,"<a href=\"Http\/Controllers\/LeagueFrameController.php.html#99\">App\\Http\\Controllers\\LeagueFrameController::edit<\/a>"],[100,4,"<a href=\"Http\/Controllers\/LeagueFrameController.php.html#117\">App\\Http\\Controllers\\LeagueFrameController::update<\/a>"],[100,1,"<a href=\"Http\/Controllers\/LeagueFrameController.php.html#154\">App\\Http\\Controllers\\LeagueFrameController::destroy<\/a>"],[0,1,"<a href=\"Http\/Controllers\/LeagueFramePlayerController.php.html#15\">App\\Http\\Controllers\\LeagueFramePlayerController::index<\/a>"],[0,1,"<a href=\"Http\/Controllers\/LeagueFramePlayerController.php.html#27\">App\\Http\\Controllers\\LeagueFramePlayerController::create<\/a>"],[0,1,"<a href=\"Http\/Controllers\/LeagueFramePlayerController.php.html#38\">App\\Http\\Controllers\\LeagueFramePlayerController::store<\/a>"],[0,1,"<a href=\"Http\/Controllers\/LeagueFramePlayerController.php.html#49\">App\\Http\\Controllers\\LeagueFramePlayerController::show<\/a>"],[0,1,"<a href=\"Http\/Controllers\/LeagueFramePlayerController.php.html#60\">App\\Http\\Controllers\\LeagueFramePlayerController::edit<\/a>"],[0,1,"<a href=\"Http\/Controllers\/LeagueFramePlayerController.php.html#72\">App\\Http\\Controllers\\LeagueFramePlayerController::update<\/a>"],[0,1,"<a href=\"Http\/Controllers\/LeagueFramePlayerController.php.html#83\">App\\Http\\Controllers\\LeagueFramePlayerController::destroy<\/a>"],[100,1,"<a href=\"Http\/Controllers\/LeagueMatchController.php.html#17\">App\\Http\\Controllers\\LeagueMatchController::__construct<\/a>"],[100,1,"<a href=\"Http\/Controllers\/LeagueMatchController.php.html#29\">App\\Http\\Controllers\\LeagueMatchController::index<\/a>"],[100,1,"<a href=\"Http\/Controllers\/LeagueMatchController.php.html#41\">App\\Http\\Controllers\\LeagueMatchController::create<\/a>"],[100,4,"<a href=\"Http\/Controllers\/LeagueMatchController.php.html#57\">App\\Http\\Controllers\\LeagueMatchController::store<\/a>"],[100,1,"<a href=\"Http\/Controllers\/LeagueMatchController.php.html#94\">App\\Http\\Controllers\\LeagueMatchController::show<\/a>"],[100,1,"<a href=\"Http\/Controllers\/LeagueMatchController.php.html#110\">App\\Http\\Controllers\\LeagueMatchController::edit<\/a>"],[100,2,"<a href=\"Http\/Controllers\/LeagueMatchController.php.html#130\">App\\Http\\Controllers\\LeagueMatchController::update<\/a>"],[100,1,"<a href=\"Http\/Controllers\/LeagueMatchController.php.html#150\">App\\Http\\Controllers\\LeagueMatchController::destroy<\/a>"],[100,1,"<a href=\"Http\/Controllers\/PlayerController.php.html#16\">App\\Http\\Controllers\\PlayerController::__construct<\/a>"],[100,1,"<a href=\"Http\/Controllers\/PlayerController.php.html#28\">App\\Http\\Controllers\\PlayerController::index<\/a>"],[100,1,"<a href=\"Http\/Controllers\/PlayerController.php.html#42\">App\\Http\\Controllers\\PlayerController::create<\/a>"],[100,1,"<a href=\"Http\/Controllers\/PlayerController.php.html#53\">App\\Http\\Controllers\\PlayerController::store<\/a>"],[100,4,"<a href=\"Http\/Controllers\/PlayerController.php.html#68\">App\\Http\\Controllers\\PlayerController::show<\/a>"],[100,1,"<a href=\"Http\/Controllers\/PlayerController.php.html#107\">App\\Http\\Controllers\\PlayerController::edit<\/a>"],[100,1,"<a href=\"Http\/Controllers\/PlayerController.php.html#123\">App\\Http\\Controllers\\PlayerController::update<\/a>"],[100,1,"<a href=\"Http\/Controllers\/PlayerController.php.html#138\">App\\Http\\Controllers\\PlayerController::destroy<\/a>"],[100,1,"<a href=\"Http\/Controllers\/PlayerTeamController.php.html#14\">App\\Http\\Controllers\\PlayerTeamController::__construct<\/a>"],[100,1,"<a href=\"Http\/Controllers\/PlayerTeamController.php.html#26\">App\\Http\\Controllers\\PlayerTeamController::index<\/a>"],[100,1,"<a href=\"Http\/Controllers\/PlayerTeamController.php.html#37\">App\\Http\\Controllers\\PlayerTeamController::create<\/a>"],[100,3,"<a href=\"Http\/Controllers\/PlayerTeamController.php.html#55\">App\\Http\\Controllers\\PlayerTeamController::store<\/a>"],[100,1,"<a href=\"Http\/Controllers\/PlayerTeamController.php.html#81\">App\\Http\\Controllers\\PlayerTeamController::show<\/a>"],[100,1,"<a href=\"Http\/Controllers\/PlayerTeamController.php.html#93\">App\\Http\\Controllers\\PlayerTeamController::edit<\/a>"],[100,1,"<a href=\"Http\/Controllers\/PlayerTeamController.php.html#111\">App\\Http\\Controllers\\PlayerTeamController::update<\/a>"],[100,1,"<a href=\"Http\/Controllers\/PlayerTeamController.php.html#126\">App\\Http\\Controllers\\PlayerTeamController::destroy<\/a>"],[100,1,"<a href=\"Http\/Controllers\/TeamController.php.html#13\">App\\Http\\Controllers\\TeamController::__construct<\/a>"],[100,1,"<a href=\"Http\/Controllers\/TeamController.php.html#25\">App\\Http\\Controllers\\TeamController::index<\/a>"],[100,1,"<a href=\"Http\/Controllers\/TeamController.php.html#39\">App\\Http\\Controllers\\TeamController::create<\/a>"],[100,1,"<a href=\"Http\/Controllers\/TeamController.php.html#50\">App\\Http\\Controllers\\TeamController::store<\/a>"],[100,1,"<a href=\"Http\/Controllers\/TeamController.php.html#69\">App\\Http\\Controllers\\TeamController::show<\/a>"],[100,1,"<a href=\"Http\/Controllers\/TeamController.php.html#86\">App\\Http\\Controllers\\TeamController::edit<\/a>"],[100,1,"<a href=\"Http\/Controllers\/TeamController.php.html#102\">App\\Http\\Controllers\\TeamController::update<\/a>"],[100,1,"<a href=\"Http\/Controllers\/TeamController.php.html#117\">App\\Http\\Controllers\\TeamController::destroy<\/a>"],[100,1,"<a href=\"Http\/Controllers\/TeamVenueController.php.html#20\">App\\Http\\Controllers\\TeamVenueController::index<\/a>"],[100,1,"<a href=\"Http\/Controllers\/TeamVenueController.php.html#32\">App\\Http\\Controllers\\TeamVenueController::create<\/a>"],[100,3,"<a href=\"Http\/Controllers\/TeamVenueController.php.html#49\">App\\Http\\Controllers\\TeamVenueController::store<\/a>"],[100,1,"<a href=\"Http\/Controllers\/TeamVenueController.php.html#75\">App\\Http\\Controllers\\TeamVenueController::show<\/a>"],[100,1,"<a href=\"Http\/Controllers\/TeamVenueController.php.html#86\">App\\Http\\Controllers\\TeamVenueController::edit<\/a>"],[100,1,"<a href=\"Http\/Controllers\/TeamVenueController.php.html#105\">App\\Http\\Controllers\\TeamVenueController::update<\/a>"],[100,1,"<a href=\"Http\/Controllers\/TeamVenueController.php.html#120\">App\\Http\\Controllers\\TeamVenueController::destroy<\/a>"],[100,1,"<a href=\"Http\/Controllers\/VenueController.php.html#17\">App\\Http\\Controllers\\VenueController::__construct<\/a>"],[100,1,"<a href=\"Http\/Controllers\/VenueController.php.html#29\">App\\Http\\Controllers\\VenueController::index<\/a>"],[100,1,"<a href=\"Http\/Controllers\/VenueController.php.html#43\">App\\Http\\Controllers\\VenueController::create<\/a>"],[100,1,"<a href=\"Http\/Controllers\/VenueController.php.html#54\">App\\Http\\Controllers\\VenueController::store<\/a>"],[100,1,"<a href=\"Http\/Controllers\/VenueController.php.html#69\">App\\Http\\Controllers\\VenueController::show<\/a>"],[100,1,"<a href=\"Http\/Controllers\/VenueController.php.html#85\">App\\Http\\Controllers\\VenueController::edit<\/a>"],[100,1,"<a href=\"Http\/Controllers\/VenueController.php.html#99\">App\\Http\\Controllers\\VenueController::update<\/a>"],[100,1,"<a href=\"Http\/Controllers\/VenueController.php.html#114\">App\\Http\\Controllers\\VenueController::destroy<\/a>"],[66.666666666666657192763523198664188385009765625,2,"<a href=\"Http\/Middleware\/RedirectIfAuthenticated.php.html#18\">App\\Http\\Middleware\\RedirectIfAuthenticated::handle<\/a>"],[100,1,"<a href=\"Http\/Requests\/StoreLeague.php.html#15\">App\\Http\\Requests\\StoreLeague::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/StoreLeague.php.html#25\">App\\Http\\Requests\\StoreLeague::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/StoreLeagueMatch.php.html#15\">App\\Http\\Requests\\StoreLeagueMatch::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/StoreLeagueMatch.php.html#25\">App\\Http\\Requests\\StoreLeagueMatch::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/StoreLeagueMatchFrame.php.html#16\">App\\Http\\Requests\\StoreLeagueMatchFrame::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/StoreLeagueMatchFrame.php.html#26\">App\\Http\\Requests\\StoreLeagueMatchFrame::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/StorePlayer.php.html#15\">App\\Http\\Requests\\StorePlayer::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/StorePlayer.php.html#25\">App\\Http\\Requests\\StorePlayer::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/StorePlayerTeam.php.html#15\">App\\Http\\Requests\\StorePlayerTeam::authorize<\/a>"],[100,2,"<a href=\"Http\/Requests\/StorePlayerTeam.php.html#25\">App\\Http\\Requests\\StorePlayerTeam::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/StoreTeamVenue.php.html#15\">App\\Http\\Requests\\StoreTeamVenue::authorize<\/a>"],[100,2,"<a href=\"Http\/Requests\/StoreTeamVenue.php.html#25\">App\\Http\\Requests\\StoreTeamVenue::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/StoreVenue.php.html#15\">App\\Http\\Requests\\StoreVenue::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/StoreVenue.php.html#25\">App\\Http\\Requests\\StoreVenue::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/UpdateLeagueMatch.php.html#15\">App\\Http\\Requests\\UpdateLeagueMatch::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/UpdateLeagueMatch.php.html#25\">App\\Http\\Requests\\UpdateLeagueMatch::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/UpdatePlayerTeam.php.html#15\">App\\Http\\Requests\\UpdatePlayerTeam::authorize<\/a>"],[100,2,"<a href=\"Http\/Requests\/UpdatePlayerTeam.php.html#25\">App\\Http\\Requests\\UpdatePlayerTeam::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/UpdateTeamVenue.php.html#15\">App\\Http\\Requests\\UpdateTeamVenue::authorize<\/a>"],[100,2,"<a href=\"Http\/Requests\/UpdateTeamVenue.php.html#25\">App\\Http\\Requests\\UpdateTeamVenue::rules<\/a>"],[100,1,"<a href=\"League.php.html#25\">App\\League::endpoint<\/a>"],[100,1,"<a href=\"LeagueFrame.php.html#16\">App\\LeagueFrame::boot<\/a>"],[100,1,"<a href=\"LeagueFrame.php.html#20\">App\\LeagueFrame::anonymousFunction:20#80<\/a>"],[100,1,"<a href=\"LeagueFrame.php.html#25\">App\\LeagueFrame::endpoint<\/a>"],[100,1,"<a href=\"LeagueFrame.php.html#30\">App\\LeagueFrame::players<\/a>"],[100,1,"<a href=\"LeagueFrame.php.html#35\">App\\LeagueFrame::match<\/a>"],[100,2,"<a href=\"LeagueFrame.php.html#40\">App\\LeagueFrame::getDoublesAttribute<\/a>"],[100,1,"<a href=\"LeagueFrame.php.html#45\">App\\LeagueFrame::getHomePlayerAttribute<\/a>"],[100,1,"<a href=\"LeagueFrame.php.html#50\">App\\LeagueFrame::getHomePlayersAttribute<\/a>"],[100,3,"<a href=\"LeagueFrame.php.html#59\">App\\LeagueFrame::getPlayersOnTeam<\/a>"],[100,1,"<a href=\"LeagueFrame.php.html#61\">App\\LeagueFrame::anonymousFunction:61#309<\/a>"],[100,1,"<a href=\"LeagueFrame.php.html#63\">App\\LeagueFrame::anonymousFunction:63#329<\/a>"],[100,1,"<a href=\"LeagueFrame.php.html#73\">App\\LeagueFrame::getAwayPlayerAttribute<\/a>"],[100,1,"<a href=\"LeagueFrame.php.html#78\">App\\LeagueFrame::getAwayPlayersAttribute<\/a>"],[100,2,"<a href=\"LeagueFrame.php.html#87\">App\\LeagueFrame::getTypeAttribute<\/a>"],[100,2,"<a href=\"LeagueFrame.php.html#92\">App\\LeagueFrame::isWinner<\/a>"],[100,3,"<a href=\"LeagueFrame.php.html#103\">App\\LeagueFrame::isDraw<\/a>"],[100,1,"<a href=\"LeagueFramePlayer.php.html#13\">App\\LeagueFramePlayer::player<\/a>"],[100,1,"<a href=\"LeagueFramePlayer.php.html#18\">App\\LeagueFramePlayer::getFrameAttribute<\/a>"],[100,1,"<a href=\"LeagueMatch.php.html#28\">App\\LeagueMatch::boot<\/a>"],[100,1,"<a href=\"LeagueMatch.php.html#32\">App\\LeagueMatch::anonymousFunction:32#104<\/a>"],[100,1,"<a href=\"LeagueMatch.php.html#37\">App\\LeagueMatch::getNameAttribute<\/a>"],[100,2,"<a href=\"LeagueMatch.php.html#47\">App\\LeagueMatch::getHomePointsAttribute<\/a>"],[100,2,"<a href=\"LeagueMatch.php.html#51\">App\\LeagueMatch::anonymousFunction:51#201<\/a>"],[100,2,"<a href=\"LeagueMatch.php.html#60\">App\\LeagueMatch::getAwayPointsAttribute<\/a>"],[100,2,"<a href=\"LeagueMatch.php.html#64\">App\\LeagueMatch::anonymousFunction:64#271<\/a>"],[100,1,"<a href=\"LeagueMatch.php.html#73\">App\\LeagueMatch::getNextFrameNumber<\/a>"],[100,1,"<a href=\"LeagueMatch.php.html#75\">App\\LeagueMatch::anonymousFunction:75#342<\/a>"],[100,1,"<a href=\"LeagueMatch.php.html#87\">App\\LeagueMatch::endpoint<\/a>"],[100,1,"<a href=\"LeagueMatch.php.html#92\">App\\LeagueMatch::venue<\/a>"],[0,1,"<a href=\"LeagueMatch.php.html#97\">App\\LeagueMatch::league<\/a>"],[100,1,"<a href=\"LeagueMatch.php.html#102\">App\\LeagueMatch::homeTeam<\/a>"],[100,1,"<a href=\"LeagueMatch.php.html#107\">App\\LeagueMatch::awayTeam<\/a>"],[100,1,"<a href=\"LeagueMatch.php.html#112\">App\\LeagueMatch::frames<\/a>"],[100,1,"<a href=\"Notifications\/ResetPassword.php.html#34\">App\\Notifications\\ResetPassword::__construct<\/a>"],[0,1,"<a href=\"Notifications\/ResetPassword.php.html#45\">App\\Notifications\\ResetPassword::via<\/a>"],[0,2,"<a href=\"Notifications\/ResetPassword.php.html#56\">App\\Notifications\\ResetPassword::toMail<\/a>"],[0,1,"<a href=\"Notifications\/ResetPassword.php.html#74\">App\\Notifications\\ResetPassword::toMailUsing<\/a>"],[100,1,"<a href=\"Player.php.html#19\">App\\Player::endpoint<\/a>"],[100,1,"<a href=\"Player.php.html#27\">App\\Player::getMembershipAttribute<\/a>"],[100,3,"<a href=\"Player.php.html#32\">App\\Player::findMembership<\/a>"],[100,1,"<a href=\"Player.php.html#40\">App\\Player::anonymousFunction:40#188<\/a>"],[100,1,"<a href=\"Player.php.html#59\">App\\Player::getTeamAttribute<\/a>"],[100,3,"<a href=\"Player.php.html#66\">App\\Player::findTeam<\/a>"],[100,1,"<a href=\"Player.php.html#82\">App\\Player::getMembershipsAttribute<\/a>"],[100,1,"<a href=\"PlayerTeam.php.html#22\">App\\PlayerTeam::endpoint<\/a>"],[100,1,"<a href=\"PlayerTeam.php.html#30\">App\\PlayerTeam::team<\/a>"],[100,1,"<a href=\"PlayerTeam.php.html#38\">App\\PlayerTeam::player<\/a>"],[100,2,"<a href=\"PlayerTeam.php.html#43\">App\\PlayerTeam::getMemberToAttribute<\/a>"],[100,2,"<a href=\"PlayerTeam.php.html#52\">App\\PlayerTeam::getTerminatesTodayAttribute<\/a>"],[100,1,"<a href=\"Providers\/AppServiceProvider.php.html#15\">App\\Providers\\AppServiceProvider::boot<\/a>"],[100,1,"<a href=\"Providers\/AppServiceProvider.php.html#25\">App\\Providers\\AppServiceProvider::register<\/a>"],[100,1,"<a href=\"Providers\/AuthServiceProvider.php.html#23\">App\\Providers\\AuthServiceProvider::boot<\/a>"],[0,1,"<a href=\"Providers\/BroadcastServiceProvider.php.html#15\">App\\Providers\\BroadcastServiceProvider::boot<\/a>"],[100,1,"<a href=\"Providers\/EventServiceProvider.php.html#25\">App\\Providers\\EventServiceProvider::boot<\/a>"],[100,1,"<a href=\"Providers\/RouteServiceProvider.php.html#24\">App\\Providers\\RouteServiceProvider::boot<\/a>"],[100,1,"<a href=\"Providers\/RouteServiceProvider.php.html#36\">App\\Providers\\RouteServiceProvider::map<\/a>"],[100,1,"<a href=\"Providers\/RouteServiceProvider.php.html#52\">App\\Providers\\RouteServiceProvider::mapApiRoutes<\/a>"],[100,1,"<a href=\"Providers\/RouteServiceProvider.php.html#67\">App\\Providers\\RouteServiceProvider::mapWebRoutes<\/a>"],[100,1,"<a href=\"StatAttendance.php.html#11\">App\\StatAttendance::getPercentageAttribute<\/a>"],[100,1,"<a href=\"StatVenuePerformance.php.html#11\">App\\StatVenuePerformance::getPercentageAttribute<\/a>"],[100,1,"<a href=\"StatVenuePerformance.php.html#17\">App\\StatVenuePerformance::venue<\/a>"],[0,1,"<a href=\"Support\/Database\/Builder.php.html#23\">App\\Support\\Database\\Builder::updateOrInsert<\/a>"],[0,1,"<a href=\"Support\/Database\/Builder.php.html#36\">App\\Support\\Database\\Builder::delete<\/a>"],[0,1,"<a href=\"Support\/Database\/Builder.php.html#48\">App\\Support\\Database\\Builder::runSelect<\/a>"],[0,1,"<a href=\"Support\/Database\/Builder.php.html#50\">App\\Support\\Database\\Builder::anonymousFunction:50#178<\/a>"],[0,1,"<a href=\"Support\/Database\/Builder.php.html#60\">App\\Support\\Database\\Builder::getCacheKey<\/a>"],[100,1,"<a href=\"Team.php.html#30\">App\\Team::endpoint<\/a>"],[100,1,"<a href=\"Team.php.html#40\">App\\Team::getHistoricRoster<\/a>"],[100,1,"<a href=\"Team.php.html#45\">App\\Team::anonymousFunction:45#152<\/a>"],[100,1,"<a href=\"Team.php.html#51\">App\\Team::getVenueAttribute<\/a>"],[100,1,"<a href=\"Team.php.html#55\">App\\Team::anonymousFunction:55#229<\/a>"],[100,1,"<a href=\"Team.php.html#60\">App\\Team::anonymousFunction:60#285<\/a>"],[100,2,"<a href=\"Team.php.html#66\">App\\Team::getHighestPerformingPlayerAttribute<\/a>"],[100,1,"<a href=\"Team.php.html#78\">App\\Team::getMatchesAttribute<\/a>"],[100,2,"<a href=\"Team.php.html#83\">App\\Team::getWldAttribute<\/a>"],[100,2,"<a href=\"Team.php.html#91\">App\\Team::anonymousFunction:91#485<\/a>"],[100,1,"<a href=\"Team.php.html#109\">App\\Team::getCurrentRoster<\/a>"],[100,1,"<a href=\"Team.php.html#116\">App\\Team::anonymousFunction:116#667<\/a>"],[100,1,"<a href=\"TeamVenue.php.html#13\">App\\TeamVenue::endpoint<\/a>"],[100,2,"<a href=\"TeamVenue.php.html#18\">App\\TeamVenue::getVenueToAttribute<\/a>"],[100,1,"<a href=\"TeamVenue.php.html#30\">App\\TeamVenue::team<\/a>"],[100,1,"<a href=\"TeamVenue.php.html#38\">App\\TeamVenue::venue<\/a>"],[100,1,"<a href=\"User.php.html#32\">App\\User::sendPasswordResetNotification<\/a>"],[100,1,"<a href=\"Venue.php.html#14\">App\\Venue::endpoint<\/a>"],[100,1,"<a href=\"Venue.php.html#18\">App\\Venue::getMatchesAttribute<\/a>"],[100,1,"<a href=\"Venue.php.html#24\">App\\Venue::anonymousFunction:24#131<\/a>"],[100,1,"<a href=\"Venue.php.html#29\">App\\Venue::getCurrentTeamsAttribute<\/a>"],[100,1,"<a href=\"Venue.php.html#33\">App\\Venue::anonymousFunction:33#211<\/a>"],[100,1,"<a href=\"Venue.php.html#38\">App\\Venue::anonymousFunction:38#264<\/a>"],[100,1,"<a href=\"Venue.php.html#47\">App\\Venue::getHistoricTeamsAttribute<\/a>"],[100,1,"<a href=\"Venue.php.html#52\">App\\Venue::anonymousFunction:52#350<\/a>"],[0,1,"<a href=\"Support\/Database\/CacheQueryBuilder.php.html#19\">CacheQueryBuilder::newBaseQueryBuilder<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>
